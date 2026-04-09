@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Medientrupp | AAA Digitalinfrastruktur aus Gummersbach</title>
+    <meta name="description" content="Medientrupp – Handgemachte High-Performance Websites, autonome KI-Systeme und konvertierende Videoproduktionen. Kein Template. Kein Copy-Paste. 100% Custom Code aus Gummersbach, NRW." />
+    <meta name="keywords" content="Webdesign Gummersbach, KI Automatisierung, E-Commerce Agentur, React Agentur NRW, Framer Motion, High-Performance Website, Medientrupp" />
+    <meta name="author" content="Medientrupp" />
+    <link rel="canonical" href="https://medientrupp.de" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://medientrupp.de" />
+    <meta property="og:title" content="Medientrupp | AAA Digitalinfrastruktur" />
+    <meta property="og:description" content="Wir coden digitale Überlegenheit. Hochperformante Web-Infrastrukturen, KI-Automatisierungen und Videoproduktionen, die konvertieren." />
+    <meta property="og:image" content="https://medientrupp.de/og-image.jpg" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Medientrupp | AAA Digitalinfrastruktur" />
+    <meta name="twitter:description" content="Wir coden digitale Überlegenheit. 100% Custom Code, 0 Templates." />
+    <meta name="twitter:image" content="https://medientrupp.de/og-image.jpg" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Preloader inline style to prevent flash -->
+    <style>
+      #preloader {
+        position: fixed; inset: 0; background: #030305;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 99999; transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      #preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+      .preloader-m {
+        font-family: 'Outfit', sans-serif;
+        font-size: 3rem; font-weight: 800;
+        color: #A855F7; letter-spacing: 0.1em;
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.95); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="preloader">
+      <div class="preloader-m">M</div>
+    </div>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var pre = document.getElementById('preloader');
+          if (pre) pre.classList.add('done');
+        }, 1200);
+      });
+    </script>
+  </body>
+</html>

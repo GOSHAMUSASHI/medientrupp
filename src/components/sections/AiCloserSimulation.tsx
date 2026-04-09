@@ -1,0 +1,174 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Bot, CheckCircle2 } from "lucide-react";
+
+export const AiCloserSimulation = () => {
+  const [messages, setMessages] = useState<{ id: string; text: string; sender: 'ai' | 'user' }[]>([
+    { id: '1', text: 'SYSTEM ONLINE. WIE KÖNNEN WIR DEIN SYSTEM SKALIEREN?', sender: 'ai' }
+  ]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [status, setStatus] = useState('IDLE');
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
+  const simulateLead = () => {
+    setStatus('PROCESSING');
+    
+    // User message
+    const newMsg = { id: Date.now().toString(), text: 'Mein Shop stagniert bei 20k/Monat. Ich verbrenne Geld in Meta Ads und die Conversion Rate ist im Keller.', sender: 'user' as const };
+    setMessages(prev => [...prev, newMsg]);
+    setIsTyping(true);
+
+    // AI Sequence
+    setTimeout(() => {
+      setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Analyse läuft. Bottlenecks identifiziert: Hohe Cart Abandonment Rate (48%) & fehlendes Backend-Retargeting.', sender: 'ai' }]);
+      
+      setTimeout(() => {
+        setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Action-Plan: Wir bauen ein AAA React Frontend für 0.1s Ladezeiten + implementieren einen autonomen KI-Agenten zur Warenkorbabbrecher-Rückgewinnung.', sender: 'ai' }]);
+        
+        setTimeout(() => {
+          setIsTyping(false);
+          setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Erwarteter ROI: +180% Umsatz im ersten Quartal. Erstgespräch zur Umsetzung planen?', sender: 'ai' }]);
+          
+          setTimeout(() => {
+             setStatus('AUTOMATION_MATCHED');
+          }, 1500);
+        }, 2500);
+      }, 2500);
+    }, 1500);
+  };
+
+  return (
+    <section className="bg-white py-24 relative overflow-hidden" aria-labelledby="aismulator-heading">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-100 blur-[150px] rounded-full pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
+          
+          {/* Left Text */}
+          <div className="flex-1">
+            <span className="text-indigo-600 text-xs font-black tracking-[0.2em] uppercase block mb-3">
+              01 // KI & HIGH-TICKET AUTOMATISIERUNG
+            </span>
+            <h2 id="aismulator-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">
+              Der <span className="text-indigo-600">Autonome Closer</span>,<br /> der nie schläft.
+            </h2>
+            <p className="text-lg text-slate-600 leading-relaxed mb-8">
+              Verwechseln Sie das nicht mit billigen Support-Widgets. Wir bauen autonome KI-Mitarbeiter tief in Ihre Plattform ein. Sie analysieren Leads, pitchen auf Weltklasse-Niveau und füllen Ihre Pipeline qualifiziert auf Autopilot.
+            </p>
+
+            <div className="bg-indigo-50 border-l-2 border-indigo-500 p-6 mb-8 rounded-r-2xl">
+              <div className="text-xs font-bold text-indigo-600 tracking-widest uppercase mb-2">
+                Engine Status: {status}
+              </div>
+              <div className="h-1 bg-slate-200 rounded-full overflow-hidden">
+                <motion.div 
+                  animate={{ x: status === 'PROCESSING' ? ['-100%', '100%'] : '0%' }} 
+                  transition={{ duration: 1, repeat: status === 'PROCESSING' ? Infinity : 0, ease: "linear" }} 
+                  className="w-full h-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent" 
+                />
+              </div>
+            </div>
+            
+            <button 
+              onClick={simulateLead}
+              disabled={status === 'PROCESSING'}
+              className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed font-black tracking-widest uppercase rounded-xl transition-colors"
+            >
+              Umsatz-Bot Simulieren
+            </button>
+          </div>
+
+          {/* Right Chatbot UI */}
+          <div className="flex-1 w-full max-w-lg mx-auto">
+            <div className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-3xl h-[600px] flex flex-col overflow-hidden shadow-2xl shadow-indigo-100">
+              
+              {/* Chat Header */}
+              <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
+                <div className="flex items-center gap-4">
+                  <div className="relative">
+                    <div className="w-4 h-4 rounded-full bg-indigo-500 shadow-[0_0_15px_#6366f1]" />
+                    <motion.div 
+                      animate={{ scale: [1, 2], opacity: [1, 0] }} 
+                      transition={{ duration: 2, repeat: Infinity }} 
+                      className="absolute inset-0 rounded-full border-2 border-indigo-500" 
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-slate-900 tracking-wide">Medientrupp AI-Closer</h4>
+                    <span className="block text-xs text-slate-500 tracking-wider uppercase">v4.0.9 // Analytics Mode</span>
+                  </div>
+                </div>
+                <Bot className="text-indigo-500" size={28} />
+              </div>
+              
+              {/* Chat Body */}
+              <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-6 flex flex-col gap-6 relative scroll-smooth">
+                <AnimatePresence>
+                  {messages.map((m) => (
+                    <motion.div 
+                      key={m.id}
+                      initial={{ opacity: 0, scale: 0.95, y: 10, x: m.sender === 'user' ? 20 : -20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
+                      className={`max-w-[85%] p-4 rounded-2xl text-sm md:text-base leading-relaxed font-medium ${
+                        m.sender === 'user' 
+                          ? 'self-end bg-indigo-600 text-white rounded-br-sm shadow-lg shadow-indigo-900/20' 
+                          : 'self-start bg-white border border-slate-200 shadow-sm text-slate-700 rounded-bl-sm'
+                      }`}
+                    >
+                      {m.text}
+                    </motion.div>
+                  ))}
+                  {isTyping && (
+                    <motion.div 
+                      initial={{ opacity: 0 }} 
+                      animate={{ opacity: 1 }} 
+                      className="self-start bg-white border border-slate-200 shadow-sm rounded-2xl rounded-bl-sm p-4 flex gap-1.5"
+                    >
+                      {[0, 1, 2].map((i) => (
+                        <motion.div 
+                          key={i}
+                          animate={{ y: [0, -6, 0] }} 
+                          transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.2 }} 
+                          className="w-2.5 h-2.5 rounded-full bg-indigo-400" 
+                        />
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+                
+                {/* Automation Matched overlay inside chat body */}
+                <AnimatePresence>
+                  {status === 'AUTOMATION_MATCHED' && (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      className="mt-4 bg-indigo-50 border border-indigo-200 rounded-xl p-4 flex items-center gap-4"
+                    >
+                      <CheckCircle2 className="text-indigo-600 flex-shrink-0" size={32} />
+                      <div>
+                        <div className="text-indigo-600 font-bold uppercase tracking-widest text-xs mb-1">CRM Workflow Aktiviert</div>
+                        <div className="text-slate-600 text-xs">Lead erfasst. NDA & Pitch Deck gesendet. SMS Follow-up läuft.</div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};

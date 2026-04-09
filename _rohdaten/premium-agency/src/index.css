@@ -1,0 +1,268 @@
+:root {
+  --font-main: 'Outfit', sans-serif;
+  
+  /* ═══════════════════════════════════════════════
+     BURNT LILAC MIST × SHADOW MAUVE
+     2C1B28 / 6F4E7C / D6C5DC
+     1E1A2E / 5C4F6E / B3A8C9
+  ═══════════════════════════════════════════════ */
+  
+  /* Background Depths */
+  --bg-primary:    #12101B;   /* deeper than shadow mauve */
+  --bg-secondary:  #1E1A2E;   /* Shadow Mauve dark */
+  --bg-tertiary:   #2C1B28;   /* Burnt Lilac Mist dark */
+
+  /* Core Accent Palette */
+  --lilac-50:  #F0EBF5;
+  --lilac-100: #D6C5DC;   /* Burnt Lilac Mist light */
+  --lilac-300: #B3A8C9;   /* Shadow Mauve light */
+  --lilac-500: #6F4E7C;   /* Burnt Lilac Mist mid — primary accent */
+  --lilac-600: #5C4F6E;   /* Shadow Mauve mid */
+  --lilac-800: #2C1B28;   /* Burnt Lilac Mist deep */
+  --lilac-900: #1E1A2E;   /* Shadow Mauve base */
+
+  /* Legacy alias so old components still work */
+  --purple-50:  var(--lilac-50);
+  --purple-100: var(--lilac-100);
+  --purple-300: var(--lilac-300);
+  --purple-500: var(--lilac-500);
+  --purple-600: var(--lilac-600);
+  --purple-800: var(--lilac-800);
+  --purple-900: var(--lilac-900);
+  --purple-glow: rgba(111, 78, 124, 0.5);
+
+  /* Text — warmer whites to match the mauve palette */
+  --text-primary:   #EDE8F2;
+  --text-secondary: #8B82A0;
+
+  /* Glassmorphism — tinted mauve instead of cold black */
+  --glass-bg:           rgba(30, 26, 46, 0.65);
+  --glass-border:       rgba(179, 168, 201, 0.12);
+  --glass-border-hover: rgba(111, 78, 124, 0.5);
+  --glass-shadow:       0 12px 48px 0 rgba(12, 10, 20, 0.7);
+  --glass-blur:         blur(18px);
+  --glass-highlight:    rgba(214, 197, 220, 0.04);
+
+  --transition-smooth: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* Signature ambient gradient for the Burnt Lilac Mist mood */
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(111, 78, 124, 0.07) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(44, 27, 40, 0.15) 0%, transparent 55%);
+}
+
+/* Background Architect Grid - mauve tinted */
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  background-size: 44px 44px;
+  background-image: 
+    linear-gradient(to right,  rgba(179, 168, 201, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(179, 168, 201, 0.025) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Glass Panels */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: var(--glass-border-hover);
+  background: rgba(44, 35, 58, 0.7);
+}
+
+.glass-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-highlight), transparent);
+}
+
+/* Text Gradient — now flows lilac → mauve */
+.text-gradient {
+  background: linear-gradient(135deg, #EDE8F2, #D6C5DC, #B3A8C9, #6F4E7C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Typography ── */
+.heading-xl {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.heading-lg {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.heading-md {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.text-body {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Layout */
+.container {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 5%;
+}
+
+.section-padding {
+  padding: 8rem 0;
+}
+
+/* Scrollbar — mauve themed */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb {
+  background: var(--lilac-800);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--lilac-500); }
+
+/* Selection color */
+::selection {
+  background: rgba(111, 78, 124, 0.4);
+  color: #EDE8F2;
+}
+
+/* ── UI Utilities ── */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2.5rem;
+}
+
+.header-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.3s ease;
+}
+
+.header-link:hover {
+  color: var(--lilac-100);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .hero-layout {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  .hero-text {
+    align-items: center;
+  }
+  .hero-bento {
+    display: none !important;
+  }
+  .simulator-layout {
+    flex-direction: column !important;
+    text-align: center;
+  }
+  .simulator-reverse {
+    flex-direction: column-reverse !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .heading-xl { font-size: clamp(2.5rem, 10vw, 3rem); }
+  .heading-lg { font-size: clamp(2rem, 8vw, 2.5rem); }
+  .text-body  { font-size: 1rem; }
+  .container  { padding: 0 1.5rem; }
+  .section-padding { padding: 5rem 0; }
+  .hero-buttons { flex-direction: column; width: 100%; }
+
+  .header-nav { display: none !important; }
+  .hamburger-btn {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+  header { justify-content: space-between !important; }
+  .app-container { cursor: auto; }
+
+  /* ── Chatbot Mobile ── */
+  .chatbot-window {
+    width: 100% !important;
+    height: 100% !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    border-radius: 0 !important;
+    z-index: 100000 !important;
+  }
+  .chatbot-messages {
+    padding-bottom: 5rem !important;
+  }
+
+  .ecommerce-sidebar {
+    transform: translateX(-100%);
+  }
+  .ecommerce-sidebar.open {
+    transform: translateX(0);
+  }
+  .ecommerce-main {
+    margin-left: 0 !important;
+    padding: 6rem 1.5rem 3rem 1.5rem !important;
+  }
+  .ecommerce-mobile-header {
+    display: flex !important;
+  }
+
+  /* ── Utils for Mobile Hiding/Showing ── */
+  .desktop-only { display: none !important; }
+  .mobile-only { display: block !important; }
+  .mobile-only-flex { display: flex !important; }
+}
+
+@media (min-width: 769px) {
+  .mobile-only { display: none !important; }
+  .mobile-only-flex { display: none !important; }
+  .desktop-only { display: block !important; } /* Or flex/grid depending on use, handle carefully */
+}
