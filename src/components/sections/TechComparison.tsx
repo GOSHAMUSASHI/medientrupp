@@ -1,163 +1,181 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { XCircle, CheckCircle2, AlertTriangle, Zap } from "lucide-react";
+import { XCircle, CheckCircle2 } from "lucide-react";
+
+// ── Custom Animations ─────────────────────────────────────────────────────────
+
+const ProgressBar = ({ fast }: { fast: boolean }) => (
+  <div className="w-full sm:w-24 h-2 bg-slate-200 rounded-full overflow-hidden shrink-0">
+    <motion.div
+      className={`h-full rounded-full ${fast ? "bg-emerald-500" : "bg-orange-500"}`}
+      initial={{ width: "0%" }}
+      whileInView={{ width: fast ? "100%" : "60%" }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{
+        duration: fast ? 0.5 : 4,
+        ease: fast ? "easeOut" : "linear",
+        delay: 0.1,
+      }}
+    />
+  </div>
+);
+
+const ScoreCircle = ({ score, color, duration }: { score: number; color: string; duration: number }) => {
+  const radius = 16;
+  const circum = 2 * Math.PI * radius;
+  return (
+    <div className="relative w-10 h-10 flex items-center justify-center shrink-0">
+      <svg className="w-full h-full transform -rotate-90" viewBox="0 0 40 40">
+        <circle cx="20" cy="20" r={radius} fill="none" stroke="#f1f5f9" strokeWidth="3" />
+        <motion.circle
+          cx="20" cy="20" r={radius} fill="none" stroke={color} strokeWidth="3"
+          strokeLinecap="round"
+          strokeDasharray={circum}
+          initial={{ strokeDashoffset: circum }}
+          whileInView={{ strokeDashoffset: circum - (score / 100) * circum }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration, ease: "easeOut", delay: 0.2 }}
+        />
+      </svg>
+      <span className="absolute text-[9px] font-black" style={{ color }}>{score}</span>
+    </div>
+  );
+};
+
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+type RowId = "ladezeit" | "lighthouse" | "tech" | "vertrag";
+
+interface RowData {
+  id: RowId;
+  label: string;
+  bad: string;
+  good: string;
+}
+
+const rows: RowData[] = [
+  { id: "ladezeit",   label: "Ladezeit",           bad: "3–8 Sekunden",        good: "0,09–0,2 Sekunden" },
+  { id: "lighthouse", label: "Google Lighthouse",  bad: "45 / 100 Score",      good: "100 / 100 Score" },
+  { id: "tech",       label: "Technologie",        bad: "WordPress + Plugins", good: "Next.js / Edge Network" },
+  { id: "vertrag",    label: "Vertragslaufzeit",   bad: "12–24 Monate",        good: "Monatlich kündbar" },
+];
 
 export const TechComparison = () => {
   return (
-    <section className="bg-white py-24 text-slate-900 relative overflow-hidden" aria-labelledby="techcomparison-heading">
-      {/* Background glow effects */}
-      <div className="absolute bottom-0 left-0 -ml-40 -mb-40 w-[600px] h-[600px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 right-0 -mr-40 -mt-40 w-[600px] h-[600px] bg-indigo-500/10 blur-[120px] rounded-full pointer-events-none" />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+    <section
+      className="bg-slate-50 py-24 lg:py-32 text-slate-900 relative overflow-hidden"
+      aria-labelledby="techcomparison-heading"
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
-            Infrastruktur-Audit
+            C-Level Vergleich
           </p>
-          <h2 id="techcomparison-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
-            Der Unterschied ist <span className="text-indigo-600">messbar.</span>
+          <h2
+            id="techcomparison-heading"
+            className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4"
+          >
+            Dasselbe Budget.{" "}
+            <span className="text-indigo-600">Dreifacher Output.</span>
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Wir kompilieren unseren Code, anstatt ihn durch rostige PHP-Server zu jagen. Ihre Konkurrenz wird sich wundern, warum Sie plötzlich den Markt dominieren.
+            Wir haben den Fokus auf die Metriken reduziert, die für Ihre 
+            Skalierung und Kosteneinsparung wirklich zählen.
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-8 items-stretch">
-          
-          {/* Legacy Agency (Red) */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex-1 bg-slate-50 backdrop-blur-sm border border-slate-200 rounded-3xl p-8 lg:p-12"
-          >
-            <div className="flex items-center gap-4 mb-10">
-              <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500">
-                <AlertTriangle size={24} />
-              </div>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">Klassische Agenturen</h3>
-            </div>
-
-            <div className="space-y-8">
-              <div>
-                <div className="flex justify-between text-sm font-bold text-slate-500 mb-2">
-                  <span>Ø Ladezeit (TTFB)</span>
-                  <span className="text-red-500">3.8s</span>
+        {/* Table for Desktop, Cards for Mobile */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Mobile View: Cards */}
+          <div className="md:hidden space-y-6">
+            {rows.map((row, i) => (
+              <div key={row.id} className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-lg">
+                <div className="bg-slate-50 px-6 py-4 border-b border-slate-100">
+                  <h3 className="font-black text-slate-900">{row.label}</h3>
                 </div>
-                <div className="w-full bg-slate-200 rounded-full h-2">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "85%" }}
-                    transition={{ duration: 2, ease: "easeOut" }}
-                    className="bg-red-500 h-2 rounded-full"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm font-bold text-slate-500 mb-2">
-                  <span>Google Lighthouse Score</span>
-                  <span className="text-orange-500">45/100</span>
-                </div>
-                <div className="w-full bg-slate-200 rounded-full h-2">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "45%" }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="bg-orange-500 h-2 rounded-full"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-4 pt-4">
-                {[
-                  "Schwerfällige WordPress / PHP Themes",
-                  "Zusammengesteckte Plugin-Architektur",
-                  "Hohes Sicherheitsrisiko (SQL Injection)",
-                  "Eingeschränkte Skalierbarkeit für Traffic"
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <XCircle size={20} className="text-slate-400 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-600 font-medium">{item}</span>
+                <div className="p-6 space-y-6">
+                  <div>
+                    <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-2">Klassische Agentur</span>
+                    <div className="flex items-center gap-3">
+                      <XCircle size={20} strokeWidth={2.5} className="text-orange-500 shrink-0" />
+                      <span className="font-semibold text-slate-600 flex-1">{row.bad}</span>
+                      {row.id === "lighthouse" && <div className="scale-75 origin-right"><ScoreCircle score={45} color="#f97316" duration={2} /></div>}
+                    </div>
+                    {row.id === "ladezeit" && <div className="mt-3"><ProgressBar fast={false} /></div>}
                   </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Medientrupp (Green/Indigo) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex-1 bg-white shadow-xl shadow-indigo-100 border border-indigo-100 rounded-3xl p-8 lg:p-12 relative overflow-hidden"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-3xl rounded-full" />
-            
-            <div className="flex items-center gap-4 mb-10 relative z-10">
-              <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30">
-                <Zap size={24} />
-              </div>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">Medientrupp Systeme</h3>
-            </div>
-
-            <div className="space-y-8 relative z-10">
-              <div>
-                <div className="flex justify-between text-sm font-bold text-slate-600 mb-2">
-                  <span>Ladezeit (Edge Network)</span>
-                  <span className="text-green-600">0.2s</span>
-                </div>
-                <div className="w-full bg-indigo-100/50 rounded-full h-2">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "5%" }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="bg-green-500 h-2 rounded-full shadow-[0_0_10px_#22c55e]"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <div className="flex justify-between text-sm font-bold text-slate-600 mb-2">
-                  <span>Google Lighthouse Score</span>
-                  <span className="text-green-600">100/100</span>
-                </div>
-                <div className="w-full bg-indigo-100/50 rounded-full h-2">
-                  <motion.div 
-                    initial={{ width: 0 }}
-                    whileInView={{ width: "100%" }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="bg-green-500 h-2 rounded-full shadow-[0_0_10px_#22c55e]"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-4 pt-4">
-                {[
-                  "Blitzschnelle Ladezeiten",
-                  "Skalierbare Vertriebs-Maschine",
-                  "Zero-Friction User Experience",
-                  "Maximale Conversion-Rate"
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 size={20} className="text-indigo-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700 font-medium">{item}</span>
+                  <div className="pt-4 border-t border-slate-100">
+                    <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest block mb-2">Medientrupp</span>
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 size={20} strokeWidth={2.5} className="text-emerald-500 shrink-0" />
+                      <span className="font-black text-slate-900 flex-1">{row.good}</span>
+                      {row.id === "lighthouse" && <div className="scale-75 origin-right"><ScoreCircle score={100} color="#10b981" duration={0.8} /></div>}
+                    </div>
+                    {row.id === "ladezeit" && <div className="mt-3"><ProgressBar fast={true} /></div>}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
 
-        </div>
+          {/* Desktop View: Table */}
+          <div className="hidden md:block overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-slate-100 bg-white">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-slate-200">
+                  <th className="text-left px-8 py-6 text-slate-400 font-bold uppercase text-xs tracking-widest bg-white w-[28%]">
+                    Geschäftskriterium
+                  </th>
+                  <th className="px-8 py-6 bg-slate-50/50 text-slate-500 font-bold text-xs uppercase tracking-widest text-left border-r border-slate-100 w-[36%]">
+                    Klassische Agentur
+                  </th>
+                  <th className="px-8 py-6 bg-indigo-50/50 text-indigo-700 font-bold text-xs uppercase tracking-widest text-left w-[36%]">
+                    Medientrupp
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {rows.map((row, i) => (
+                  <tr
+                    key={row.id}
+                    className="group hover:bg-slate-50/40 transition-colors"
+                  >
+                    <td className="px-8 py-6 font-bold text-slate-800 border-r border-slate-50/50 bg-white">
+                      {row.label}
+                    </td>
+                    <td className="px-8 py-6 bg-slate-50/30 border-r border-slate-100">
+                      <div className="flex items-center justify-start gap-4">
+                        <XCircle size={18} strokeWidth={2.5} className="text-orange-500 shrink-0" />
+                        <span className="font-semibold text-slate-600 w-40 lg:w-44">{row.bad}</span>
+                        {row.id === "ladezeit" && <ProgressBar fast={false} />}
+                        {row.id === "lighthouse" && <ScoreCircle score={45} color="#f97316" duration={2} />}
+                      </div>
+                    </td>
+                    <td className="px-8 py-6 bg-indigo-50/20 group-hover:bg-indigo-50/50 transition-colors">
+                      <div className="flex items-center justify-start gap-4">
+                        <CheckCircle2 size={18} strokeWidth={2.5} className="text-emerald-500 shrink-0" />
+                        <span className="font-bold text-slate-900 w-40 lg:w-44">{row.good}</span>
+                        {row.id === "ladezeit" && <ProgressBar fast={true} />}
+                        {row.id === "lighthouse" && <ScoreCircle score={100} color="#10b981" duration={0.8} />}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
 
       </div>
     </section>

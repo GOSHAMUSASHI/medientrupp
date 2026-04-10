@@ -7,25 +7,25 @@ import Link from "next/link";
 
 const projects = [
   {
-    title: "E-Commerce Replatforming",
-    client: "TechVision GmbH",
+    title: "Web-Relaunch & B2B Lead Gen",
+    client: "Schmid Maschinenbau",
     category: "High-Performance Web",
-    metric: "+214% Conv. Rate",
-    image: "linear-gradient(135deg, #1e293b 0%, #0f172a 100%)", // placeholder gradient
+    metric: "3,5× mehr Anfragen",
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop", 
   },
   {
-    title: "AI Booking Assistant",
-    client: "Stark Consulting",
+    title: "Support Automation 24/7",
+    client: "Baumann Logistik",
     category: "SaaS & Automation",
-    metric: "-40h Support/Woche",
-    image: "linear-gradient(135deg, #312e81 0%, #1e1b4b 100%)", // placeholder gradient
+    metric: "-65% Support-Kosten",
+    image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=800&auto=format&fit=crop", 
   },
   {
-    title: "B2B Lead Engine",
-    client: "Nexus Industries",
+    title: "Employer Branding Hub",
+    client: "Kaiser Pflege & Gesundheit",
     category: "Funnel & Brand",
-    metric: "120 Qualified Leads/Mo",
-    image: "linear-gradient(135deg, #0e7490 0%, #164e63 100%)", // placeholder gradient
+    metric: "42 neue Bewerber/Mo",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop", 
   }
 ];
 
@@ -74,11 +74,20 @@ export const ProjectTeaser = () => {
               className="group cursor-pointer"
             >
               <div 
-                className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-6 shadow-lg shadow-slate-200 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-indigo-500/20 group-hover:-translate-y-2"
-                style={{ background: project.image }}
+                className="relative aspect-[4/3] rounded-3xl overflow-hidden mb-6 shadow-lg shadow-slate-200 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-indigo-500/20 group-hover:-translate-y-2 bg-slate-200"
               >
+                {/* Real Image Placeholder */}
+                <Image 
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  style={{ objectFit: "cover" }}
+                  className="transition-transform duration-700 group-hover:scale-105"
+                  unoptimized
+                />
+                
                 {/* Image Placeholder Overlay */}
-                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500" />
+                <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-slate-900/10 transition-colors duration-500" />
                 
                 {/* Metric Badge */}
                 <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-lg font-black text-sm text-indigo-600 uppercase tracking-widest shadow-sm">

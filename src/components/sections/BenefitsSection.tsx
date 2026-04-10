@@ -6,18 +6,18 @@ import { CheckCircle2, Zap, Shield, TrendingUp } from "lucide-react";
 const benefits = [
   {
     icon: <Zap size={24} />,
-    title: "Extreme Geschwindigkeit",
-    description: "Ihre Konkurrenz lädt noch, während Sie bereits verkaufen. Performance ist unser größter Hebel.",
+    title: "0,09s Ladezeit garantiert",
+    description: "38× schneller als der Marktdurchschnitt. Jede Sekunde Ladezeit kostet Sie 7% Conversion Rate.",
   },
   {
     icon: <Shield size={24} />,
-    title: "100% Festpreis-Garantie",
-    description: "Keine versteckten Agenturstunden. Wir liefern planbare Ergebnisse zu fixen Projektbudgets.",
+    title: "100% Festpreis Garantie",
+    description: "Kein Stundensatz, kein Overrun. Wir fixieren den Preis vor Projektstart — schriftlich und verbindlich.",
   },
   {
     icon: <TrendingUp size={24} />,
-    title: "Systeme für Skalierung",
-    description: "Wir bauen keine einfachen Websites, sondern Vertriebsmaschinen und KI-Systeme, die mit Ihnen wachsen.",
+    title: "Systeme, die skalieren",
+    description: "Keine Einmal-Website. Wir bauen Systeme, die mit Ihrem Wachstum mitgehen — von 100 auf 100.000 Besucher/Monat.",
   },
 ];
 
@@ -74,7 +74,7 @@ export const BenefitsSection = () => {
                   index === 2 ? "sm:col-span-2" : ""
                 }`}
               >
-                <div className="w-12 h-12 bg-indigo-50 test rounded-xl flex items-center justify-center text-indigo-600 mb-6">
+                <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6">
                   {benefit.icon}
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>

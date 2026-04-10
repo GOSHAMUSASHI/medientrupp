@@ -21,10 +21,10 @@ export const CtaBanner = () => {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="flex-1 text-center md:text-left">
               <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-4">
-                Bereit für den nächsten Schritt?
+                Jetzt kostenlos beraten lassen.<br /><span className="text-indigo-400">Unverbindlich & in 24h.</span>
               </h2>
               <p className="text-slate-300 text-lg max-w-xl mx-auto md:mx-0">
-                Lassen Sie uns herausfinden, welche Systeme in Ihrem Unternehmen den größten ROI bringen. Transparent und unverbindlich.
+                Wir schauen uns Ihre aktuelle digitale Infrastruktur an und zeigen Ihnen konkret, wo der größte Hebel liegt. Kein Pitch, kein Druck.
               </p>
             </div>
             
@@ -37,9 +37,9 @@ export const CtaBanner = () => {
               </a>
               <a 
                 href="/leistungen"
-                className="bg-slate-900 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-slate-800 transition-colors"
+                className="border-2 border-white/30 text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
               >
-                <FileText size={20} /> Leistungen
+                <FileText size={20} /> Leistungen ansehen
               </a>
             </div>
           </div>

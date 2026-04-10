@@ -1,12 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Activity, Users } from "lucide-react";
+import { TrendingUp, Eye, Users, Play } from "lucide-react";
+
+// Fixed delay values — no Math.random() to avoid SSR hydration mismatch
+const STAT_DELAYS = [0, 0.15, 0.3];
+
+const contentStats = [
+  { icon: <Eye size={18} />, label: "Ø Reichweite / Woche", value: "84.000", trend: "+38%", color: "#4F46E5" },
+  { icon: <TrendingUp size={18} />, label: "Interaktionsrate", value: "6,2%", trend: "+12%", color: "#10B981" },
+  { icon: <Users size={18} />, label: "Neue Follower / Woche", value: "1.240", trend: "+24%", color: "#F59E0B" },
+];
 
 export const AlgorithmSection = () => {
   return (
     <section className="bg-slate-50 py-24 text-slate-900 relative overflow-hidden" aria-labelledby="algorithm-heading">
-      {/* Background glow effects */}
       <div className="absolute -left-[20%] top-[10%] w-[600px] h-[600px] bg-slate-500/5 blur-[80px] rounded-full pointer-events-none" />
       <div className="absolute -right-[10%] bottom-[10%] w-[500px] h-[500px] bg-indigo-500/5 blur-[80px] rounded-full pointer-events-none" />
 
@@ -14,16 +22,16 @@ export const AlgorithmSection = () => {
         
         <div className="text-center mb-20">
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
-            Social Dominance
+            Video &amp; Content
           </p>
           <h2 id="algorithm-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">
-            Aufmerksamkeit ist die{" "}
+            Sichtbarkeit ist kein Zufall —{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-indigo-700">
-              neue Währung.
+              sie ist Strategie.
             </span>
           </h2>
           <p className="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
-            Hören Sie auf, Content für die Nische zu machen. Wir produzieren hoch konvertierende Short-Form Videos, die den Algorithmus zwingen, Sie zu belohnen. Datengetriebene Hooks. Aggressive Retention.
+            Wir produzieren hochwertige Short-Form Videos und Content-Strategien, die Ihre Zielgruppe wirklich erreichen — datenbasiert, planbar und messbar.
           </p>
         </div>
 
@@ -33,89 +41,118 @@ export const AlgorithmSection = () => {
           <div className="flex-1 lg:pr-10">
             <div className="inline-flex items-center gap-2 text-indigo-600 text-xs font-bold tracking-widest uppercase mb-6 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200">
               <motion.div 
-                animate={{ opacity: [1, 0] }} 
-                transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }} 
+                animate={{ opacity: [1, 0.3, 1] }} 
+                transition={{ duration: 1.5, repeat: Infinity }} 
                 className="w-2 h-2 rounded-full bg-indigo-600" 
               />
-              Viral Status: Active
+              Content läuft — jetzt live
             </div>
 
             <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-6">
-              Die Psychologie<br />hinter dem Algorithmus.
+              Content mit System —<br />nicht mit Glück.
             </h3>
             
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              Komplexe Datenmodelle runtergebrochen auf das, was wirklich zählt: Aufmerksamkeit. Wir triggern die richtigen neurologischen Knöpfe.
+              Kein Raten, kein Ausprobieren. Wir analysieren, was Ihre Zielgruppe stoppt, und produzieren Inhalte, die auf allen relevanten Plattformen performen.
             </p>
 
             <ul className="space-y-6 mb-10">
               {[
-                { label: 'A/B Hook Testing', desc: 'Datengetriebene Skripte, die in Sekunde 1 catchen.' },
-                { label: 'Aggressive Retention', desc: 'Visueller Schnitt, der Dopamin ausschüttet und süchtig macht.' },
-                { label: 'Algorithm Hacking', desc: 'Plattform-native Distribution für organische Reichweite.' }
+                { icon: <Play size={18} />, label: 'Contentstrategie mit System', desc: 'Datenbasierte Planung für maximale Reichweite und Konsistenz.' },
+                { icon: <TrendingUp size={18} />, label: 'Plattform-Optimierung', desc: 'Native Formate für Instagram, LinkedIn, TikTok & YouTube.' },
+                { icon: <Users size={18} />, label: 'Reichweite & Conversion', desc: 'Inhalte, die nicht nur sehen — sondern handeln lassen.' }
               ].map((item, idx) => (
                 <li key={idx} className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
-                    <Activity size={18} />
+                  <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                    {item.icon}
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-900 text-lg">{item.label}</h4>
-                    <p className="text-sm text-slate-600">{item.desc}</p>
+                    <p className="text-sm text-slate-600 mt-0.5">{item.desc}</p>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Right: Phone Mockup */}
+          {/* Right: Analytics Stats Dashboard */}
           <div className="flex-1 flex justify-center lg:justify-end w-full">
-            <div className="bg-white backdrop-blur-md border border-slate-200 p-8 rounded-[2rem] shadow-xl relative w-full max-w-[360px]">
-              
-              {/* Phone Frame */}
-              <div className="relative w-full aspect-[9/16] bg-black rounded-[2.5rem] border-[6px] border-slate-900 overflow-hidden shadow-[0_30px_60px_rgba(79,70,229,0.2)]">
-                
-                {/* Screen Content */}
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-indigo-950 opacity-90" />
-                
-                {/* Floating Hearts */}
-                {Array.from({length: 6}).map((_, i) => (
-                  <motion.div 
-                    key={i} 
-                    animate={{ y: [-20, -400], opacity: [0, 1, 0], x: Math.sin(i) * 20 }} 
-                    transition={{ duration: 2.5 + Math.random(), repeat: Infinity, delay: Math.random() * 2 }} 
-                    className="absolute bottom-[20%] right-[15%] text-indigo-400 text-2xl z-10"
-                  >
-                    ❤️
-                  </motion.div>
-                ))}
-
-                {/* Safe Area Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[40%] h-6 bg-slate-900 rounded-b-xl z-20" />
-                
-                {/* Video UI Bottom */}
-                <div className="absolute bottom-6 left-4 right-4 z-20">
-                  <div className="h-1.5 bg-white/20 rounded-full overflow-hidden mb-3">
-                    <motion.div 
-                      animate={{ width: ["0%", "100%"] }} 
-                      transition={{ duration: 5, repeat: Infinity, ease: "linear" }} 
-                      className="h-full bg-white rounded-full" 
-                    />
-                  </div>
-                  <div className="w-3/4 h-3 bg-white/90 rounded mb-2" />
-                  <div className="w-1/2 h-2.5 bg-white/60 rounded" />
+            <div className="w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl shadow-xl shadow-indigo-100/50 overflow-hidden">
+              {/* Dashboard Header */}
+              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
+                <div>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Content Analytics</p>
+                  <p className="text-sm font-black text-slate-900 mt-0.5">Letzte 30 Tage</p>
                 </div>
-
-                {/* Action Buttons Right */}
-                <div className="absolute right-4 bottom-24 flex flex-col gap-4 z-20">
-                   <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
-                     <Activity size={18} color="#fff" />
-                   </div>
-                   <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
-                     <Users size={18} color="#fff" />
-                   </div>
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 border border-green-100">
+                  <motion.span
+                    animate={{ opacity: [1, 0.3, 1] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="w-1.5 h-1.5 rounded-full bg-green-500"
+                  />
+                  <span className="text-xs font-bold text-green-700">LIVE</span>
                 </div>
               </div>
 
+              {/* Stats Cards */}
+              <div className="p-5 space-y-3">
+                {contentStats.map((stat, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: STAT_DELAYS[i], duration: 0.5 }}
+                    className="flex items-center justify-between p-4 rounded-xl border border-slate-100"
+                    style={{ background: `${stat.color}06` }}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-9 h-9 rounded-lg flex items-center justify-center"
+                        style={{ background: `${stat.color}15`, color: stat.color }}
+                      >
+                        {stat.icon}
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-400 font-medium">{stat.label}</p>
+                        <p className="text-xl font-black text-slate-900" style={{ lineHeight: 1.2 }}>{stat.value}</p>
+                      </div>
+                    </div>
+                    <span
+                      className="text-xs font-bold px-2 py-1 rounded-full"
+                      style={{ background: `${stat.color}15`, color: stat.color }}
+                    >
+                      {stat.trend}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Bottom bar chart (simplified) */}
+              <div className="px-5 pb-5">
+                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-3">Wöchentliche Reichweite</p>
+                <div className="flex items-end gap-1.5 h-16">
+                  {[42, 58, 51, 72, 68, 84, 91].map((h, i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                      <motion.div
+                        initial={{ height: 0 }}
+                        whileInView={{ height: `${h}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: i * 0.07 }}
+                        className="w-full rounded-sm"
+                        style={{
+                          background: i === 6 ? "#4F46E5" : "rgba(79,70,229,0.2)",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between mt-1.5">
+                  {["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map((d) => (
+                    <span key={d} className="flex-1 text-center" style={{ color: "#94A3B8", fontSize: "9px" }}>{d}</span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 

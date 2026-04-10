@@ -11,6 +11,7 @@ import { BenefitsSection } from "@/components/sections/BenefitsSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { InteractiveFunnel } from "@/components/sections/InteractiveFunnel";
+import { IcebergSection } from "@/components/sections/IcebergSection";
 
 const Home = () => {
   return (
@@ -21,6 +22,9 @@ const Home = () => {
 
       {/* 2. ProcessSection (Ablauf in 3 Schritten) */}
       <ProcessSection />
+
+      {/* 2.5 IcebergSection (Split: Sichtbar vs Unsichtbar) */}
+      <IcebergSection />
 
       {/* 3. ServicesAlternating (Die 5 Leistungen) */}
       <ServicesAlternating />

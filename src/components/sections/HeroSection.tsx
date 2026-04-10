@@ -15,7 +15,7 @@ interface KpiCard {
 const kpiCards: KpiCard[] = [
   { label: "Website-Leads", value: "148", trend: "+12,4%", color: "#4F46E5" },
   { label: "Zeitersparnis KI", value: "38h", trend: "+23%", color: "#10B981" },
-  { label: "Conversion Rate", value: "8,4%", trend: "+324%", color: "#F59E0B" },
+  { label: "Conversion Rate", value: "8,4%", trend: "+3,1 Pkt", color: "#F59E0B" },
   { label: "Launch-Bereitschaft", value: "72%", trend: "Aktiv", color: "#4F46E5" },
 ];
 
@@ -35,15 +35,7 @@ const DashboardMockup = () => (
     }}
   >
     {/* Shell */}
-    <div
-      className="rounded-2xl overflow-hidden"
-      style={{
-        background: "rgba(255,255,255,0.99)",
-        border: "1px solid rgba(15,23,43,0.08)",
-        filter:
-          "drop-shadow(0 4px 16px rgba(15,23,43,0.10)) drop-shadow(0 24px 64px rgba(79,70,229,0.15))",
-      }}
-    >
+    <div className="bg-white rounded-2xl shadow-2xl shadow-indigo-500/20 ring-1 ring-slate-900/5 overflow-hidden">
       {/* Header bar */}
       <div
         className="flex items-center gap-3 px-5 py-3 border-b"
@@ -171,9 +163,9 @@ const DashboardMockup = () => (
 // ── Trust Badges ─────────────────────────────────────────────────────────────
 
 const trustBadges = [
-  { icon: <ShieldCheck size={16} className="text-indigo-600" />, text: "Deutsche Qualität" },
-  { icon: <Tag size={16} className="text-indigo-600" />, text: "Festpreise" },
-  { icon: <Zap size={16} className="text-indigo-600" />, text: "Schnelle Umsetzung" },
+  { icon: <ShieldCheck size={16} className="text-indigo-600" />, text: "100% Made in Germany" },
+  { icon: <Tag size={16} className="text-indigo-600" />, text: "Festpreis ab €1.500" },
+  { icon: <Zap size={16} className="text-indigo-600" />, text: "Go-Live in 3–6 Wochen" },
 ];
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -181,14 +173,10 @@ const trustBadges = [
 export const HeroSection = () => {
   return (
     <section className="relative bg-white overflow-hidden">
-      {/* Subtle indigo radial glow — top-right */}
+      {/* Soft background glow */}
       <div
         aria-hidden="true"
-        className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle at 80% 20%, rgba(79,70,229,0.07) 0%, transparent 65%)",
-        }}
+        className="absolute top-1/4 -right-10 w-[600px] h-[600px] bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none -z-10"
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
@@ -210,12 +198,12 @@ export const HeroSection = () => {
 
             {/* H1 */}
             <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
-              Digitale{" "}
+              Mehr Kunden.{" "}
               <span
                 className="relative inline-block"
                 style={{ color: "#4F46E5" }}
               >
-                Systeme
+                Mehr Umsatz.
                 <svg
                   className="absolute -bottom-1 left-0 w-full"
                   height="4"
@@ -232,15 +220,14 @@ export const HeroSection = () => {
                   />
                 </svg>
               </span>
-              ,<br />
-              die Kunden bringen.
+              <br />Vollautomatisch.
             </h1>
 
             {/* Sub-copy */}
             <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-[480px]">
-              MedienTrupp baut digitale Lösungen für den deutschen Mittelstand.
-              Transparente Festpreise, keine Überraschungen — und Ihre
-              Website läuft in Wochen, nicht Monaten.
+              MedienTrupp baut digitale Systeme für den deutschen Mittelstand.
+              Website, KI, Video — aus einer Hand. Transparente Festpreise,
+              kein Agentur-Chaos.
             </p>
 
             {/* CTAs */}
@@ -279,13 +266,18 @@ export const HeroSection = () => {
             initial={{ opacity: 0, x: 32 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden lg:flex justify-center items-center"
+            className="flex justify-center flex-col sm:flex-row items-center w-full"
             style={{ perspective: "1200px" }}
           >
-            <DashboardMockup />
+            {/* The wrapper scales down the 520px dashboard heavily on mobile. Overflow-hidden removed to not clip shadows. */}
+            <div className="w-full flex justify-center sm:scale-100 scale-[0.65] origin-center -my-20 sm:my-0">
+              <DashboardMockup />
+            </div>
           </motion.div>
         </div>
       </div>
+
+
     </section>
   );
 };

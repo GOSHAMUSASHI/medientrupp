@@ -6,6 +6,10 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
+    question: "Was kostet eine neue Website bei MedienTrupp?",
+    answer: "Unsere High-Performance Websites starten bei einem Festpreis von 3.500 €. Jedes Projekt ist individuell, aber wir kommunizieren alle Kosten transparent vorab. Nutzen Sie unseren Projekt-Kalkulator weiter oben, um eine sofortige Einschätzung für Ihren speziellen Bedarf zu erhalten.",
+  },
+  {
     question: "Wie lange dauert ein typisches Projekt?",
     answer: "Ein typischer Website-Relaunch dauert bei uns 4 bis 6 Wochen. KI-Automatisierungen können oft schon nach 1 bis 3 Wochen live gehen. Wir legen großen Wert auf schnelle Umsetzung ohne Qualitätsverlust.",
   },
@@ -24,7 +28,7 @@ const faqs = [
 ];
 
 export const FaqSection = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleOpen = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

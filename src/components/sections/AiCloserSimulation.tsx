@@ -6,7 +6,7 @@ import { Bot, CheckCircle2 } from "lucide-react";
 
 export const AiCloserSimulation = () => {
   const [messages, setMessages] = useState<{ id: string; text: string; sender: 'ai' | 'user' }[]>([
-    { id: '1', text: 'SYSTEM ONLINE. WIE KÖNNEN WIR DEIN SYSTEM SKALIEREN?', sender: 'ai' }
+    { id: '1', text: 'Hallo! Womit können wir Ihnen helfen, mehr Kunden zu gewinnen?', sender: 'ai' }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [status, setStatus] = useState('IDLE');
@@ -21,21 +21,19 @@ export const AiCloserSimulation = () => {
   const simulateLead = () => {
     setStatus('PROCESSING');
     
-    // User message
-    const newMsg = { id: Date.now().toString(), text: 'Mein Shop stagniert bei 20k/Monat. Ich verbrenne Geld in Meta Ads und die Conversion Rate ist im Keller.', sender: 'user' as const };
+    const newMsg = { id: Date.now().toString(), text: 'Unser Shop stagniert bei 20.000 €/Monat. Wir verlieren Kunden im Checkout, obwohl wir in Werbung investieren.', sender: 'user' as const };
     setMessages(prev => [...prev, newMsg]);
     setIsTyping(true);
 
-    // AI Sequence
     setTimeout(() => {
-      setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Analyse läuft. Bottlenecks identifiziert: Hohe Cart Abandonment Rate (48%) & fehlendes Backend-Retargeting.', sender: 'ai' }]);
+      setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Vielen Dank für die Einschätzung. Ich sehe zwei klare Hebel: eine hohe Warenkorbabbruch-Rate und fehlendes Retargeting im Backend.', sender: 'ai' }]);
       
       setTimeout(() => {
-        setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Action-Plan: Wir bauen ein AAA React Frontend für 0.1s Ladezeiten + implementieren einen autonomen KI-Agenten zur Warenkorbabbrecher-Rückgewinnung.', sender: 'ai' }]);
+        setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Unser Vorschlag: Performance-Optimierung des Checkout-Prozesses + automatisiertes KI-Follow-up für Warenkorbabbrecher.', sender: 'ai' }]);
         
         setTimeout(() => {
           setIsTyping(false);
-          setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Erwarteter ROI: +180% Umsatz im ersten Quartal. Erstgespräch zur Umsetzung planen?', sender: 'ai' }]);
+          setMessages(prev => [...prev, { id: Date.now().toString(), text: 'Erfahrungswert aus ähnlichen Projekten: +150–200% Umsatz im ersten Quartal. Möchten Sie ein kostenloses Erstgespräch vereinbaren?', sender: 'ai' }]);
           
           setTimeout(() => {
              setStatus('AUTOMATION_MATCHED');
@@ -55,41 +53,39 @@ export const AiCloserSimulation = () => {
           
           {/* Left Text */}
           <div className="flex-1">
-            <span className="text-indigo-600 text-xs font-black tracking-[0.2em] uppercase block mb-3">
-              01 // KI & HIGH-TICKET AUTOMATISIERUNG
+            <span className="text-indigo-600 text-xs font-bold tracking-[0.15em] uppercase block mb-3">
+              KI-Assistent
             </span>
             <h2 id="aismulator-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">
-              Der <span className="text-indigo-600">Autonome Closer</span>,<br /> der nie schläft.
+              Ihr digitaler Mitarbeiter —{" "}<span className="text-indigo-600">24⁄7 verfügbar.</span>
             </h2>
             <p className="text-lg text-slate-600 leading-relaxed mb-8">
-              Verwechseln Sie das nicht mit billigen Support-Widgets. Wir bauen autonome KI-Mitarbeiter tief in Ihre Plattform ein. Sie analysieren Leads, pitchen auf Weltklasse-Niveau und füllen Ihre Pipeline qualifiziert auf Autopilot.
+              Kein simples Support-Widget. Wir integrieren intelligente KI-Assistenten direkt in Ihre Plattform. Sie qualifizieren Leads, beantworten Fragen und füllen Ihre Pipeline — vollautomatisch, rund um die Uhr.
             </p>
 
-            <div className="bg-indigo-50 border-l-2 border-indigo-500 p-6 mb-8 rounded-r-2xl">
-              <div className="text-xs font-bold text-indigo-600 tracking-widest uppercase mb-2">
-                Engine Status: {status}
-              </div>
-              <div className="h-1 bg-slate-200 rounded-full overflow-hidden">
-                <motion.div 
-                  animate={{ x: status === 'PROCESSING' ? ['-100%', '100%'] : '0%' }} 
-                  transition={{ duration: 1, repeat: status === 'PROCESSING' ? Infinity : 0, ease: "linear" }} 
-                  className="w-full h-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent" 
+            {/* Processing indicator — only visible while running */}
+            {status === 'PROCESSING' && (
+              <div className="flex items-center gap-2 mb-8">
+                <motion.span
+                  animate={{ opacity: [1, 0.3, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="w-2 h-2 rounded-full bg-indigo-500 inline-block"
                 />
+                <span className="text-sm text-indigo-600 font-medium">KI analysiert Ihre Situation …</span>
               </div>
-            </div>
-            
-            <button 
+            )}
+                        <button 
               onClick={simulateLead}
               disabled={status === 'PROCESSING'}
-              className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed font-black tracking-widest uppercase rounded-xl transition-colors"
+              className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed font-bold tracking-wide rounded-xl transition-colors"
             >
-              Umsatz-Bot Simulieren
+              KI-Demo starten
             </button>
           </div>
 
           {/* Right Chatbot UI */}
           <div className="flex-1 w-full max-w-lg mx-auto">
-            <div className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-3xl h-[600px] flex flex-col overflow-hidden shadow-2xl shadow-indigo-100">
+            <div className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-3xl min-h-[400px] max-h-[600px] flex flex-col overflow-hidden shadow-2xl shadow-indigo-100">
               
               {/* Chat Header */}
               <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
@@ -103,8 +99,8 @@ export const AiCloserSimulation = () => {
                     />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 tracking-wide">Medientrupp AI-Closer</h4>
-                    <span className="block text-xs text-slate-500 tracking-wider uppercase">v4.0.9 // Analytics Mode</span>
+                    <h4 className="font-black text-slate-900 tracking-wide">MedienTrupp KI-Assistent</h4>
+                    <span className="block text-xs text-slate-500">24⁄7 verfügbar</span>
                   </div>
                 </div>
                 <Bot className="text-indigo-500" size={28} />
@@ -155,8 +151,8 @@ export const AiCloserSimulation = () => {
                     >
                       <CheckCircle2 className="text-indigo-600 flex-shrink-0" size={32} />
                       <div>
-                        <div className="text-indigo-600 font-bold uppercase tracking-widest text-xs mb-1">CRM Workflow Aktiviert</div>
-                        <div className="text-slate-600 text-xs">Lead erfasst. NDA & Pitch Deck gesendet. SMS Follow-up läuft.</div>
+                        <div className="text-indigo-600 font-bold text-sm mb-1">Anfrage im CRM erfasst</div>
+                        <div className="text-slate-600 text-xs">Wir melden uns innerhalb von 24 Stunden. NDA auf Wunsch vorab erhältlich.</div>
                       </div>
                     </motion.div>
                   )}

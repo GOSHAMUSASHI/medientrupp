@@ -1,33 +1,42 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Phone, Settings, Rocket, ArrowRight } from "lucide-react";
 
 const steps = [
   {
     number: "01",
+    icon: <Phone size={28} />,
     title: "Kick-off & Strategie",
-    description: "Wir telefonieren kurz. Wir holen uns alle Infos, die wir brauchen. Du lehnst dich zurück.",
-    placeholderColor: "linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%)"
+    description: "Wir telefonieren kurz. Wir holen uns alle Informationen, die wir benötigen. Sie lehnen sich zurück.",
+    duration: "Kompaktes Briefing",
+    color: "#4F46E5",
+    bg: "#E0E7FF",
   },
   {
     number: "02",
+    icon: <Settings size={28} />,
     title: "Umsetzung im Hintergrund",
-    description: "Unser Team baut dein komplettes System. Ohne dass du Ressourcen aus deinem Tagesgeschäft abziehen musst.",
-    placeholderColor: "linear-gradient(135deg, #f3e8ff 0%, #d8b4fe 100%)"
+    description: "Unser Team baut Ihr komplettes System. Ohne dass Sie Ressourcen aus Ihrem Tagesgeschäft abziehen müssen.",
+    duration: "Schlüsselfertige Umsetzung",
+    color: "#4F46E5",
+    bg: "#E0E7FF",
   },
   {
     number: "03",
-    title: "Schlüsselübergabe & Go-Live",
-    description: "Dein System ist fertig, getestet und wird live geschaltet. Es bringt Ergebnisse ab Tag 1.",
-    placeholderColor: "linear-gradient(135deg, #dcfce7 0%, #86efac 100%)"
+    icon: <Rocket size={28} />,
+    title: "Go-Live & Skalierung",
+    description: "Ihr System ist fertig, getestet und wird live geschaltet. Es bringt Ergebnisse ab Tag 1.",
+    duration: "Reibungsloser Go-Live",
+    color: "#4F46E5",
+    bg: "#E0E7FF",
   },
 ];
 
 export const ProcessSection = () => {
   return (
-    <section className="bg-white py-24 lg:py-32 relative overflow-hidden" aria-labelledby="process-heading">
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="bg-white py-24 lg:py-32" aria-labelledby="process-heading">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,66 +48,83 @@ export const ProcessSection = () => {
             Einfacher Ablauf
           </p>
           <h2 id="process-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
-            In 3 Schritten zu deinem <span className="text-indigo-600">neuen System.</span>
+            In 3 Schritten zu Ihrem{" "}
+            <span className="text-indigo-600">neuen System.</span>
           </h2>
           <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Keine endlosen Abstimmungs-Loops. Wir nehmen Komplextiät raus und übernehmen die harte Arbeit für dich.
+            Keine endlosen Abstimmungs-Loops. Wir übernehmen die Komplexität und liefern— Sie kümmern sich um Ihr Geschäft.
           </p>
         </motion.div>
 
-        <div className="space-y-20 lg:space-y-32">
-          {steps.map((step, index) => {
-            const isEven = index % 2 === 0;
-            return (
-              <div key={index} className={`flex flex-col gap-12 lg:gap-24 items-center ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
-                
-                {/* Text Content */}
-                <motion.div 
-                  initial={{ opacity: 0, x: isEven ? -30 : 30 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="flex-1 w-full"
-                >
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-7xl font-black text-slate-200 tracking-tighter">
-                      {step.number}
-                    </span>
-                    <div className="h-0.5 w-16 bg-indigo-600/20" />
-                  </div>
-                  
-                  <h3 className="text-3xl font-black text-slate-900 mb-6 tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-xl text-slate-500 leading-relaxed max-w-lg">
-                    {step.description}
-                  </p>
-                </motion.div>
+        {/* 3-column grid with connector line */}
+        <div className="relative">
+          {/* Connector line (desktop only) */}
+          <div
+            aria-hidden="true"
+            className="hidden lg:block absolute top-[52px] left-[calc(16.66%+1rem)] right-[calc(16.66%+1rem)] h-0.5 bg-slate-100 z-0"
+          />
 
-                {/* Dashboard / Image Placeholder */}
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="flex-1 w-full"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 relative z-10">
+            {steps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                className="flex flex-col items-center text-center"
+              >
+                {/* Icon circle */}
+                <div
+                  className="w-[104px] h-[104px] rounded-2xl flex items-center justify-center mb-6 relative"
+                  style={{ background: step.bg, color: step.color }}
                 >
-                  <div 
-                    className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-slate-200"
-                    style={{ background: step.placeholderColor }}
+                  {step.icon}
+                  {/* Step number badge */}
+                  <span
+                    className="absolute -top-2 -right-2 w-7 h-7 rounded-full text-xs font-black flex items-center justify-center text-white"
+                    style={{ background: step.color }}
                   >
-                    <div className="absolute inset-0 bg-white/40 backdrop-blur-sm m-6 rounded-2xl border border-white/50 flex flex-col justify-end p-6">
-                       <div className="text-sm font-bold text-slate-700 uppercase tracking-widest opacity-50 mb-2">Visueller Platzhalter</div>
-                       <div className="w-1/2 h-4 bg-slate-400/20 rounded-full mb-3" />
-                       <div className="w-3/4 h-3 bg-slate-400/20 rounded-full" />
-                    </div>
-                  </div>
-                </motion.div>
+                    {step.number}
+                  </span>
+                </div>
 
-              </div>
-            );
-          })}
+                {/* Duration tag */}
+                <span
+                  className="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4"
+                  style={{ background: step.bg, color: step.color }}
+                >
+                  {step.duration}
+                </span>
+
+                <h3 className="text-xl font-black text-slate-900 tracking-tight mb-3">
+                  {step.title}
+                </h3>
+                <p className="text-slate-500 text-base leading-relaxed">
+                  {step.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-center mt-16"
+        >
+          <a
+            href="#konfigurator"
+            id="process-cta"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+          >
+            Jetzt Projekt starten
+            <ArrowRight size={16} />
+          </a>
+        </motion.div>
 
       </div>
     </section>
