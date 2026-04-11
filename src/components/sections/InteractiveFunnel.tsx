@@ -1,488 +1,454 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import * as z from "zod";
+import { motion, AnimatePresence } from "framer-motion";
 import {
+  Check,
   ArrowRight,
-  ArrowLeft,
+  ChevronLeft,
   Globe,
-  Palette,
-  Video,
   Zap,
+  Video,
+  Palette,
   ShieldCheck,
+  Calendar,
   CheckCircle2,
   Loader2,
 } from "lucide-react";
 
-// ── Types & Config ─────────────────────────────────────────────────────────
+// ─── Types ─────────────────────────────────────────────────────────────────────
 
-type CategoryId = "marke" | "website" | "ki" | "social" | "betreuung";
+type MainService = "marke" | "website" | "ki" | "social";
 
-interface SubOption {
-  id: string;
-  label: string;
+interface Addons {
+  marke_premium_rebranding: boolean;
+  marke_geschaeftsausstattung: boolean;
+  website_texte: boolean;
+  website_seo: boolean;
+  website_recruiting: boolean;
+  ki_lead_erfassung: boolean;
+  ki_chatbot: boolean;
+  ki_bewertung: boolean;
+  social_management: boolean;
+  social_workshop: boolean;
+  social_video: boolean;
 }
 
-interface ServiceCategory {
-  id: CategoryId;
-  label: string;
-  icon: React.ReactNode;
-  price: number;
-  monthly?: boolean;
-  subOptions: SubOption[];
+interface Maintenance {
+  hosting: boolean;
+  local_seo: boolean;
 }
 
-const CATEGORIES: ServiceCategory[] = [
-  {
-    id: "marke",
-    label: "Marke & Design",
-    icon: <Palette size={20} />,
-    price: 500,
-    subOptions: [
-      { id: "branding", label: "Premium Branding & Re-Branding" },
-      { id: "geschaeft", label: "Geschäftsausstattung" },
-    ],
-  },
-  {
-    id: "website",
-    label: "Website & digitale Auftritte",
-    icon: <Globe size={20} />,
-    price: 1000,
-    subOptions: [
-      { id: "website-komplett", label: "Schlüsselfertige Website" },
-      { id: "texte", label: "Verkaufspsychologische Texte" },
-      { id: "seo", label: "Suchmaschinenoptimierung (SEO)" },
-      { id: "kontaktformular", label: "Interaktive Lead-Formulare" },
-      { id: "recruiting", label: "Recruiting-Seite" },
-    ],
-  },
-  {
-    id: "ki",
-    label: "KI-Systeme & Automatisierung",
-    icon: <Zap size={20} />,
-    price: 500,
-    subOptions: [
-      { id: "lead-mgmt", label: "Automatisches Lead-Management" },
-      { id: "chatbot", label: "24/7 KI-Kundenassistent" },
-      { id: "bewertung", label: "Automatische Bewertungs-Maschine" },
-    ],
-  },
-  {
-    id: "social",
-    label: "Social Media & Video",
-    icon: <Video size={20} />,
-    price: 0,
-    monthly: true,
-    subOptions: [
-      { id: "social-mgmt", label: "Social Media Management" },
-      { id: "social-beratung", label: "Strategische Beratung" },
-      { id: "video", label: "Professionelle Videoproduktion" },
-    ],
-  },
-  {
-    id: "betreuung",
-    label: "Laufende Betreuung",
-    icon: <ShieldCheck size={20} />,
-    price: 0,
-    monthly: true,
-    subOptions: [
-      { id: "hosting", label: "Sicheres Hosting & Wartung" },
-      { id: "local-seo", label: "Regionales Google Local SEO" },
-    ],
-  },
-];
+interface ContactForm {
+  name: string;
+  email: string;
+  company: string;
+  phone?: string;
+}
 
-// ── Schema ─────────────────────────────────────────────────────────────────
+// ─── Pricing engine ──────────────────────────────────────────────────────────
 
-const schema = z.object({
-  name: z.string().min(2, "Bitte Namen eintragen"),
-  email: z.string().email("Ungültige E-Mail Adresse"),
+const BASE_SETUP: Record<MainService, number> = {
+  marke: 500,
+  website: 1000,
+  ki: 500,
+  social: 0,
+};
+
+function calcCosts(
+  services: MainService[],
+  addons: Addons,
+  maintenance: Maintenance
+): { setup: number; monthly: number } {
+  let setup = 0;
+  let monthly = 0;
+
+  services.forEach((s) => (setup += BASE_SETUP[s]));
+
+  if (addons.marke_premium_rebranding) setup += 1500;
+  if (addons.marke_geschaeftsausstattung) setup += 500;
+  if (addons.website_texte) setup += 500;
+  if (addons.website_seo) setup += 500;
+  if (addons.website_recruiting) setup += 500;
+  if (addons.ki_lead_erfassung) setup += 500;
+  if (addons.ki_chatbot) setup += 500;
+  if (addons.ki_bewertung) setup += 250;
+
+  if (addons.social_management) monthly += 250;
+  if (addons.social_workshop) setup += 1000;
+  if (addons.social_video) setup += 500;
+
+  if (maintenance.hosting) monthly += 100;
+  if (maintenance.local_seo) monthly += 150;
+
+  return { setup, monthly };
+}
+
+const contactSchema = z.object({
+  name: z.string().min(2, "Bitte Ihren Namen eingeben."),
+  email: z.string().email("Bitte eine gültige E-Mail eingeben."),
+  company: z.string().min(2, "Bitte Ihr Unternehmen eingeben."),
   phone: z.string().optional(),
 });
 
-type FormData = z.infer<typeof schema>;
-
-const submitLead = async (
-  data: FormData & { categories: CategoryId[]; subOptions: string[]; total: number }
-) => {
-  await new Promise((r) => setTimeout(r, 1200));
-  return { success: true };
+const stepVariants = {
+  enter: (direction: number) => ({ opacity: 0, x: direction > 0 ? 50 : -50 }),
+  center: { opacity: 1, x: 0, transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const } },
+  exit: (direction: number) => ({ opacity: 0, x: direction > 0 ? -50 : 50, transition: { duration: 0.25 } }),
 };
 
-// ── Slide variants ─────────────────────────────────────────────────────────
+interface ToggleCardProps {
+  label: string;
+  sublabel: string;
+  desc?: string;
+  checked: boolean;
+  onToggle: () => void;
+  isMonthly?: boolean;
+}
+const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: ToggleCardProps) => (
+  <div
+    onClick={onToggle}
+    className={`cursor-pointer p-4 md:p-5 rounded-2xl border-2 transition-all duration-200 flex items-start gap-3 sm:gap-4 ${
+      checked
+        ? "border-indigo-600 bg-indigo-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
+        : "border-slate-200 hover:border-indigo-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
+    }`}
+  >
+    <div
+      className={`mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded-md flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
+        checked ? "bg-indigo-600 border-indigo-600" : "border-slate-300 bg-slate-50"
+      }`}
+    >
+      {checked && <Check size={14} className="text-white" strokeWidth={4} />}
+    </div>
+    <div className="flex-1">
+      <p className={`font-bold md:text-lg leading-tight ${checked ? "text-slate-900" : "text-slate-700"}`}>{label}</p>
+      {desc && <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-snug">{desc}</p>}
+      <p className={`text-[10px] sm:text-xs mt-1.5 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-indigo-600"}`}>
+        {sublabel}
+      </p>
+    </div>
+  </div>
+);
 
-const slideVariants = {
-  enter: (dir: number) => ({
-    x: dir > 0 ? 30 : -30,
-    opacity: 0,
-  }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({
-    x: dir > 0 ? -30 : 30,
-    opacity: 0,
-  }),
-};
-
-// ── Component ──────────────────────────────────────────────────────────────
+const MAIN_SERVICES: { id: MainService; label: string; icon: React.ReactNode; price: string }[] = [
+  { id: "marke", label: "Marke & Design", icon: <Palette size={24} />, price: "Basis ab 500 €" },
+  { id: "website", label: "Website", icon: <Globe size={24} />, price: "Basis ab 1.000 €" },
+  { id: "ki", label: "KI & Automatisierung", icon: <Zap size={24} />, price: "Basis ab 500 €" },
+  { id: "social", label: "Social Media & Video", icon: <Video size={24} />, price: "Preis durch Add-ons" },
+];
 
 export const InteractiveFunnel = () => {
-  const [step, setStep] = useState(0);             // 0: Cat, 1: Subs, 2: Form
-  const [catStep, setCatStep] = useState(0);       // Internal sub-step for categories
-  const [dir, setDir] = useState(1);
-  const [selectedCategories, setSelectedCategories] = useState<CategoryId[]>([]);
-  const [selectedSubs, setSelectedSubs] = useState<Partial<Record<CategoryId, string[]>>>({});
+  const [direction, setDirection] = useState(1);
+  const [services, setServices] = useState<MainService[]>([]);
+  const [addons, setAddons] = useState<Addons>({
+    marke_premium_rebranding: false, marke_geschaeftsausstattung: false,
+    website_texte: false, website_seo: false, website_recruiting: false,
+    ki_lead_erfassung: false, ki_chatbot: false, ki_bewertung: false,
+    social_management: false, social_workshop: false, social_video: false,
+  });
+  const [maintenance, setMaintenance] = useState<Maintenance>({ hosting: false, local_seo: false });
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm<FormData>({ resolver: zodResolver(schema), mode: "onChange" });
+  const { setup, monthly } = calcCosts(services, addons, maintenance);
 
-  // Event Handlers
-  const toggleCategory = (id: CategoryId) => {
-    setSelectedCategories((prev) =>
-      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
-    );
+  const { register, handleSubmit, formState: { errors, isValid } } = useForm<ContactForm>({
+    resolver: zodResolver(contactSchema),
+    mode: "onChange",
+  });
+
+  const getFlow = () => {
+    const flow = ["MAIN"];
+    if (services.includes("marke")) flow.push("ADDON_MARKE");
+    if (services.includes("website")) flow.push("ADDON_WEBSITE");
+    if (services.includes("ki")) flow.push("ADDON_KI");
+    if (services.includes("social")) flow.push("ADDON_SOCIAL");
+    flow.push("MAINTENANCE");
+    flow.push("CONTACT");
+    return flow;
   };
 
-  const toggleSub = (catId: CategoryId, subId: string) => {
-    setSelectedSubs((prev) => {
-      const current = prev[catId] ?? [];
-      return {
-        ...prev,
-        [catId]: current.includes(subId)
-          ? current.filter((s) => s !== subId)
-          : [...current, subId],
-      };
-    });
-  };
+  const flow = getFlow();
+  const [flowIndex, setFlowIndex] = useState(0);
+  const currentStage = flow[flowIndex] || "MAIN";
 
-  const currentCat = CATEGORIES.find((c) => c.id === selectedCategories[catStep]);
-  const currentSubsSelected = currentCat ? (selectedSubs[currentCat.id] ?? []).length > 0 : false;
-  const isLastCat = catStep >= selectedCategories.length - 1;
-
-  // Pricing
-  const calculatedTotal = CATEGORIES.filter((c) => selectedCategories.includes(c.id)).reduce(
-    (sum, c) => sum + (c.price || 0),
-    0
-  );
-  const hasMonthly = CATEGORIES.some((c) => selectedCategories.includes(c.id) && c.monthly);
-
-  // Navigation Logic
-  const handleNext = () => {
-    if (step === 0 && selectedCategories.length > 0) {
-      setDir(1);
-      setCatStep(0);
-      setStep(1);
-    } else if (step === 1 && currentSubsSelected) {
-      if (isLastCat) {
-        setDir(1);
-        setStep(2);
-      } else {
-        setDir(1);
-        setCatStep((p) => p + 1);
-      }
+  const onNext = () => {
+    if (currentStage === "MAIN" && services.length === 0) return;
+    if (flowIndex < flow.length - 1) {
+      setDirection(1);
+      setFlowIndex(flowIndex + 1);
     }
   };
 
-  const handleBack = () => {
-    if (step === 1) {
-      if (catStep === 0) {
-        setDir(-1);
-        setStep(0);
-      } else {
-        setDir(-1);
-        setCatStep((p) => p - 1);
-      }
-    } else if (step === 2) {
-      setDir(-1);
-      setCatStep(selectedCategories.length - 1);
-      setStep(1);
+  const onPrev = () => {
+    if (flowIndex > 0) {
+      setDirection(-1);
+      setFlowIndex(flowIndex - 1);
     }
   };
 
-  const totalSteps = selectedCategories.length > 0 ? 2 + selectedCategories.length : 3;
-  const currentOverallStep = step === 0 ? 1 : step === 1 ? 2 + catStep : totalSteps;
-
-  const onSubmitForm = async (data: FormData) => {
+  const onSubmitForm = async (data: ContactForm) => {
     setStatus("loading");
-    await submitLead({
-      ...data,
-      categories: selectedCategories,
-      subOptions: Object.values(selectedSubs).flat(),
-      total: calculatedTotal
-    });
+    await new Promise((r) => setTimeout(r, 1200));
     setStatus("success");
   };
 
-  // Status vars
-  let isNextDisabled = false;
-  if (step === 0 && selectedCategories.length === 0) isNextDisabled = true;
-  if (step === 1 && !currentSubsSelected) isNextDisabled = true;
-  
-  if (status === "success") {
-    // SUCCESS SCREEN (Completely detached from funnel logic)
-    return (
-      <section className="bg-slate-50 py-12 sm:py-20 flex justify-center items-center font-sans tracking-tight" id="projekt-anfragen">
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white max-w-lg w-full mx-4 rounded-2xl shadow-2xl p-8 text-center border border-slate-100">
-          <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 size={40} className="text-emerald-500" />
-          </div>
-          <h3 className="text-2xl font-black text-slate-900 mb-3">Anfrage erfolgreich!</h3>
-          <p className="text-slate-500 mb-8 leading-relaxed">
-            Wir haben Ihre Konfiguration erhalten und melden uns in Kürze. 
-            Für den schnellsten Start können Sie direkt hier Ihren Termin im Kalender buchen:
-          </p>
-          <div className="w-full aspect-[4/3] bg-slate-50 border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center text-slate-400 gap-2">
-            <CalendarDays size={32} />
-            <span className="font-bold">Calendly Einbindung</span>
-          </div>
-        </motion.div>
-      </section>
-    );
-  }
+  const toggleService = (id: MainService) =>
+    setServices((prev) => prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]);
+
+  const toggleAddon = (key: keyof Addons) => setAddons((prev) => ({ ...prev, [key]: !prev[key] }));
+  const toggleMaintenance = (key: keyof Maintenance) => setMaintenance((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const isFormValid = isValid && currentStage === "CONTACT";
+  const canProceed = currentStage !== "MAIN" || services.length > 0;
+  const progressPercent = ((flowIndex + 1) / flow.length) * 100;
 
   return (
-    <section id="projekt-anfragen" className="bg-slate-50 py-12 sm:py-20 font-sans tracking-tight">
-      <div className="max-w-2xl mx-auto px-4 z-10 relative">
+    <section id="projekt-anfragen" className="bg-white py-16 sm:py-24 font-sans tracking-tight">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+        
+        {/* Section Header */}
+        <div className="text-center mb-12 sm:mb-16">
+          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
+            Interaktiver Kalkulator
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
+            Konfigurieren Sie Ihr <span className="text-indigo-600">Projekt.</span>
+          </h2>
+          <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Keine undurchsichtigen Angebote. Wählen Sie genau die Bausteine, die Sie für Ihre Skalierung benötigen und sehen Sie den Live-Preis in Echtzeit.
+          </p>
+        </div>
 
-        {/* The Quiz Container */}
-        <div className="bg-white rounded-2xl sm:rounded-[32px] shadow-2xl shadow-indigo-900/5 border border-slate-100 overflow-hidden relative flex flex-col min-h-[500px] sm:min-h-[550px]">
-          
-          {/* STATIC TOP BAR - Always visible, never scrolls */}
-          <div className="sticky top-0 w-full bg-white/90 backdrop-blur-md px-4 sm:px-8 py-4 sm:py-5 flex items-center justify-between border-b border-slate-100 z-50">
-            {/* Back Button Placeholder */}
-            <div className="w-12">
-              {step > 0 && (
-                <button onClick={handleBack} className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 hover:bg-slate-100 text-slate-500 transition-colors">
-                  <ArrowLeft size={18} />
-                </button>
-              )}
+        {status === "success" ? (
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white max-w-2xl mx-auto w-full rounded-[32px] p-8 md:p-12 text-center shadow-2xl border border-slate-100">
+            <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8 border border-emerald-200">
+              <CheckCircle2 size={48} className="text-emerald-600" />
             </div>
-
-            {/* Progress Bar (Dots) */}
-            <div className="flex-1 flex justify-center items-center gap-1.5 px-4">
-              {Array.from({ length: totalSteps }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    i + 1 === currentOverallStep ? "w-6 bg-indigo-600" : i + 1 < currentOverallStep ? "w-2 bg-indigo-300" : "w-2 bg-slate-100"
-                  }`}
-                />
-              ))}
-            </div>
-
-            {/* Price Badge */}
-            <div className="w-auto flex justify-end">
-              <div className="bg-indigo-50 border border-indigo-100 text-indigo-700 font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-full flex flex-col items-end leading-none">
-                <span className="text-[9px] uppercase tracking-wider opacity-60 mb-0.5">Budget ab</span>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-sm sm:text-base">{calculatedTotal.toLocaleString("de-DE")} €</span>
-                  {hasMonthly && <span className="text-[9px] sm:text-[10px] opacity-70">+mtl</span>}
-                </div>
+            <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">Anfrage erhalten!</h2>
+            <p className="text-slate-500 text-lg mb-10 leading-relaxed max-w-md mx-auto">
+              Wir haben Ihr System gespeichert und melden uns rasch mit dem Angebot bei Ihnen.
+            </p>
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+              <div className="flex items-center gap-3 justify-center mb-4 text-indigo-600">
+                <Calendar size={24} />
+                <span className="font-black">Kick-off direkt buchen</span>
+              </div>
+              <p className="text-slate-500 text-sm mb-6">Sichern Sie sich direkt einen Termin in unserem Kalender.</p>
+              <div className="border border-slate-200 bg-white rounded-xl h-20 flex items-center justify-center shadow-sm">
+                <span className="text-slate-400 font-semibold text-xs uppercase tracking-widest">Calendly-Embed</span>
               </div>
             </div>
-          </div>
-
-          {/* DYNAMIC CONTENT AREA - Centers the content */}
-          <div className="flex-1 flex flex-col p-5 sm:p-8 relative">
-            <AnimatePresence mode="wait" custom={dir}>
-
-              {/* ── STEP 0: Main Categories ────────────────── */}
-              {step === 0 && (
-                <motion.div
-                  key="s0"
-                  custom={dir}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full flex-1 flex flex-col"
-                >
-                  <div className="text-center mb-6 sm:mb-8">
-                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">Was ist Ihr Fokus?</h2>
-                    <p className="text-slate-500 text-sm">Wählen Sie einen oder mehrere Bereiche aus.</p>
+          </motion.div>
+        ) : (
+          <div className="bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-200/60 overflow-hidden flex flex-col lg:flex-row max-w-6xl mx-auto min-h-[650px]">
+            
+            {/* ── Left: Wizard Content ──────────────────────────────────────────── */}
+            <div className="flex-1 flex flex-col relative h-[650px] lg:h-auto overflow-hidden">
+              
+              {/* Internal Header */}
+              <div className="shrink-0 flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white/90 backdrop-blur-md z-20">
+                <div className="flex items-center gap-4 w-full">
+                  <div className="w-10">
+                    {flowIndex > 0 && (
+                      <button onClick={onPrev} className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-500 transition-colors">
+                        <ChevronLeft size={16} />
+                      </button>
+                    )}
                   </div>
-
-                  <div className="flex flex-col gap-2.5 sm:gap-3 flex-1 justify-center">
-                    {CATEGORIES.map((cat) => {
-                      const active = selectedCategories.includes(cat.id);
-                      return (
-                        <button
-                          key={cat.id}
-                          onClick={() => toggleCategory(cat.id)}
-                          className={`w-full flex items-center p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 transition-all duration-200 text-left ${
-                            active 
-                              ? "border-indigo-600 bg-indigo-50/50 shadow-sm" 
-                              : "border-slate-100 hover:border-slate-300 hover:bg-slate-50"
-                          }`}
-                        >
-                          <div className={`w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl shrink-0 transition-colors ${
-                            active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"
-                          }`}>
-                            {cat.icon}
-                          </div>
-                          <span className={`ml-4 flex-1 font-bold text-sm sm:text-base ${active ? "text-slate-900" : "text-slate-700"}`}>
-                            {cat.label}
-                          </span>
-                          <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors shrink-0 ${
-                            active ? "bg-indigo-600 border-indigo-600" : "border-slate-200 bg-white"
-                          }`}>
-                            {active && <Check size={12} className="text-white" strokeWidth={4} />}
-                          </div>
-                        </button>
-                      );
-                    })}
+                  <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-indigo-600 transition-all duration-500" style={{ width: `${progressPercent}%` }} />
                   </div>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest min-w-[32px] text-right">
+                    {flowIndex + 1}/{flow.length}
+                  </span>
+                </div>
+              </div>
 
-                  <button
-                    onClick={handleNext}
-                    disabled={isNextDisabled}
-                    className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold py-4 sm:py-4 rounded-xl sm:rounded-2xl transition-all flex justify-center items-center gap-2 text-base shadow-lg shadow-indigo-600/20 disabled:shadow-none"
-                  >
-                    Weiter <ArrowRight size={18} />
+              {/* Scrollable Content Container */}
+              <div className="flex-1 overflow-x-hidden overflow-y-auto px-6 py-8 sm:px-10 lg:px-16" id="funnel-scroll-container">
+                <AnimatePresence mode="wait" custom={direction}>
+                  
+                  {currentStage === "MAIN" && (
+                    <motion.div key="main" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 sm:space-y-8 pb-4">
+                      <div>
+                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 mb-2">Was benötigt Ihr Unternehmen?</h1>
+                        <p className="text-slate-500 text-sm">Mehrfachauswahl möglich. Preise entstehen live.</p>
+                      </div>
+                      <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4">
+                        {MAIN_SERVICES.map((srv) => {
+                          const active = services.includes(srv.id);
+                          return (
+                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-4 sm:p-5 rounded-2xl border-2 transition-all flex flex-col gap-3 ${active ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white"}`}>
+                              <div className="flex items-start justify-between">
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
+                                <div className={`w-6 h-6 rounded-md flex items-center justify-center border-2 ${active ? "bg-indigo-600 border-indigo-600" : "border-slate-300"}`}>{active && <Check size={14} className="text-white" strokeWidth={3} />}</div>
+                              </div>
+                              <div>
+                                <p className="font-bold text-slate-900">{srv.label}</p>
+                                <p className="text-[10px] sm:text-xs font-bold text-indigo-600 mt-0.5 uppercase">{srv.price}</p>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {currentStage === "ADDON_MARKE" && (
+                     <motion.div key="marke" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Palette size={12} /> Marke</div>
+                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Welche Details?</h1>
+                       <div className="space-y-3">
+                         <ToggleCard label="Premium Re-Branding" sublabel="+ 1.500 €" desc="Komplette Neuentwicklung der Markenidentität." checked={addons.marke_premium_rebranding} onToggle={() => toggleAddon("marke_premium_rebranding")} />
+                         <ToggleCard label="Geschäftsausstattung" sublabel="+ 500 €" desc="Visitenkarten, Briefpapier & Mailsignaturen." checked={addons.marke_geschaeftsausstattung} onToggle={() => toggleAddon("marke_geschaeftsausstattung")} />
+                       </div>
+                     </motion.div>
+                  )}
+
+                  {currentStage === "ADDON_WEBSITE" && (
+                    <motion.div key="website" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Globe size={12} /> Website</div>
+                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Website Power-Ups</h1>
+                       <div className="space-y-3">
+                         <ToggleCard label="Premium Copywriting" sublabel="+ 500 €" desc="Verkaufspsychologische Texte für maximale Conversion." checked={addons.website_texte} onToggle={() => toggleAddon("website_texte")} />
+                         <ToggleCard label="Tech SEO & On-Page" sublabel="+ 500 €" desc="Besseres initiales Google-Ranking durch Setup." checked={addons.website_seo} onToggle={() => toggleAddon("website_seo")} />
+                         <ToggleCard label="Recruiting-System" sublabel="+ 500 €" desc="Eigene Karrierepage für einfaches Bewerber-Management." checked={addons.website_recruiting} onToggle={() => toggleAddon("website_recruiting")} />
+                       </div>
+                    </motion.div>
+                  )}
+
+                  {currentStage === "ADDON_KI" && (
+                    <motion.div key="ki" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Zap size={12} /> KI Systeme</div>
+                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Was automatisieren?</h1>
+                       <div className="space-y-3">
+                         <ToggleCard label="Smarte Lead-Erfassung" sublabel="+ 500 €" desc="CRM Anbindung & Auto-Mails." checked={addons.ki_lead_erfassung} onToggle={() => toggleAddon("ki_lead_erfassung")} />
+                         <ToggleCard label="KI-Chatbot 24/7" sublabel="+ 500 €" desc="Beantwortet Support-Fragen Ihrer Kunden." checked={addons.ki_chatbot} onToggle={() => toggleAddon("ki_chatbot")} />
+                         <ToggleCard label="Bewertungs-Maschine" sublabel="+ 250 €" desc="Fängst automatisiert 5-Sterne Reviews ab." checked={addons.ki_bewertung} onToggle={() => toggleAddon("ki_bewertung")} />
+                       </div>
+                    </motion.div>
+                  )}
+
+                  {currentStage === "ADDON_SOCIAL" && (
+                    <motion.div key="social" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Video size={12} /> Social</div>
+                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Sichtbarkeit Details</h1>
+                       <div className="space-y-3">
+                         <ToggleCard label="Social Management" sublabel="+ 250 €" isMonthly desc="Laufende Pflege & Posting Ihres Contents." checked={addons.social_management} onToggle={() => toggleAddon("social_management")} />
+                         <ToggleCard label="Strategie Workshop" sublabel="+ 1.000 €" desc="Wir erarbeiten Ihren viralen Masterplan." checked={addons.social_workshop} onToggle={() => toggleAddon("social_workshop")} />
+                         <ToggleCard label="Reel-/Videoproduktion" sublabel="+ 500 €" desc="Professioneller Schnitt & Drehtag." checked={addons.social_video} onToggle={() => toggleAddon("social_video")} />
+                       </div>
+                    </motion.div>
+                  )}
+
+                  {currentStage === "MAINTENANCE" && (
+                    <motion.div key="maintenance" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-black text-[10px] uppercase mb-1"><ShieldCheck size={12} /> Betreuung</div>
+                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Laufender Support</h1>
+                       <div className="space-y-3">
+                         <ToggleCard label="Premium-Hosting" sublabel="+ 100 €" isMonthly desc="Backups, Sicherheitsupdates & superschnelle Ladezeiten." checked={maintenance.hosting} onToggle={() => toggleMaintenance("hosting")} />
+                         <ToggleCard label="Local SEO" sublabel="+ 150 €" isMonthly desc="Google Map Dominanz und Reichweite in der Region." checked={maintenance.local_seo} onToggle={() => toggleMaintenance("local_seo")} />
+                       </div>
+                    </motion.div>
+                  )}
+
+                  {currentStage === "CONTACT" && (
+                    <motion.div key="contact" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
+                      <div className="mb-6">
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Letzter Schritt.</h1>
+                        <p className="text-slate-500 text-sm mt-2">Ihre Kontaktdaten für das kostenlose Strategie-Gespräch.</p>
+                      </div>
+                      <form id="contact-form-homepage" onSubmit={handleSubmit(onSubmitForm)} className="space-y-4">
+                        <input {...register("name")} placeholder="Ihr Name *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.name ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
+                        <input {...register("company")} placeholder="Ihr Unternehmen *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.company ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
+                        <input {...register("email")} type="email" placeholder="Geschäftliche E-Mail *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.email ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
+                        <input {...register("phone")} type="tel" placeholder="Telefon (optional)" className="w-full px-5 py-4 rounded-xl bg-white border-2 border-slate-200 focus:border-indigo-600 text-base shadow-sm" />
+                      </form>
+                    </motion.div>
+                  )}
+
+                </AnimatePresence>
+              </div>
+
+              {/* Mobile Embedded Bottom Action Bar (Fixed INSIDE the card) */}
+              <div className="shrink-0 bg-white/90 backdrop-blur-xl border-t border-slate-200 px-5 sm:px-8 py-4 flex items-center justify-between z-20 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
+                <div className="flex flex-col lg:hidden">
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Investment</span>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none">ab {setup.toLocaleString()} €</span>
+                  </div>
+                </div>
+                
+                <div className="hidden lg:block text-slate-400 text-xs font-medium">
+                  {currentStage === "CONTACT" ? "Bereit zum Absenden" : "Wählen Sie Ihre Bausteine"}
+                </div>
+
+                {currentStage !== "CONTACT" ? (
+                  <button onClick={() => { onNext(); document.getElementById('funnel-scroll-container')?.scrollTo(0,0); }} disabled={!canProceed} className="flex items-center gap-2 bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold transition-all shadow-md">
+                    Weiter <ArrowRight size={16}/>
                   </button>
-                </motion.div>
-              )}
-
-
-              {/* ── STEP 1: Details for selected Category ──── */}
-              {step === 1 && currentCat && (
-                <motion.div
-                  key={`s1-${currentCat.id}`}
-                  custom={dir}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full flex-1 flex flex-col"
-                >
-                  <div className="text-center mb-6 sm:mb-8">
-                    <div className="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                      {currentCat.icon}
-                    </div>
-                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">{currentCat.label}</h2>
-                    <p className="text-slate-500 text-sm">Wobei genau brauchen Sie hier Unterstützung?</p>
-                  </div>
-
-                  <div className="flex flex-col gap-2.5 sm:gap-3 flex-1 justify-center">
-                    {currentCat.subOptions.map((sub) => {
-                      const active = (selectedSubs[currentCat.id] ?? []).includes(sub.id);
-                      return (
-                        <button
-                          key={sub.id}
-                          onClick={() => toggleSub(currentCat.id, sub.id)}
-                          className={`w-full flex items-center p-4 rounded-xl sm:rounded-2xl border-2 transition-all duration-200 text-left ${
-                            active 
-                              ? "border-indigo-600 bg-indigo-50/50" 
-                              : "border-slate-100 hover:border-slate-300 hover:bg-slate-50"
-                          }`}
-                        >
-                          <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-colors shrink-0 ${
-                            active ? "bg-indigo-600 border-indigo-600" : "border-slate-200 bg-white"
-                          }`}>
-                            {active && <Check size={12} className="text-white" strokeWidth={4} />}
-                          </div>
-                          <span className={`ml-4 flex-1 font-bold text-sm sm:text-base ${active ? "text-slate-900" : "text-slate-700"}`}>
-                            {sub.label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <button
-                    onClick={handleNext}
-                    disabled={isNextDisabled}
-                    className="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-bold py-4 rounded-xl sm:rounded-2xl transition-all flex justify-center items-center gap-2 text-base shadow-lg shadow-indigo-600/20 disabled:shadow-none"
-                  >
-                    {isLastCat ? "Kontaktdaten eingeben" : "Zum nächsten Schritt"} <ArrowRight size={18} />
+                ) : (
+                   <button type="submit" form="contact-form-homepage" disabled={!isFormValid || status === "loading"} className="flex items-center gap-2 bg-slate-900 disabled:bg-slate-200 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md">
+                    {status === "loading" ? <Loader2 className="animate-spin" size={16}/> : "Absenden"}
                   </button>
-                </motion.div>
-              )}
+                )}
+              </div>
+            </div>
 
-
-              {/* ── STEP 2: Form ───────────────────────────── */}
-              {step === 2 && (
-                <motion.div
-                  key="s2"
-                  custom={dir}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-full flex-1 flex flex-col"
-                >
-                  <div className="text-center mb-6 sm:mb-8">
-                    <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2">Fast geschafft!</h2>
-                    <p className="text-slate-500 text-sm">Wohin dürfen wir die Auswertung senden?</p>
+            {/* ── Right: Live Cost Tracker (Desktop Only) ──────────────────────── */}
+            <div className="hidden lg:flex w-[340px] xl:w-[400px] flex-col bg-slate-50 border-l border-slate-200">
+               <div className="p-8 xl:p-10 flex-1">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-white shadow-sm mb-10">
+                    <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Live-Kalkulation</span>
                   </div>
 
-                  <form onSubmit={handleSubmit(onSubmitForm)} className="flex flex-col flex-1 justify-center max-w-sm w-full mx-auto" noValidate>
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Name</label>
-                        <input
-                          {...register("name")}
-                          placeholder="Max Mustermann"
-                          className={`w-full bg-slate-50 border-2 rounded-xl sm:rounded-2xl px-5 py-4 text-base text-slate-900 placeholder-slate-400 outline-none transition-all ${
-                            errors.name ? "border-rose-300 focus:border-rose-500 bg-rose-50" : "border-transparent focus:border-indigo-600 focus:bg-white"
-                          }`}
-                        />
-                      </div>
-                      
-                      <div>
-                        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">E-Mail</label>
-                        <input
-                          {...register("email")}
-                          type="email"
-                          placeholder="hallo@unternehmen.de"
-                          className={`w-full bg-slate-50 border-2 rounded-xl sm:rounded-2xl px-5 py-4 text-base text-slate-900 placeholder-slate-400 outline-none transition-all ${
-                            errors.email ? "border-rose-300 focus:border-rose-500 bg-rose-50" : "border-transparent focus:border-indigo-600 focus:bg-white"
-                          }`}
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5 ml-1">Telefonnummer <span className="opacity-50">(optional)</span></label>
-                        <input
-                          {...register("phone")}
-                          type="tel"
-                          placeholder="+49 123 ..."
-                          className="w-full bg-slate-50 border-2 rounded-xl sm:rounded-2xl px-5 py-4 text-base text-slate-900 placeholder-slate-400 border-transparent focus:border-indigo-600 focus:bg-white outline-none transition-all"
-                        />
-                      </div>
+                  <div className="space-y-6">
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Setup</p>
+                      <motion.p key={setup} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-4xl xl:text-5xl font-black text-slate-900 tracking-tighter">
+                        {setup === 0 ? "—" : `${setup.toLocaleString("de-DE")} €`}
+                      </motion.p>
                     </div>
 
-                    <p className="text-[11px] text-center text-slate-400 mt-6 leading-relaxed">
-                      Unverbindliche Anfrage. Ihre Daten werden 100% DSGVO-konform behandelt.
-                    </p>
+                    {monthly > 0 && (
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                        <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Monatlich</p>
+                        <p className="text-3xl font-black text-amber-600 tracking-tighter">
+                          {monthly.toLocaleString("de-DE")} €
+                        </p>
+                      </motion.div>
+                    )}
+                  </div>
 
-                    <button
-                      type="submit"
-                      disabled={!isValid || status === "loading"}
-                      className="w-full mt-4 bg-slate-900 hover:bg-black disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold py-4 rounded-xl sm:rounded-2xl transition-all flex justify-center items-center gap-2 text-base shadow-lg shadow-slate-900/20 disabled:shadow-none disabled:cursor-not-allowed"
-                    >
-                      {status === "loading" ? (
-                        <><Loader2 size={18} className="animate-spin" /> Auswerten ...</>
-                      ) : (
-                        <><CheckCircle2 size={18} /> Projektanfrage absenden</>
-                      )}
-                    </button>
-                  </form>
-                </motion.div>
-              )}
+                   <div className="mt-12 pt-8 border-t border-slate-200">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-5">Beinhaltet</p>
+                    {services.length === 0 && <p className="text-sm text-slate-400">Noch nichts gewählt.</p>}
+                    <div className="space-y-3.5">
+                      {services.map((s) => (
+                        <div key={s} className="flex items-start gap-3">
+                          <Check size={16} className="text-indigo-600 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm font-bold text-slate-800">{MAIN_SERVICES.find((m) => m.id === s)?.label}</span>
+                        </div>
+                      ))}
+                      {/* Short list of addons */}
+                      {(Object.keys(addons) as (keyof Addons)[]).filter(k => addons[k]).map((key) => (
+                          <div key={key} className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-slate-300 flex-shrink-0 mt-1.5 ml-1" />
+                            <span className="text-xs font-medium text-slate-600">Add-on aktiviert</span>
+                          </div>
+                      ))}
+                    </div>
+                  </div>
+               </div>
+            </div>
 
-            </AnimatePresence>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
