@@ -82,7 +82,7 @@ export const AiCloserSimulation = () => {
                       key={m.id}
                       initial={{ opacity: 0, scale: 0.95, y: 10, x: m.sender === 'user' ? 20 : -20 }}
                       animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
-                      className={`max-w-[85%] p-4 rounded-2xl text-sm md:text-base leading-relaxed font-medium ${
+                      className={`max-w-[85%] p-4 rounded-md text-sm md:text-base leading-relaxed font-medium ${
                         m.sender === 'user' 
                           ? 'self-end bg-indigo-600 text-white rounded-br-sm shadow-lg shadow-indigo-900/20' 
                           : 'self-start bg-white border border-slate-200 shadow-sm text-slate-700 rounded-bl-sm'

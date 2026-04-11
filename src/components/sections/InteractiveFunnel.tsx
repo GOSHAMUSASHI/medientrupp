@@ -114,7 +114,7 @@ interface ToggleCardProps {
 const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: ToggleCardProps) => (
   <div
     onClick={onToggle}
-    className={`cursor-pointer p-4 md:p-5 rounded-2xl border-2 transition-all duration-200 flex items-start gap-3 sm:gap-4 ${
+    className={`cursor-pointer p-4 md:p-5 rounded-md border-2 transition-all duration-200 flex items-start gap-3 sm:gap-4 ${
       checked
         ? "border-indigo-600 bg-indigo-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
         : "border-slate-200 hover:border-indigo-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
@@ -235,19 +235,19 @@ export const InteractiveFunnel = () => {
             <p className="text-slate-500 text-lg mb-10 leading-relaxed max-w-md mx-auto">
               Wir haben Ihr System gespeichert und melden uns rasch mit dem Angebot bei Ihnen.
             </p>
-            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+            <div className="bg-slate-50 border border-slate-200 rounded-md p-6 sm:p-8">
               <div className="flex items-center gap-3 justify-center mb-4 text-indigo-600">
                 <Calendar size={24} />
                 <span className="font-black">Kick-off direkt buchen</span>
               </div>
               <p className="text-slate-500 text-sm mb-6">Sichern Sie sich direkt einen Termin in unserem Kalender.</p>
-              <div className="border border-slate-200 bg-white rounded-xl h-20 flex items-center justify-center shadow-sm">
+              <div className="border border-slate-200 bg-white rounded-md h-20 flex items-center justify-center shadow-sm">
                 <span className="text-slate-400 font-semibold text-xs uppercase tracking-widest">Calendly-Embed</span>
               </div>
             </div>
           </motion.div>
         ) : (
-          <div className="bg-white rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-200/60 overflow-hidden flex flex-col lg:flex-row max-w-6xl mx-auto min-h-[650px]">
+          <div className="bg-white rounded-md shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-200/60 overflow-hidden flex flex-col lg:flex-row max-w-6xl mx-auto min-h-[650px]">
             
             {/* ── Left: Wizard Content ──────────────────────────────────────────── */}
             <div className="flex-1 flex flex-col relative h-[650px] lg:h-auto overflow-hidden">
@@ -285,9 +285,9 @@ export const InteractiveFunnel = () => {
                         {MAIN_SERVICES.map((srv) => {
                           const active = services.includes(srv.id);
                           return (
-                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-4 sm:p-5 rounded-2xl border-2 transition-all flex flex-col gap-3 ${active ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white"}`}>
+                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-4 sm:p-5 rounded-md border-2 transition-all flex flex-col gap-3 ${active ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white"}`}>
                               <div className="flex items-start justify-between">
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
+                                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
                                 <div className={`w-6 h-6 rounded-md flex items-center justify-center border-2 ${active ? "bg-indigo-600 border-indigo-600" : "border-slate-300"}`}>{active && <Check size={14} className="text-white" strokeWidth={3} />}</div>
                               </div>
                               <div>
@@ -365,20 +365,33 @@ export const InteractiveFunnel = () => {
                         <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Letzter Schritt.</h1>
                         <p className="text-slate-500 text-sm mt-2">Ihre Kontaktdaten für das kostenlose Strategie-Gespräch.</p>
                       </div>
-                      <form id="contact-form-homepage" onSubmit={handleSubmit(onSubmitForm)} className="space-y-4">
-                        <input {...register("name")} placeholder="Ihr Name *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.name ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
-                        <input {...register("company")} placeholder="Ihr Unternehmen *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.company ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
-                        <input {...register("email")} type="email" placeholder="Geschäftliche E-Mail *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.email ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
-                        <input {...register("phone")} type="tel" placeholder="Telefon (optional)" className="w-full px-5 py-4 rounded-xl bg-white border-2 border-slate-200 focus:border-indigo-600 text-base shadow-sm" />
-                        <div className="flex items-start gap-3 px-1 py-1">
-                          <div className="pt-1">
-                            <input type="checkbox" id="gdpr-home" {...register("gdpr")} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer" />
-                          </div>
-                          <label htmlFor="gdpr-home" className="text-[11px] text-slate-500 leading-snug cursor-pointer">
-                            Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert werden. Details in der <a href="/datenschutz" className="text-indigo-600 hover:underline">Datenschutzerklärung</a>. *
-                          </label>
+                      <form id="contact-form-homepage" onSubmit={handleSubmit(onSubmitForm)} className="space-y-2">
+                        <div className="h-[84px]">
+                          <input {...register("name")} placeholder="Ihr Name *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.name ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
+                          {errors.name && <p className="text-rose-500 text-[11px] font-bold mt-1 px-1">{errors.name.message}</p>}
                         </div>
-                        {errors.gdpr && <p className="text-rose-500 text-[10px] font-bold uppercase tracking-wider px-1">{errors.gdpr.message}</p>}
+                        <div className="h-[84px]">
+                          <input {...register("company")} placeholder="Ihr Unternehmen *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.company ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
+                          {errors.company && <p className="text-rose-500 text-[11px] font-bold mt-1 px-1">{errors.company.message}</p>}
+                        </div>
+                        <div className="h-[84px]">
+                          <input {...register("email")} type="email" placeholder="Geschäftliche E-Mail *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.email ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
+                          {errors.email && <p className="text-rose-500 text-[11px] font-bold mt-1 px-1">{errors.email.message}</p>}
+                        </div>
+                        <div className="h-[84px]">
+                          <input {...register("phone")} type="tel" placeholder="Telefon (optional)" className="w-full px-5 py-4 rounded-md bg-white border-2 border-slate-200 focus:border-indigo-600 text-base shadow-sm transition-colors" />
+                        </div>
+                        <div className="min-h-[60px]">
+                          <div className="flex items-start gap-3 px-1 py-1">
+                            <div className="pt-1">
+                              <input type="checkbox" id="gdpr-home" {...register("gdpr")} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer" />
+                            </div>
+                            <label htmlFor="gdpr-home" className="text-[11px] text-slate-500 leading-snug cursor-pointer">
+                              Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert werden. Details in der <a href="/datenschutz" className="text-indigo-600 hover:underline">Datenschutzerklärung</a>. *
+                            </label>
+                          </div>
+                          {errors.gdpr && <p className="text-rose-500 text-[10px] font-bold uppercase tracking-wider px-1 mt-1">{errors.gdpr.message}</p>}
+                        </div>
                       </form>
                     </motion.div>
                   )}
@@ -400,11 +413,11 @@ export const InteractiveFunnel = () => {
                 </div>
 
                 {currentStage !== "CONTACT" ? (
-                  <button onClick={() => { onNext(); document.getElementById('funnel-scroll-container')?.scrollTo(0,0); }} disabled={!canProceed} className="flex items-center gap-2 bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-xl font-bold transition-all shadow-md">
+                  <button onClick={() => { onNext(); document.getElementById('funnel-scroll-container')?.scrollTo(0,0); }} disabled={!canProceed} className="flex items-center gap-2 bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-md font-bold transition-all shadow-md">
                     Weiter <ArrowRight size={16}/>
                   </button>
                 ) : (
-                   <button type="submit" form="contact-form-homepage" disabled={!isFormValid || status === "loading"} className="flex items-center gap-2 bg-slate-900 disabled:bg-slate-200 text-white px-8 py-3.5 rounded-xl font-bold transition-all shadow-md">
+                   <button type="submit" form="contact-form-homepage" disabled={!isFormValid || status === "loading"} className="flex items-center gap-2 bg-slate-900 disabled:bg-slate-200 text-white px-8 py-3.5 rounded-md font-bold transition-all shadow-md">
                     {status === "loading" ? <Loader2 className="animate-spin" size={16}/> : "Absenden"}
                   </button>
                 )}

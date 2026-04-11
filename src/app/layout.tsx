@@ -12,23 +12,37 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Medientrupp — Digitale Systeme für den Mittelstand",
+  title: {
+    template: "%s | Medientrupp",
+    default: "Medientrupp | Digitale Systeme für den Mittelstand",
+  },
   description:
-    "Medientrupp baut digitale Lösungen für den deutschen Mittelstand. Websites, KI-Automatisierung, Markendesign — zu transparenten Festpreisen.",
+    "Medientrupp baut maßgeschneiderte digitale Vertriebsmaschinen. Premium Websites, KI-Automatisierung und Markendesign für den deutschen Mittelstand zu transparenten Festpreisen.",
   keywords: [
     "Digitalagentur",
-    "Mittelstand",
-    "Website",
+    "B2B Webdesign",
     "KI Automatisierung",
-    "Webdesign",
-    "Deutschland",
+    "Leadgenerierung",
+    "Website Relaunch",
+    "Premium Branding",
+    "Mittelstand Digitalisierung"
   ],
   openGraph: {
-    title: "Medientrupp — Digitale Systeme für den Mittelstand",
-    description:
-      "Digitale Lösungen für den deutschen Mittelstand. Festpreise. Schnelle Umsetzung.",
-    locale: "de_DE",
+    title: "Medientrupp | Digitale Systeme für den Mittelstand",
+    description: "Medientrupp baut maßgeschneiderte digitale Vertriebsmaschinen. Premium Websites, KI-Automatisierung und Markendesign für den deutschen Mittelstand.",
     type: "website",
+    locale: "de_DE",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Medientrupp Vorschau Bild",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 

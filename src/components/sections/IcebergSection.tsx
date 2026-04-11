@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, EyeOff, Code, Layers, MousePointerClick, Share2, Bot, Database, Workflow, LineChart } from "lucide-react";
+import { Eye, EyeOff, Layers, MousePointerClick, Share2, Bot, Database, Workflow, LineChart } from "lucide-react";
 
 export const IcebergSection = () => {
   const [isVisible, setIsVisible] = useState(true);

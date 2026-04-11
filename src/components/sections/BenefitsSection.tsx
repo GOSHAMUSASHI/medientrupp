@@ -62,15 +62,24 @@ export const BenefitsSection = () => {
           </motion.div>
 
           {/* Right: Benefit Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+              hidden: { opacity: 0 }
+            }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+          >
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`bg-white border border-slate-200 shadow-xl shadow-slate-200/50 p-6 rounded-lg h-full flex flex-col ${
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+                }}
+                className={`bg-white border border-slate-200 shadow-xl shadow-slate-200/50 p-6 rounded-md h-full flex flex-col hover:-translate-y-1 transition-transform duration-300 ${
                   index === 2 ? "sm:col-span-2" : ""
                 }`}
               >
@@ -83,7 +92,7 @@ export const BenefitsSection = () => {
                 </p>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
 
         </div>
       </div>

@@ -96,7 +96,7 @@ export default function AnfragenPage() {
                         <div 
                           key={item.name}
                           onClick={() => toggleSelection(item.name)}
-                          className={`cursor-pointer p-5 border-2 rounded-xl transition-all duration-200 flex flex-col gap-2 ${
+                          className={`cursor-pointer p-5 border-2 rounded-md transition-all duration-200 flex flex-col gap-2 ${
                             isActive ? "border-indigo-600 bg-indigo-50/30" : "border-slate-100 hover:border-indigo-300"
                           }`}
                         >
@@ -201,7 +201,7 @@ export default function AnfragenPage() {
                       <div 
                         key={m.id}
                         onClick={() => setMaintenance(m.id as "nein"|"basis"|"premium")}
-                        className={`cursor-pointer p-5 border-2 rounded-xl transition-all flex justify-between items-center ${
+                        className={`cursor-pointer p-5 border-2 rounded-md transition-all flex justify-between items-center ${
                           maintenance === m.id ? "border-indigo-600 bg-indigo-50/30" : "border-slate-100 hover:border-indigo-200"
                         }`}
                       >

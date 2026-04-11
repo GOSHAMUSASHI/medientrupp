@@ -167,7 +167,7 @@ export default function LeistungenPage() {
                     {/* Image / Placeholder (Glassmorphism) */}
                     <div className="flex-1 w-full relative group">
                       <div className="absolute inset-0 bg-indigo-500/5 blur-3xl -z-10 transition-opacity duration-500 group-hover:bg-indigo-500/10"></div>
-                      <div className="aspect-[4/3] rounded-[2rem] bg-slate-100/80 backdrop-blur-sm border border-slate-200/60 overflow-hidden shadow-2xl shadow-slate-200/50 flex flex-col items-center justify-center relative transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-indigo-500/10">
+                      <div className="aspect-[4/3] rounded-md bg-slate-100/80 backdrop-blur-sm border border-slate-200/60 overflow-hidden shadow-2xl shadow-slate-200/50 flex flex-col items-center justify-center relative transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-indigo-500/10">
                          <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent z-10 pointer-events-none" />
                          <span className="text-slate-400 font-bold uppercase tracking-widest text-sm z-20 bg-white/80 px-6 py-3 rounded-md shadow-sm backdrop-blur-md">Screenshot / Demo</span>
                       </div>

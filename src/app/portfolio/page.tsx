@@ -80,7 +80,7 @@ export default function PortfolioPage() {
                 className="group flex flex-col h-full cursor-pointer"
               >
                 {/* Visual Placeholder for Mockups */}
-                <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden mb-8 shadow-xl shadow-slate-200/50 border border-slate-200 bg-white">
+                <div className="relative aspect-[4/3] rounded-md overflow-hidden mb-8 shadow-xl shadow-slate-200/50 border border-slate-200 bg-white">
                   {/* Subtle Background Glow per project */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-40 z-0`}></div>
                   

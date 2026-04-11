@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Play, ShieldCheck, Tag, Zap } from "lucide-react";
+import { ArrowRight, ShieldCheck, Tag, Zap } from "lucide-react";
 import Link from "next/link";
 
 // ── Dashboard KPI data ──────────────────────────────────────────────────────
@@ -198,7 +198,7 @@ export const HeroSection = () => {
             </div>
 
             {/* H1 */}
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 leading-[1.05] mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-slate-900 leading-[1.05] mb-6">
               Mehr Kunden.{" "}
               <span
                 className="relative inline-block"
@@ -221,7 +221,7 @@ export const HeroSection = () => {
                   />
                 </svg>
               </span>
-              <br />Vollautomatisch.
+              <br />Voll&shy;auto&shy;ma&shy;tisch.
             </h1>
 
             {/* Sub-copy */}
