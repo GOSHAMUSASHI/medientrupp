@@ -19,14 +19,14 @@ export const ComparisonSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto">
           {/* Card 1: Klassische Agentur */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="rounded-2xl p-8 sm:p-10 bg-slate-800 border border-slate-700 shadow-xl"
+            className="rounded-md p-8 sm:p-10 bg-slate-800 border border-slate-700 shadow-xl"
           >
             <h3 className="text-xl font-bold text-slate-300 mb-2">Klassische Agentur</h3>
             <p className="text-slate-400 text-sm mb-8">
@@ -55,9 +55,9 @@ export const ComparisonSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative rounded-2xl p-8 sm:p-10 bg-slate-800/80 backdrop-blur-md border-2 border-indigo-500 shadow-2xl shadow-indigo-500/20"
+            className="relative rounded-md p-8 sm:p-10 bg-slate-800/80 backdrop-blur-md border-2 border-indigo-500 shadow-2xl shadow-indigo-500/20"
           >
-            <div className="absolute top-0 right-8 -translate-y-1/2 bg-indigo-600 text-white text-xs font-bold tracking-wider uppercase py-1.5 px-4 rounded-full">
+            <div className="absolute top-0 right-8 -translate-y-1/2 bg-indigo-600 text-white text-xs font-bold tracking-wider uppercase py-1.5 px-4 rounded-md">
               Empfohlen
             </div>
             <h3 className="text-2xl font-black text-white mb-2">Medientrupp Variante</h3>
@@ -74,7 +74,7 @@ export const ComparisonSection = () => {
                 "Nahtlose KI-Integration & Workflows",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="bg-indigo-500/20 rounded-full p-1 shrink-0 mt-0.5">
+                  <div className="bg-indigo-500/20 rounded-md p-1 shrink-0 mt-0.5">
                     <Check size={14} className="text-indigo-400 font-bold" />
                   </div>
                   <span className="text-indigo-50 font-medium">{item}</span>

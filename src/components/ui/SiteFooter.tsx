@@ -1,8 +1,15 @@
 "use client";
 
 import { ArrowRight, Mail, Phone, MapPin } from "lucide-react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export const SiteFooter = () => {
+  const pathname = usePathname();
+  if (pathname === "/projekt-anfragen" || pathname === "/anfragen") {
+    return null;
+  }
+
   return (
     <footer className="bg-white text-slate-600 pt-20 pb-10 border-t border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,14 +17,14 @@ export const SiteFooter = () => {
           
           {/* Brand & Info */}
           <div className="col-span-1 lg:col-span-1">
-            <a href="#" className="flex items-center gap-2 mb-6">
+            <Link href="/" className="flex items-center gap-2 mb-6">
               <div className="w-8 h-8 bg-indigo-600 rounded flex items-center justify-center">
                 <span className="text-white font-black text-sm">MT</span>
               </div>
               <span className="font-extrabold text-xl tracking-tight text-slate-900">
                 Medientrupp
               </span>
-            </a>
+            </Link>
             <p className="text-sm text-slate-500 mb-6 leading-relaxed">
               Digitale Systeme für den deutschen Mittelstand. Performance, Automatisierung und Design aus einer Hand.
             </p>
@@ -41,11 +48,11 @@ export const SiteFooter = () => {
           <div>
             <h4 className="text-slate-900 font-bold mb-6">Agentur</h4>
             <ul className="flex flex-col gap-4 text-sm">
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Über uns</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Portfolio & Cases</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Unser Prozess</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Karriere</a></li>
-              <li><a href="#konfigurator" className="hover:text-indigo-600 transition-colors font-semibold text-slate-900">Projekt berechnen</a></li>
+              <li><Link href="/ueber-uns" className="hover:text-indigo-600 transition-colors">Über uns</Link></li>
+              <li><Link href="/portfolio" className="hover:text-indigo-600 transition-colors">Portfolio & Cases</Link></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Unser Prozess</Link></li>
+              <li><a href="/ueber-uns" className="hover:text-indigo-600 transition-colors">Karriere</a></li>
+              <li><Link href="/projekt-anfragen" className="hover:text-indigo-600 transition-colors font-semibold text-slate-900">Projekt berechnen</Link></li>
             </ul>
           </div>
 
@@ -53,11 +60,11 @@ export const SiteFooter = () => {
           <div>
             <h4 className="text-slate-900 font-bold mb-6">Leistungen</h4>
             <ul className="flex flex-col gap-4 text-sm">
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Marke & Design</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Websites & Portale</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">KI & Automatisierung</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Video & Social Media</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Laufende Betreuung</a></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Marke & Design</Link></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Websites & Portale</Link></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">KI & Automatisierung</Link></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Video & Social Media</Link></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Laufende Betreuung</Link></li>
             </ul>
           </div>
 
@@ -71,12 +78,12 @@ export const SiteFooter = () => {
               <input 
                 type="email" 
                 placeholder="E-Mail Adresse" 
-                className="bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-indigo-600 text-slate-900"
+                className="bg-white border border-slate-200 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-indigo-600 text-slate-900"
                 required
               />
               <button 
                 type="button"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-4 py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors"
               >
                 Kostenlos abonnieren <ArrowRight size={16} />
               </button>
@@ -91,9 +98,9 @@ export const SiteFooter = () => {
             &copy; {new Date().getFullYear()} Medientrupp. Alle Rechte vorbehalten.
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-slate-900 transition-colors">Impressum</a>
-            <a href="#" className="hover:text-slate-900 transition-colors">Datenschutz</a>
-            <a href="#" className="hover:text-slate-900 transition-colors">AGB</a>
+            <Link href="/impressum" className="hover:text-slate-900 transition-colors">Impressum</Link>
+            <Link href="/datenschutz" className="hover:text-slate-900 transition-colors">Datenschutz</Link>
+            <Link href="/agb" className="hover:text-slate-900 transition-colors">AGB</Link>
           </div>
         </div>
       </div>

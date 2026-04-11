@@ -58,7 +58,7 @@ export default function AnfragenPage() {
         </div>
 
         {/* Funnel Card */}
-        <div className="bg-white shadow-xl shadow-slate-200/50 rounded-2xl overflow-hidden border border-slate-100">
+        <div className="bg-white shadow-xl shadow-slate-200/50 rounded-md overflow-hidden border border-slate-100">
           
           {/* Progress Bar */}
           <div className="w-full h-2 bg-slate-100 relative">
@@ -129,7 +129,7 @@ export default function AnfragenPage() {
 
                   {/* Condition 1: Website */}
                   {selections.includes("Website") && (
-                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                    <div className="bg-slate-50 p-6 rounded-md border border-slate-100">
                       <p className="font-bold text-slate-900 mb-2">Benötigen Sie SEO & verkaufspsychologische Texte für die Website?</p>
                       <p className="text-xs text-slate-500 mb-4">+500€ | <span className="text-emerald-600 font-bold">10% Paket-Rabatt auf Endsumme!</span></p>
                       <div className="flex gap-3">
@@ -151,7 +151,7 @@ export default function AnfragenPage() {
 
                   {/* Condition 2: Marke & Design */}
                   {selections.includes("Marke & Design") && (
-                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                    <div className="bg-slate-50 p-6 rounded-md border border-slate-100">
                       <p className="font-bold text-slate-900 mb-2">Benötigen Sie eine komplette Geschäftsausstattung?</p>
                       <p className="text-xs text-slate-500 mb-4">Visitenkarten, Briefpapier, E-Mail Signaturen (+250€)</p>
                       <div className="flex gap-3">
@@ -236,7 +236,7 @@ export default function AnfragenPage() {
                   <p className="text-slate-500 mb-8 max-w-sm mx-auto">
                     Klicken Sie den Button, um mit diesen exakten Anforderungen ein erstes Gespräch mit uns zu buchen.
                   </p>
-                  <button className="px-8 py-4 w-full rounded-xl font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 transition-colors">
+                  <button className="px-8 py-4 w-full rounded-md font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 transition-colors">
                     Verbindliches Gespräch sichern
                   </button>
                 </motion.div>
@@ -258,7 +258,7 @@ export default function AnfragenPage() {
                 <button 
                   onClick={handleNext}
                   disabled={step === 1 && selections.length === 0}
-                  className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-50 transition-all"
+                  className="flex items-center gap-2 px-6 py-3 rounded-md font-bold bg-slate-900 text-white hover:bg-slate-800 disabled:opacity-50 transition-all"
                 >
                   Weiter <ArrowRight size={16} />
                 </button>

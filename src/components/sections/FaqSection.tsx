@@ -35,19 +35,19 @@ export const FaqSection = () => {
   };
 
   return (
-    <section className="bg-white py-24 border-t border-slate-200">
+    <section className="bg-white py-16 md:py-20 border-t border-slate-200">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
             Häufige Fragen
           </p>
-          <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-4">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
             Klartext, keine offenen Fragen.
           </h2>
         </motion.div>
@@ -63,7 +63,7 @@ export const FaqSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${
+                className={`border rounded-lg overflow-hidden transition-colors duration-300 ${
                   isOpen ? "bg-white border-indigo-200 shadow-sm" : "bg-white border-slate-200 hover:border-indigo-100"
                 }`}
               >
@@ -74,7 +74,7 @@ export const FaqSection = () => {
                   <span className={`font-bold text-lg pr-8 transition-colors ${isOpen ? "text-indigo-900" : "text-slate-900"}`}>
                     {faq.question}
                   </span>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${isOpen ? "bg-indigo-100 text-indigo-600 rotate-180" : "bg-slate-100 text-slate-400"}`}>
+                  <div className={`w-10 h-10 rounded-md flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${isOpen ? "bg-indigo-100 text-indigo-600 rotate-180" : "bg-slate-100 text-slate-400"}`}>
                     <ChevronDown size={18} />
                   </div>
                 </button>

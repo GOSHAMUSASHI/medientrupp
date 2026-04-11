@@ -51,7 +51,7 @@ const marqueeItems = [...trustBadges, ...trustBadges];
 
 export const SocialProofSection = () => {
   return (
-    <section className="bg-slate-50 border-y border-slate-100 py-14" aria-label="Vertrauenssignale">
+    <section className="bg-slate-50 border-y border-slate-100 py-10" aria-label="Vertrauenssignale">
       {/* Section label */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
         <p className="text-sm font-semibold text-slate-400 tracking-widest uppercase">
@@ -77,7 +77,7 @@ export const SocialProofSection = () => {
               className="flex items-center gap-2.5 flex-shrink-0 pr-16"
             >
               {/* Icon */}
-              <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-white border border-slate-100 shadow-sm flex-shrink-0">
+              <div className="w-9 h-9 flex items-center justify-center rounded-md bg-white border border-slate-100 shadow-sm flex-shrink-0">
                 {badge.icon}
               </div>
               {/* Text */}

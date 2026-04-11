@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Play, ShieldCheck, Tag, Zap } from "lucide-react";
+import Link from "next/link";
 
 // ── Dashboard KPI data ──────────────────────────────────────────────────────
 
@@ -35,7 +36,7 @@ const DashboardMockup = () => (
     }}
   >
     {/* Shell */}
-    <div className="bg-white rounded-2xl shadow-2xl shadow-indigo-500/20 ring-1 ring-slate-900/5 overflow-hidden">
+    <div className="bg-white rounded-md shadow-2xl shadow-indigo-500/20 ring-1 ring-slate-900/5 overflow-hidden">
       {/* Header bar */}
       <div
         className="flex items-center gap-3 px-5 py-3 border-b"
@@ -47,7 +48,7 @@ const DashboardMockup = () => (
           <span className="w-3 h-3 rounded-full bg-green-400" />
         </div>
         <div
-          className="flex-1 rounded-full py-1 px-3 text-xs text-slate-400"
+          className="flex-1 rounded-md py-1 px-3 text-xs text-slate-400"
           style={{ background: "rgba(15,23,43,0.04)", fontSize: "11px" }}
         >
           medientrupp.de/dashboard
@@ -68,7 +69,7 @@ const DashboardMockup = () => (
         {kpiCards.map((kpi, i) => (
           <div
             key={i}
-            className="rounded-xl p-3"
+            className="rounded-md p-3"
             style={{
               background: "#fff",
               border: "1px solid rgba(15,23,43,0.07)",
@@ -83,7 +84,7 @@ const DashboardMockup = () => (
                 {kpi.label}
               </span>
               <span
-                className="text-xs font-bold px-1.5 py-0.5 rounded-full"
+                className="text-xs font-bold px-1.5 py-0.5 rounded-md"
                 style={{
                   background: `${kpi.color}15`,
                   color: kpi.color,
@@ -104,7 +105,7 @@ const DashboardMockup = () => (
 
         {/* Chart card — spans 2 columns */}
         <div
-          className="col-span-2 rounded-xl p-3"
+          className="col-span-2 rounded-md p-3"
           style={{
             background: "#fff",
             border: "1px solid rgba(15,23,43,0.07)",
@@ -119,7 +120,7 @@ const DashboardMockup = () => (
               Website-Leads — last 7 months
             </span>
             <span
-              className="text-xs font-bold px-1.5 py-0.5 rounded-full"
+              className="text-xs font-bold px-1.5 py-0.5 rounded-md"
               style={{ background: "#EEF2FF", color: "#4F46E5", fontSize: "9px" }}
             >
               +28%
@@ -179,8 +180,8 @@ export const HeroSection = () => {
         className="absolute top-1/4 -right-10 w-[600px] h-[600px] bg-indigo-500/20 blur-[100px] rounded-full pointer-events-none -z-10"
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 md:pt-36 lg:pt-40 lg:pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
           {/* LEFT — Copy */}
           <motion.div
@@ -189,7 +190,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-indigo-100 bg-indigo-50">
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-md border border-indigo-100 bg-indigo-50">
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
               <span className="text-xs font-semibold text-indigo-700 tracking-wide uppercase">
                 Digitalagentur · Made in Germany
@@ -197,7 +198,7 @@ export const HeroSection = () => {
             </div>
 
             {/* H1 */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-black text-slate-900 leading-[1.1] tracking-tight mb-6">
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 leading-[1.05] mb-6">
               Mehr Kunden.{" "}
               <span
                 className="relative inline-block"
@@ -224,7 +225,7 @@ export const HeroSection = () => {
             </h1>
 
             {/* Sub-copy */}
-            <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-[480px]">
+            <p className="text-base md:text-lg text-slate-500 leading-relaxed mb-8 max-w-[480px]">
               MedienTrupp baut digitale Systeme für den deutschen Mittelstand.
               Website, KI, Video — aus einer Hand. Transparente Festpreise,
               kein Agentur-Chaos.
@@ -232,22 +233,22 @@ export const HeroSection = () => {
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
-              <a
-                href="#konfigurator"
+              <Link
+                href="/projekt-anfragen"
                 id="hero-cta-primary"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
               >
                 Projekt anfragen
                 <ArrowRight size={18} />
-              </a>
-              <a
-                href="#leistungen"
+              </Link>
+              <Link
+                href="/leistungen"
                 id="hero-cta-secondary"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white bg-slate-900 hover:bg-slate-800 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-md font-semibold text-slate-900 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors duration-300"
               >
-                <Play size={16} className="text-indigo-600" />
-                Demo ansehen
-              </a>
+                Leistungen ansehen
+                <ArrowRight size={16} className="text-slate-500" />
+              </Link>
             </div>
 
             {/* Trust micro-badges */}

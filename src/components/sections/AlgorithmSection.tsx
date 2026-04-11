@@ -14,32 +14,32 @@ const contentStats = [
 
 export const AlgorithmSection = () => {
   return (
-    <section className="bg-slate-50 py-24 text-slate-900 relative overflow-hidden" aria-labelledby="algorithm-heading">
+    <section className="bg-slate-50 py-16 md:py-20 text-slate-900 relative overflow-hidden" aria-labelledby="algorithm-heading">
       <div className="absolute -left-[20%] top-[10%] w-[600px] h-[600px] bg-slate-500/5 blur-[80px] rounded-full pointer-events-none" />
       <div className="absolute -right-[10%] bottom-[10%] w-[500px] h-[500px] bg-indigo-500/5 blur-[80px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
             Video &amp; Content
           </p>
-          <h2 id="algorithm-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">
+          <h2 id="algorithm-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
             Sichtbarkeit ist kein Zufall —{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-indigo-700">
               sie ist Strategie.
             </span>
           </h2>
-          <p className="text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
             Wir produzieren hochwertige Short-Form Videos und Content-Strategien, die Ihre Zielgruppe wirklich erreichen — datenbasiert, planbar und messbar.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
           
-          {/* Left: Text & Features */}
-          <div className="flex-1 lg:pr-10">
-            <div className="inline-flex items-center gap-2 text-indigo-600 text-xs font-bold tracking-widest uppercase mb-6 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200">
+          {/* Left: Text — order-1 */}
+          <div className="lg:w-1/2 order-1">
+            <div className="inline-flex items-center gap-2 text-indigo-600 text-xs font-bold tracking-widest uppercase mb-6 px-3 py-1.5 rounded-md bg-indigo-50 border border-indigo-200">
               <motion.div 
                 animate={{ opacity: [1, 0.3, 1] }} 
                 transition={{ duration: 1.5, repeat: Infinity }} 
@@ -48,11 +48,11 @@ export const AlgorithmSection = () => {
               Content läuft — jetzt live
             </div>
 
-            <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-6">
+            <h3 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
               Content mit System —<br />nicht mit Glück.
             </h3>
             
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
+            <p className="text-base md:text-lg text-slate-500 leading-relaxed mb-8">
               Kein Raten, kein Ausprobieren. Wir analysieren, was Ihre Zielgruppe stoppt, und produzieren Inhalte, die auf allen relevanten Plattformen performen.
             </p>
 
@@ -63,7 +63,7 @@ export const AlgorithmSection = () => {
                 { icon: <Users size={18} />, label: 'Reichweite & Conversion', desc: 'Inhalte, die nicht nur sehen — sondern handeln lassen.' }
               ].map((item, idx) => (
                 <li key={idx} className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+                  <div className="w-10 h-10 rounded-md bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
                     {item.icon}
                   </div>
                   <div>
@@ -75,16 +75,16 @@ export const AlgorithmSection = () => {
             </ul>
           </div>
 
-          {/* Right: Analytics Stats Dashboard */}
-          <div className="flex-1 flex justify-center lg:justify-end w-full">
-            <div className="w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl shadow-xl shadow-indigo-100/50 overflow-hidden">
+          {/* Right: Analytics Stats Dashboard — order-2 */}
+          <div className="lg:w-1/2 order-2 w-full flex-shrink-0">
+            <div className="w-full bg-white border border-slate-200 rounded-md shadow-xl shadow-indigo-100/50 overflow-hidden">
               {/* Dashboard Header */}
               <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
                 <div>
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Content Analytics</p>
                   <p className="text-sm font-black text-slate-900 mt-0.5">Letzte 30 Tage</p>
                 </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-green-50 border border-green-100">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-green-50 border border-green-100">
                   <motion.span
                     animate={{ opacity: [1, 0.3, 1] }}
                     transition={{ duration: 1.5, repeat: Infinity }}
@@ -103,12 +103,12 @@ export const AlgorithmSection = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: STAT_DELAYS[i], duration: 0.5 }}
-                    className="flex items-center justify-between p-4 rounded-xl border border-slate-100"
+                    className="flex items-center justify-between p-4 rounded-md border border-slate-100"
                     style={{ background: `${stat.color}06` }}
                   >
                     <div className="flex items-center gap-3">
                       <div
-                        className="w-9 h-9 rounded-lg flex items-center justify-center"
+                        className="w-9 h-9 rounded-md flex items-center justify-center"
                         style={{ background: `${stat.color}15`, color: stat.color }}
                       >
                         {stat.icon}
@@ -119,7 +119,7 @@ export const AlgorithmSection = () => {
                       </div>
                     </div>
                     <span
-                      className="text-xs font-bold px-2 py-1 rounded-full"
+                      className="text-xs font-bold px-2 py-1 rounded-md"
                       style={{ background: `${stat.color}15`, color: stat.color }}
                     >
                       {stat.trend}

@@ -1,31 +1,36 @@
 # Medientrupp Gesetzbuch (.cursorrules)
 
-## 1. Technischer Stack & Typen
-- **Core:** Next.js 14+ (App Router), React 18.
-- **Styling & Animation:** Tailwind CSS v4, Framer Motion, Lucide React.
-- **TypeScript:** 100% striktes TypeScript. **Absolutes Verbot von `any`**. Alle Interfaces und Typen müssen sauber definiert werden.
+Du bist ein Senior Full-Stack Next.js Developer und Lead UI/UX Designer für die B2B-Premium-Agentur "Medientrupp". Deine Aufgabe ist es, hochkonvertierende, extrem performante und atemberaubend designte Web-Apps für den deutschen Mittelstand zu bauen.
 
-## 2. Architektur & Ordnerstruktur
-- **UI-Komponenten (Macro/Micro):**
-  - Wiederverwendbare, kleine Bauklötze (Knöpfe, Cards) zwingend in `/src/components/ui`.
-  - Große, in sich geschlossene Sektionen (Hero, Features, Footer) in `/src/components/sections`.
-- **Backend & Logik:**
-  - Jede serverseitige Logik, Datenbank-Aufrufe oder Form-Submits müssen in `/src/actions` platziert werden (mit `"use server"` Direktive).
-- **Komponenten-Syntax:**
-  - Ausschließlich Arrow-Functions nutzen: `const ComponentName = () => {}`. Keine klassischen `function ComponentName() {}`.
+Lies und befolge diese Regeln für dieses Projekt STRIKT:
 
-## 3. Design-Code & Ästhetik (Premium-Standards)
-- **Whitespace & Pacing:** Generöses Spacing für einen "atmbaren" High-End Look. Nutze großflächige margins und paddings (z.B. `py-24`, `gap-8`, `mb-12`).
-- **Schatten & Tiefe:** Edle, weiche Schatten verwenden (z.B. `shadow-xl shadow-slate-200/50`). Keine harten, billig wirkenden Box-Shadows.
-- **Interaktion:** Sanfte, geschmeidige Hover-Transitions sind Pflicht (zwingend `transition-all duration-300` oder Framer Motion nutzen).
-- **Medien:** Sämtliche Bilder müssen über die Next.js `<Image>`-Komponente (aus `next/image`) geladen werden – nie über Standard `<img>`-Tags.
+## 1. CORE TECH STACK
+- **Framework:** Next.js 14+ (App Router).
+- **Frontend:** React 18+, Tailwind CSS v4.
+- **Animationen & Icons:** Framer Motion, Lucide React.
+- **Sprache:** 100% TypeScript. Die Verwendung von `any` ist STRENG VERBOTEN.
 
-## 4. Forms & State-Management (Simulatoren)
-- **Komplexe Formulare & Rechner:** Alle Formulare, Konfiguratoren und komplexen State-Kalkulatoren müssen zwingend mit `react-hook-form` verwaltet und mit `zod` validiert werden. Keine rudimentären React-States für Form-Fields.
+## 2. CODE-ARCHITEKTUR & SYNTAX
+- **Komponenten:** Nutze IMMER Arrow-Functions (`const HeroSection = () => {}`).
+- **Sprachebene:** Code, Variablen (z.B. `handleLeadSubmit`) und Kommentare MÜSSEN auf Englisch sein. Text, der im Browser sichtbar ist (UI), MUSS auf Deutsch sein.
+- **Routing & Struktur:** - `/src/app`: NUR für Routing (`page.tsx`, `layout.tsx`).
+  - `/src/components`: Für alle UI-Bausteine.
+  - `/src/actions`: Für alle Server Actions (`"use server"`).
 
-## 5. Frontend Design & SaaS UI (Antigravity Skills)
-- **Generisches Verbieten:** Niemals simple Farben (plain red/blue) oder Standard-Schatten nutzen. Immer kuratierte Paletten (slate, indigo, zinc) mit weichen, gestapelten Schatten (z.B. `shadow-indigo-500/10` kombiniert mit `border`) verwenden.
-- **Glassmorphismus & Blur:** Nutze `backdrop-blur-md` und `bg-white/70` in Licht-Themen oder `bg-slate-900/50` in Dunkel-Themen für Tiefeneffekte.
-- **Typografie-Hierarchie:** Nutze Inter, Roboto oder Outfit. Überschriften müssen dichtes Tracking haben (`tracking-tight`), extrem bold sein (`font-black`) und bei Sublines weites Tracking (`tracking-widest` + `uppercase`) nutzen.
-- **Micro-Animations (Framer Motion):** Jedes Element, das neu im Viewport erscheint, muss mit `initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}` animiert werden. Hover-Effekte auf Buttons immer mit Translate (`hover:-translate-y-1`) und Schatten-Ausweitung versehen.
-- **SaaS-Ästhetik:** "Square-Branding" beibehalten. Ecken von Cards leicht abrunden (`rounded-xl` oder `rounded-2xl`), Glow-Effekte im Hintergrund einsetzen (z.B. `w-[500px] h-[500px] bg-indigo-500/20 blur-[100px] rounded-full`) für Premium-Agentur-Feel.
+## 3. PERFORMANCE & ASSETS
+- **Bilder:** Nutze NIEMALS den Standard HTML `<img>` Tag. Nutze AUSNAHMSLOS die Next.js `<Image>` Komponente.
+- **SEO:** Generiere saubere, semantische HTML-Strukturen (richtige Hierarchie von H1, H2, H3).
+
+## 4. BACKEND-LOGIK & FORMULARE (LEAD GENERIERUNG)
+- **UI-Formulare:** Baue Formulare (wie den Konfigurator) IMMER mit `react-hook-form` kombiniert mit `@hookform/resolvers/zod` für strikte Frontend-Validierung.
+- **Daten-Übertragung:** Formulare dürfen NIEMALS direkt über Client-Side Fetch an externe APIs senden. Nutze IMMER Next.js Server Actions.
+- **UX:** Implementiere zwingend `pending`/`loading` States für Buttons und saubere Error/Success-Toasts.
+
+## 5. B2B DESIGN, OPTICAL ALIGNMENT & UI/UX (EXTREM WICHTIG)
+- **Einheitlicher Container:** Jede Sektion MUSST exakt diesen Inhalts-Wrapper nutzen: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`.
+- **Harmonische Grids:** Bei Split-Screen-Layouts (Text/Bild) nutze IMMER `grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-center`.
+- **Sektions-Abstände (Y-Achse):** Sind global einheitlich `py-16 md:py-24`.
+- **Das 8pt Grid:** Alle Margins und Paddings müssen Vielfache von 4 oder 8 sein (in Tailwind: 4, 8, 12, 16, 24, 32).
+- **B2B Micro-Rounding:** Keine B2C-Bubbly-Looks! Große Elemente (Cards, Container) maximal `rounded-lg`. Kleine Elemente (Buttons, Inputs) zwingend ein scharfes `rounded-md`. KEIN `rounded-2xl` oder `rounded-full` (außer bei echten Kreisen).
+- **Interaktion & Animation:** - Hover-Effekte auf Buttons müssen professionell sein (z.B. `hover:bg-indigo-700 transition-colors duration-300`).
+  - Wickle neue Sektionen in Framer Motion ein für sanftes Einfaden: `initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}`.

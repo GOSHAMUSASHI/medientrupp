@@ -90,7 +90,7 @@ export const GlobalChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[550px] max-h-[calc(100vh-6rem)] bg-white/90 backdrop-blur-xl border border-slate-200 rounded-3xl shadow-2xl shadow-indigo-900/20 flex flex-col overflow-hidden"
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[550px] max-h-[calc(100vh-6rem)] bg-white/90 backdrop-blur-xl border border-slate-200 rounded-md shadow-2xl shadow-indigo-900/20 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-slate-900 text-white p-5 flex items-center justify-between">
@@ -134,7 +134,7 @@ export const GlobalChatbot = () => {
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0, scale: 0.9 }}
-                    className="self-start bg-white border border-slate-100 rounded-2xl rounded-bl-sm p-4 flex gap-1.5 shadow-sm"
+                    className="self-start bg-white border border-slate-100 rounded-md rounded-bl-sm p-4 flex gap-1.5 shadow-sm"
                   >
                     {[0, 1, 2].map((i) => (
                       <motion.div 
@@ -157,7 +157,7 @@ export const GlobalChatbot = () => {
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Schreiben Sie eine Nachricht..."
-                  className="w-full bg-slate-50 border border-slate-200 rounded-full py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium placeholder:text-slate-400"
+                  className="w-full bg-slate-50 border border-slate-200 rounded-md py-3 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium placeholder:text-slate-400"
                 />
                 <button 
                   type="submit"

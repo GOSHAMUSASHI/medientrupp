@@ -44,48 +44,16 @@ export const AiCloserSimulation = () => {
   };
 
   return (
-    <section className="bg-white py-24 relative overflow-hidden" aria-labelledby="aismulator-heading">
+    <section className="bg-white py-16 md:py-20 relative overflow-hidden" aria-labelledby="aismulator-heading">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-slate-100 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div className="flex flex-col lg:flex-row gap-16 items-center">
-          
-          {/* Left Text */}
-          <div className="flex-1">
-            <span className="text-indigo-600 text-xs font-bold tracking-[0.15em] uppercase block mb-3">
-              KI-Assistent
-            </span>
-            <h2 id="aismulator-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">
-              Ihr digitaler Mitarbeiter —{" "}<span className="text-indigo-600">24⁄7 verfügbar.</span>
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed mb-8">
-              Kein simples Support-Widget. Wir integrieren intelligente KI-Assistenten direkt in Ihre Plattform. Sie qualifizieren Leads, beantworten Fragen und füllen Ihre Pipeline — vollautomatisch, rund um die Uhr.
-            </p>
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
 
-            {/* Processing indicator — only visible while running */}
-            {status === 'PROCESSING' && (
-              <div className="flex items-center gap-2 mb-8">
-                <motion.span
-                  animate={{ opacity: [1, 0.3, 1] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                  className="w-2 h-2 rounded-full bg-indigo-500 inline-block"
-                />
-                <span className="text-sm text-indigo-600 font-medium">KI analysiert Ihre Situation …</span>
-              </div>
-            )}
-                        <button 
-              onClick={simulateLead}
-              disabled={status === 'PROCESSING'}
-              className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed font-bold tracking-wide rounded-xl transition-colors"
-            >
-              KI-Demo starten
-            </button>
-          </div>
-
-          {/* Right Chatbot UI */}
-          <div className="flex-1 w-full max-w-lg mx-auto">
-            <div className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-3xl min-h-[400px] max-h-[600px] flex flex-col overflow-hidden shadow-2xl shadow-indigo-100">
+          {/* Left: Chatbot UI — order-1 on desktop */}
+          <div className="lg:w-1/2 order-1">
+            <div className="bg-white/80 backdrop-blur-xl border border-slate-200 rounded-md min-h-[400px] max-h-[600px] flex flex-col overflow-hidden shadow-2xl shadow-indigo-100">
               
               {/* Chat Header */}
               <div className="p-6 border-b border-slate-200 flex justify-between items-center bg-slate-50/50">
@@ -127,7 +95,7 @@ export const AiCloserSimulation = () => {
                     <motion.div 
                       initial={{ opacity: 0 }} 
                       animate={{ opacity: 1 }} 
-                      className="self-start bg-white border border-slate-200 shadow-sm rounded-2xl rounded-bl-sm p-4 flex gap-1.5"
+                      className="self-start bg-white border border-slate-200 shadow-sm rounded-md rounded-bl-sm p-4 flex gap-1.5"
                     >
                       {[0, 1, 2].map((i) => (
                         <motion.div 
@@ -147,7 +115,7 @@ export const AiCloserSimulation = () => {
                     <motion.div 
                       initial={{ opacity: 0, y: 20 }} 
                       animate={{ opacity: 1, y: 0 }} 
-                      className="mt-4 bg-indigo-50 border border-indigo-200 rounded-xl p-4 flex items-center gap-4"
+                      className="mt-4 bg-indigo-50 border border-indigo-200 rounded-md p-4 flex items-center gap-4"
                     >
                       <CheckCircle2 className="text-indigo-600 flex-shrink-0" size={32} />
                       <div>
@@ -160,6 +128,39 @@ export const AiCloserSimulation = () => {
               </div>
 
             </div>
+          </div>
+
+          {/* Right: Text Content — order-2 on desktop */}
+          <div className="lg:w-1/2 order-2 w-full flex-shrink-0">
+            <span className="text-indigo-600 text-xs font-bold tracking-[0.15em] uppercase block mb-3">
+              KI-Assistent
+            </span>
+            <h2 id="aismulator-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
+              Ihr digitaler Mitarbeiter —{" "}<span className="text-indigo-600">24⁄7 verfügbar.</span>
+            </h2>
+            <p className="text-base md:text-lg text-slate-500 leading-relaxed mb-8">
+              Kein simples Support-Widget. Wir integrieren intelligente KI-Assistenten direkt in Ihre Plattform. Sie qualifizieren Leads, beantworten Fragen und füllen Ihre Pipeline — vollautomatisch, rund um die Uhr.
+            </p>
+
+            {/* Processing indicator — only visible while running */}
+            {status === 'PROCESSING' && (
+              <div className="flex items-center gap-2 mb-8">
+                <motion.span
+                  animate={{ opacity: [1, 0.3, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="w-2 h-2 rounded-full bg-indigo-500 inline-block"
+                />
+                <span className="text-sm text-indigo-600 font-medium">KI analysiert Ihre Situation …</span>
+              </div>
+            )}
+            
+            <button 
+              onClick={simulateLead}
+              disabled={status === 'PROCESSING'}
+              className="w-full sm:w-auto px-8 py-4 bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed font-bold tracking-wide rounded-md transition-colors"
+            >
+              KI-Demo starten
+            </button>
           </div>
 
         </div>

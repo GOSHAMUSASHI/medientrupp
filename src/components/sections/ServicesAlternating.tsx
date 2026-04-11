@@ -48,23 +48,23 @@ const services = [
 
 export const ServicesAlternating = () => {
   return (
-    <section className="bg-white py-24 sm:py-32" aria-labelledby="services-heading">
+    <section className="bg-white py-16 md:py-20" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-20">
+        <div className="text-center mb-10">
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
             Unsere Kernleistungen
           </p>
-          <h2 id="services-heading" className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight">
+          <h2 id="services-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
             Bausteine für echte <span className="text-indigo-600">Skalierung.</span>
           </h2>
         </div>
 
-        <div className="flex flex-col gap-16 lg:gap-24">
+        <div className="flex flex-col gap-12 lg:gap-16">
           {services.map((srv, i) => (
-            <div key={i} className="flex flex-col md:flex-row items-center gap-8 lg:gap-16">
+            <div key={i} className="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
               {/* Image Left */}
-              <div className="w-full md:w-[45%] lg:w-1/3 relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl shadow-slate-200">
+              <div className="w-full md:w-[45%] lg:w-1/3 relative aspect-[4/3] rounded-md overflow-hidden shadow-xl shadow-slate-200">
                 <Image 
                   src={srv.img}
                   alt={srv.title}
@@ -78,21 +78,21 @@ export const ServicesAlternating = () => {
               {/* Text Right */}
               <div className="w-full md:w-[55%] lg:w-2/3">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                  <div className="w-14 h-14 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                     {srv.icon}
                   </div>
                   <div>
-                    <h3 className="text-2xl font-black text-slate-900">{srv.title}</h3>
+                    <h3 className="text-xl font-semibold text-slate-900">{srv.title}</h3>
                     <p className="text-sm font-bold uppercase tracking-widest text-slate-400 mt-1">{srv.benefit}</p>
                   </div>
                 </div>
                 
-                <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-4">
+                <div className="bg-slate-50 p-6 rounded-md border border-slate-100 mb-4">
                   <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 mb-2 block">Was wir machen</span>
                   <p className="text-slate-700 leading-relaxed font-medium">{srv.action}</p>
                 </div>
                 
-                <div className="bg-emerald-50 p-6 rounded-2xl border border-emerald-100">
+                <div className="bg-emerald-50 p-6 rounded-md border border-emerald-100">
                   <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-2 block">Ihr konkreter Nutzen</span>
                   <p className="text-emerald-900 leading-relaxed font-bold">{srv.result}</p>
                 </div>
@@ -101,10 +101,10 @@ export const ServicesAlternating = () => {
           ))}
         </div>
 
-        <div className="mt-20 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <a
             href="/leistungen"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-md font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors"
           >
             Alle Leistungen ansehen
             <ArrowRight size={20} className="text-indigo-500" />

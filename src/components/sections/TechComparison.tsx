@@ -64,23 +64,23 @@ const rows: RowData[] = [
 export const TechComparison = () => {
   return (
     <section
-      className="bg-slate-50 py-24 lg:py-32 text-slate-900 relative overflow-hidden"
+      className="bg-white py-16 md:py-20 text-slate-900 relative overflow-hidden"
       aria-labelledby="techcomparison-heading"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
             C-Level Vergleich
           </p>
           <h2
             id="techcomparison-heading"
-            className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4"
           >
             Dasselbe Budget.{" "}
             <span className="text-indigo-600">Dreifacher Output.</span>
@@ -101,7 +101,7 @@ export const TechComparison = () => {
           {/* Mobile View: Cards */}
           <div className="md:hidden space-y-6">
             {rows.map((row, i) => (
-              <div key={row.id} className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-lg">
+              <div key={row.id} className="bg-white rounded-md border border-slate-200 overflow-hidden shadow-lg">
                 <div className="bg-slate-50 px-6 py-4 border-b border-slate-100">
                   <h3 className="font-black text-slate-900">{row.label}</h3>
                 </div>
@@ -130,7 +130,7 @@ export const TechComparison = () => {
           </div>
 
           {/* Desktop View: Table */}
-          <div className="hidden md:block overflow-hidden rounded-3xl border border-slate-200 shadow-xl shadow-slate-100 bg-white">
+          <div className="hidden md:block overflow-hidden rounded-md border border-slate-200 shadow-xl shadow-slate-100 bg-white">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-200">

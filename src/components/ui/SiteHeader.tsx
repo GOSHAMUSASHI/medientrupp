@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const SiteHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,12 +19,15 @@ export const SiteHeader = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Main Navigation links explicitly optimized for B2B clear flow
   const navLinks = [
     { label: "Leistungen", href: "/leistungen" },
     { label: "Portfolio", href: "/portfolio" },
     { label: "Über uns", href: "/ueber-uns" },
   ];
+
+  if (pathname === "/projekt-anfragen" || pathname === "/anfragen") {
+    return null;
+  }
 
   return (
     <header
@@ -53,12 +58,12 @@ export const SiteHeader = () => {
                 {link.label}
               </Link>
             ))}
-            <a
-              href="/#konfigurator"
-              className="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:bg-indigo-700 transition-colors"
+            <Link
+              href="/projekt-anfragen"
+              className="px-5 py-2.5 bg-indigo-600 text-white text-sm font-bold rounded-md hover:bg-indigo-700 transition-colors"
             >
               Projekt anfragen
-            </a>
+            </Link>
           </nav>
 
           {/* Mobile Menu Toggle */}
@@ -108,13 +113,13 @@ export const SiteHeader = () => {
                 </Link>
               ))}
               <div className="mt-8">
-                <a
-                  href="/#konfigurator"
+                <Link
+                  href="/projekt-anfragen"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block w-full text-center py-4 bg-indigo-600 text-white text-lg font-bold rounded-xl hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20"
+                  className="block w-full text-center py-4 bg-indigo-600 text-white text-lg font-bold rounded-md hover:bg-indigo-700 transition-colors shadow-lg shadow-indigo-600/20"
                 >
                   Projekt anfragen
-                </a>
+                </Link>
               </div>
             </nav>
           </motion.div>

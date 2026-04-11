@@ -23,12 +23,12 @@ const benefits = [
 
 export const BenefitsSection = () => {
   return (
-    <section className="bg-slate-50 py-24 text-slate-900 overflow-hidden relative border-t border-slate-200">
+    <section className="bg-white py-16 md:py-20 text-slate-900 overflow-hidden relative border-t border-slate-200">
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
           {/* Left: Copy */}
           <motion.div
@@ -40,8 +40,8 @@ export const BenefitsSection = () => {
             <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
               Der Medientrupp Unterschied
             </p>
-            <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight mb-6">
-              Warum nicht einfach selbst bauen?
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
+              Fokus auf Ihr Kerngeschäft statt digitaler Baustellen.
             </h2>
             <p className="text-lg text-slate-500 mb-8 leading-relaxed">
               Sicher, Sie könnten einen Baukasten nutzen oder den Praktikanten ranlassen. Aber im Mittelstand zahlt sich Professionalität aus. Wir bauen Systeme, die Leads generieren, Zeit sparen und Ihre Marke stärken.
@@ -70,14 +70,14 @@ export const BenefitsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`bg-white border border-slate-200 shadow-xl shadow-slate-200/50 p-8 rounded-2xl ${
+                className={`bg-white border border-slate-200 shadow-xl shadow-slate-200/50 p-6 rounded-lg h-full flex flex-col ${
                   index === 2 ? "sm:col-span-2" : ""
                 }`}
               >
-                <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center text-indigo-600 mb-6">
+                <div className="w-12 h-12 bg-indigo-50 rounded-md flex items-center justify-center text-indigo-600 mb-4">
                   {benefit.icon}
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">{benefit.title}</h3>
+                <h3 className="text-xl font-semibold text-slate-900 mb-3">{benefit.title}</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">
                   {benefit.description}
                 </p>

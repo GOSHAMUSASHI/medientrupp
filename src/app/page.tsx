@@ -44,11 +44,13 @@ const Home = () => {
       {/* 8. ProjectTeaser (Beweise / Case Studies) */}
       <ProjectTeaser />
 
-      {/* 9. InteractiveFunnel (Abschluss / Rechner) */}
+      {/* 9. BenefitsSection — vor dem Rechner, damit Benefits den Preis bestätigen */}
+      <BenefitsSection />
+
+      {/* 10. InteractiveFunnel (Abschluss / Rechner) */}
       <InteractiveFunnel />
 
-      {/* 10. Benefits, FAQ & CTA (Vertrauen aufbauen) */}
-      <BenefitsSection />
+      {/* 11. FAQ & finaler CTA */}
       <FaqSection />
       <CtaBanner />
     </main>
