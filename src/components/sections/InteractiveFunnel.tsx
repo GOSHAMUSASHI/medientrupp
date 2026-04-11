@@ -92,6 +92,9 @@ const contactSchema = z.object({
   email: z.string().email("Bitte eine gültige E-Mail eingeben."),
   company: z.string().min(2, "Bitte Ihr Unternehmen eingeben."),
   phone: z.string().optional(),
+  gdpr: z.literal(true, {
+    errorMap: () => ({ message: "Zustimmung erforderlich" }),
+  }),
 });
 
 const stepVariants = {
@@ -367,6 +370,15 @@ export const InteractiveFunnel = () => {
                         <input {...register("company")} placeholder="Ihr Unternehmen *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.company ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
                         <input {...register("email")} type="email" placeholder="Geschäftliche E-Mail *" className={`w-full px-5 py-4 rounded-xl bg-white border-2 text-base shadow-sm ${errors.email ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
                         <input {...register("phone")} type="tel" placeholder="Telefon (optional)" className="w-full px-5 py-4 rounded-xl bg-white border-2 border-slate-200 focus:border-indigo-600 text-base shadow-sm" />
+                        <div className="flex items-start gap-3 px-1 py-1">
+                          <div className="pt-1">
+                            <input type="checkbox" id="gdpr-home" {...register("gdpr")} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer" />
+                          </div>
+                          <label htmlFor="gdpr-home" className="text-[11px] text-slate-500 leading-snug cursor-pointer">
+                            Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert werden. Details in der <a href="/datenschutz" className="text-indigo-600 hover:underline">Datenschutzerklärung</a>. *
+                          </label>
+                        </div>
+                        {errors.gdpr && <p className="text-rose-500 text-[10px] font-bold uppercase tracking-wider px-1">{errors.gdpr.message}</p>}
                       </form>
                     </motion.div>
                   )}

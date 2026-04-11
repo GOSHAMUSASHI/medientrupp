@@ -52,6 +52,7 @@ interface ContactForm {
   email: string;
   company: string;
   phone?: string;
+  gdpr: boolean;
 }
 
 // ─── Pricing engine ──────────────────────────────────────────────────────────
@@ -107,6 +108,9 @@ const contactSchema = z.object({
   email: z.string().email("Bitte eine gültige E-Mail eingeben."),
   company: z.string().min(2, "Bitte Ihr Unternehmen eingeben."),
   phone: z.string().optional(),
+  gdpr: z.literal(true, {
+    errorMap: () => ({ message: "Bitte akzeptieren Sie die Datennutzung." }),
+  }),
 });
 
 // ─── Animations ──────────────────────────────────────────────────────────────
@@ -598,9 +602,24 @@ export default function ProjektAnfragenPage() {
                         className="w-full px-5 py-4 rounded-xl bg-white border-2 border-slate-200 focus:border-indigo-600 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all text-base shadow-sm"
                       />
                     </div>
+
+                    <div className="flex items-start gap-3 px-2 py-2">
+                      <div className="pt-1">
+                        <input
+                          type="checkbox"
+                          id="gdpr-page"
+                          {...register("gdpr")}
+                          className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
+                        />
+                      </div>
+                      <label htmlFor="gdpr-page" className="text-xs text-slate-500 leading-snug cursor-pointer">
+                        Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert und verwendet werden. Weitere Informationen finden Sie in der <Link href="/datenschutz" className="text-indigo-600 hover:underline">Datenschutzerklärung</Link>. *
+                      </label>
+                    </div>
+                    {errors.gdpr && <p className="text-rose-500 text-[11px] font-bold uppercase tracking-wider px-2">{errors.gdpr.message}</p>}
                     
                     <p className="text-slate-400 text-[11px] text-center sm:text-left leading-relaxed mt-4 px-2">
-                      Durch Klick auf Absenden erklären Sie sich mit der Verarbeitung Ihrer Daten gemäß unserer DSGVO-Richtlinien einverstanden. Unverbindliche Anfrage.
+                      Unverbindliche Anfrage.
                     </p>
                   </form>
                 </motion.div>
