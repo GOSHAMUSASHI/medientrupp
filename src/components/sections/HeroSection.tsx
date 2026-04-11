@@ -271,7 +271,7 @@ export const HeroSection = () => {
             style={{ perspective: "1200px" }}
           >
             {/* The wrapper scales down the 520px dashboard heavily on mobile. Overflow-hidden removed to not clip shadows. */}
-            <div className="w-full flex justify-center sm:scale-100 scale-[0.65] origin-center -my-20 sm:my-0">
+            <div className="w-full flex justify-center">
               <DashboardMockup />
             </div>
           </motion.div>
