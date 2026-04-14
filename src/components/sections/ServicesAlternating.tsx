@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -74,7 +74,7 @@ export const ServicesAlternating = () => {
           >
             Bausteine für echte
             <br />
-            <span className="text-indigo-600">Skalierung.</span>
+            <span className="text-violet-600">Skalierung.</span>
           </h2>
         </motion.div>
 
@@ -104,7 +104,7 @@ export const ServicesAlternating = () => {
                     >
                       {srv.title}
                     </h3>
-                    <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-indigo-600">
+                    <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-violet-600">
                       {srv.subtitle}
                     </p>
                   </div>
@@ -127,7 +127,7 @@ export const ServicesAlternating = () => {
                 </div>
 
                 {/* Ihr Nutzen */}
-                <div className="border-l-2 border-indigo-600 pl-4">
+                <div className="border-l-2 border-violet-600 pl-4">
                   <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-2">
                     Ihr konkreter Nutzen
                   </p>

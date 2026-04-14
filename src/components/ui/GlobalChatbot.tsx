@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -355,7 +355,7 @@ export const GlobalChatbot = () => {
               )}
               <button
                 onClick={() => setIsOpen(true)}
-                className="relative w-14 h-14 bg-slate-900 border-2 border-indigo-600 text-white flex items-center justify-center shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-colors duration-200"
+                className="relative w-14 h-14 bg-slate-900 border-2 border-violet-600 text-white flex items-center justify-center shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-colors duration-200"
                 aria-label="Chat öffnen"
               >
                 <MessageCircle size={28} />
@@ -378,7 +378,7 @@ export const GlobalChatbot = () => {
             <div className="bg-slate-900 text-white p-4 flex items-center justify-between shadow-md z-10">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 bg-indigo-600 flex items-center justify-center border border-indigo-500">
+                  <div className="w-10 h-10 bg-violet-600 flex items-center justify-center border border-violet-500">
                     <Bot size={20} className="text-white" />
                   </div>
                   <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-900" />
@@ -406,7 +406,7 @@ export const GlobalChatbot = () => {
                       animate={{ opacity: 1, y: 0, x: 0 }}
                       className={`max-w-[85%] px-4 py-3 text-[14px] leading-relaxed ${
                         m.sender === "user"
-                          ? "self-end bg-indigo-600 text-white shadow-sm shadow-indigo-900/10"
+                          ? "self-end bg-violet-600 text-white shadow-sm shadow-indigo-900/10"
                           : "self-start bg-white border border-slate-200 text-slate-700 shadow-sm"
                       }`}
                       dangerouslySetInnerHTML={{ __html: formatText(m.text) }}
@@ -418,7 +418,7 @@ export const GlobalChatbot = () => {
                           <button
                             key={qi}
                             onClick={() => handleQuickReply(qr)}
-                            className="px-3 py-1.5 bg-indigo-50 border border-indigo-200 hover:border-indigo-600 hover:bg-indigo-100 text-indigo-700 text-[12px] font-semibold transition-colors"
+                            className="px-3 py-1.5 bg-violet-50 border border-violet-200 hover:border-violet-600 hover:bg-violet-100 text-violet-700 text-[12px] font-semibold transition-colors"
                           >
                             {qr}
                           </button>
@@ -448,12 +448,12 @@ export const GlobalChatbot = () => {
                   onChange={(e) => setInputVal(e.target.value)}
                   placeholder="Schreiben Sie eine Nachricht..."
                   disabled={isTyping}
-                  className="w-full bg-slate-50 border border-slate-200 py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:border-indigo-600 transition-colors font-medium placeholder:text-slate-400 disabled:opacity-50"
+                  className="w-full bg-slate-50 border border-slate-200 py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:border-violet-600 transition-colors font-medium placeholder:text-slate-400 disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={!inputVal.trim() || isTyping}
-                  className="absolute right-2 w-9 h-9 flex items-center justify-center bg-indigo-600 text-white disabled:opacity-40 disabled:bg-slate-300 transition-colors hover:bg-indigo-700"
+                  className="absolute right-2 w-9 h-9 flex items-center justify-center bg-violet-600 text-white disabled:opacity-40 disabled:bg-slate-300 transition-colors hover:bg-violet-700"
                   aria-label="Senden"
                 >
                   <Send size={16} className="ml-0.5" />

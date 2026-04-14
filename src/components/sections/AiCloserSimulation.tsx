@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -78,7 +78,7 @@ export const AiCloserSimulation = () => {
           >
             Ihr digitaler Mitarbeiter —
             <br />
-            <span className="text-indigo-600">24⁄7 verfügbar.</span>
+            <span className="text-violet-600">24⁄7 verfügbar.</span>
           </h2>
         </motion.div>
 
@@ -101,11 +101,11 @@ export const AiCloserSimulation = () => {
               <div className="px-5 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <div className="w-3 h-3 bg-indigo-600" />
+                    <div className="w-3 h-3 bg-violet-600" />
                     <motion.div
                       animate={{ scale: [1, 2.2], opacity: [1, 0] }}
                       transition={{ duration: 2, repeat: Infinity }}
-                      className="absolute inset-0 border border-indigo-600"
+                      className="absolute inset-0 border border-violet-600"
                     />
                   </div>
                   <div>
@@ -113,7 +113,7 @@ export const AiCloserSimulation = () => {
                     <p className="text-[10px] text-slate-400 tracking-wide">24⁄7 verfügbar</p>
                   </div>
                 </div>
-                <Bot className="text-indigo-600" size={22} />
+                <Bot className="text-violet-600" size={22} />
               </div>
 
               {/* Messages */}
@@ -130,7 +130,7 @@ export const AiCloserSimulation = () => {
                       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                       className={`max-w-[85%] px-4 py-3 text-sm leading-relaxed font-medium ${
                         m.sender === "user"
-                          ? "self-end bg-indigo-600 text-white"
+                          ? "self-end bg-violet-600 text-white"
                           : "self-start bg-white border border-slate-200 text-slate-700"
                       }`}
                     >
@@ -161,11 +161,11 @@ export const AiCloserSimulation = () => {
                     <motion.div
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="mt-2 bg-indigo-50 border border-indigo-200 p-4 flex items-start gap-3"
+                      className="mt-2 bg-violet-50 border border-violet-200 p-4 flex items-start gap-3"
                     >
-                      <CheckCircle2 className="text-indigo-600 flex-shrink-0 mt-0.5" size={20} />
+                      <CheckCircle2 className="text-violet-600 flex-shrink-0 mt-0.5" size={20} />
                       <div>
-                        <p className="text-sm font-bold text-indigo-700 mb-0.5">Anfrage im CRM erfasst</p>
+                        <p className="text-sm font-bold text-violet-700 mb-0.5">Anfrage im CRM erfasst</p>
                         <p className="text-xs text-slate-600">Wir melden uns innerhalb von 24 Stunden. NDA auf Wunsch vorab erhältlich.</p>
                       </div>
                     </motion.div>
@@ -201,7 +201,7 @@ export const AiCloserSimulation = () => {
                 "DSGVO-konform — Daten bleiben in Deutschland",
               ].map((item, i) => (
                 <div key={i} className={`flex items-start gap-3 py-4 ${i < 3 ? "border-b border-slate-100" : ""}`}>
-                  <span className="w-1.5 h-1.5 bg-indigo-600 mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 bg-violet-600 mt-2 shrink-0" />
                   <span className="text-slate-700 font-medium text-sm">{item}</span>
                 </div>
               ))}
@@ -213,9 +213,9 @@ export const AiCloserSimulation = () => {
                 <motion.span
                   animate={{ opacity: [1, 0.3, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}
-                  className="w-1.5 h-1.5 bg-indigo-600 inline-block"
+                  className="w-1.5 h-1.5 bg-violet-600 inline-block"
                 />
-                <span className="text-sm text-indigo-600 font-medium">KI analysiert Ihre Situation …</span>
+                <span className="text-sm text-violet-600 font-medium">KI analysiert Ihre Situation …</span>
               </div>
             )}
 

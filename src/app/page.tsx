@@ -1,4 +1,4 @@
-import { HeroSection } from "@/components/sections/HeroSection";
+﻿import { HeroSection } from "@/components/sections/HeroSection";
 import dynamic from "next/dynamic";
 
 const SocialProofSection = dynamic(() => import("@/components/sections/SocialProofSection").then(m => m.SocialProofSection));

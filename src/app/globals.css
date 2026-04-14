@@ -19,10 +19,10 @@
    ═══════════════════════════════════════════════════════════════ */
 
 @theme inline {
-  /* ── Medientrupp Brand Colors ── */
-  --color-brand:              #4F46E5;
-  --color-brand-hover:        #4338CA;
-  --color-brand-light:        #EEF2FF;
+  /* ── Medientrupp Brand Colors — Violet/Mauve Palette ── */
+  --color-brand:              #7C3AED;
+  --color-brand-hover:        #6D28D9;
+  --color-brand-light:        #EDE9FE;
   --color-brand-dark:         #0F172B;
 
   /* ── Surface Colors ── */
@@ -84,39 +84,39 @@
   --popover:                 oklch(1 0 0);
   --popover-foreground:      oklch(0.13 0.02 263);
 
-  --primary:                 oklch(0.51 0.23 264);
+  --primary:                 oklch(0.48 0.26 280);
   --primary-foreground:      oklch(1 0 0);
 
-  --secondary:               oklch(0.97 0.005 264);
-  --secondary-foreground:    oklch(0.51 0.23 264);
+  --secondary:               oklch(0.97 0.005 280);
+  --secondary-foreground:    oklch(0.48 0.26 280);
 
   --muted:                   oklch(0.97 0 0);
-  --muted-foreground:        oklch(0.46 0.02 263);
-  --accent:                  oklch(0.95 0.01 264);
-  --accent-foreground:       oklch(0.51 0.23 264);
+  --muted-foreground:        oklch(0.46 0.02 280);
+  --accent:                  oklch(0.95 0.01 280);
+  --accent-foreground:       oklch(0.48 0.26 280);
 
   --destructive:             oklch(0.577 0.245 27.325);
-  --border:                  oklch(0.92 0.005 264);
-  --input:                   oklch(0.92 0.005 264);
-  --ring:                    oklch(0.51 0.23 264);
+  --border:                  oklch(0.92 0.005 280);
+  --input:                   oklch(0.92 0.005 280);
+  --ring:                    oklch(0.48 0.26 280);
 
-  --chart-1:                 oklch(0.51 0.23 264);
-  --chart-2:                 oklch(0.6 0.18 264);
-  --chart-3:                 oklch(0.7 0.12 264);
-  --chart-4:                 oklch(0.8 0.06 264);
-  --chart-5:                 oklch(0.9 0.03 264);
+  --chart-1:                 oklch(0.48 0.26 280);
+  --chart-2:                 oklch(0.58 0.20 280);
+  --chart-3:                 oklch(0.68 0.14 280);
+  --chart-4:                 oklch(0.78 0.08 280);
+  --chart-5:                 oklch(0.88 0.04 280);
 
   /* Sharp corners everywhere — Ingenieurs-Look */
   --radius:                  0px;
 
-  --sidebar:                 oklch(0.98 0.003 264);
-  --sidebar-foreground:      oklch(0.13 0.02 263);
-  --sidebar-primary:         oklch(0.51 0.23 264);
+  --sidebar:                 oklch(0.98 0.003 280);
+  --sidebar-foreground:      oklch(0.13 0.02 280);
+  --sidebar-primary:         oklch(0.48 0.26 280);
   --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent:          oklch(0.95 0.01 264);
-  --sidebar-accent-foreground: oklch(0.51 0.23 264);
-  --sidebar-border:          oklch(0.92 0.005 264);
-  --sidebar-ring:            oklch(0.51 0.23 264);
+  --sidebar-accent:          oklch(0.95 0.01 280);
+  --sidebar-accent-foreground: oklch(0.48 0.26 280);
+  --sidebar-border:          oklch(0.92 0.005 280);
+  --sidebar-ring:             oklch(0.48 0.26 280);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -162,7 +162,7 @@
 /* Flacher, scharfkantiger Indigo-Button. Kein Glow, kein Shimmer. */
 .btn-glow {
   position: relative;
-  background: #4F46E5;
+  background: #7C3AED;
   color: #ffffff;
   font-weight: 600;
   border-radius: 0;
@@ -171,13 +171,13 @@
 }
 
 .btn-glow:hover {
-  background: #4338CA;
+  background: #6D28D9;
   transform: none;
   box-shadow: none;
 }
 
 .btn-glow:active {
-  background: #3730A3;
+  background: #5B21B6;
 }
 
 /* ── Editorial Card ──────────────────────────────────────────── */
@@ -203,19 +203,27 @@
 /* ── Eyebrow Badge ───────────────────────────────────────────── */
 /* Statischer Kategorie-Badge über Sektions-Headlines */
 .eyebrow-badge {
-  background: #EEF2FF;
-  border: 1px solid rgba(79, 70, 229, 0.20);
-  color: #4F46E5;
+  background: #EDE9FE;
+  border: 1px solid rgba(124, 58, 237, 0.20);
+  color: #7C3AED;
 }
 
 /* ── Section Accent Line ─────────────────────────────────────── */
-/* Eine dünne Indigo-Linie als sparsamer Akzent pro Sektion */
 .section-accent {
   display: block;
   width: 40px;
   height: 2px;
-  background: #4F46E5;
+  background: #7C3AED;
   margin-bottom: 1.5rem;
+}
+
+/* ── Tech Grid Background ────────────────────────────────────── */
+/* Feines Linienraster für tech-orientierte Sektionen */
+.tech-grid {
+  background-image:
+    linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* ═══════════════════════════════════════════════════════════════

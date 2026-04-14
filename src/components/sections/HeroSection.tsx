@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Tag, Zap } from "lucide-react";
@@ -7,9 +7,9 @@ import Link from "next/link";
 // ── Editorial data ──────────────────────────────────────────────────────────
 
 const kpiRows = [
-  { label: "Website-Leads · Dieses Quartal", value: "148",  delta: "+12,4 %", color: "#4F46E5" },
-  { label: "Zeitersparnis durch KI",          value: "38h",  delta: "+23,0 %", color: "#10B981" },
-  { label: "Ø Conversion Rate",               value: "8,4 %", delta: "+3,1 Pkt", color: "#F59E0B" },
+  { label: "Aktive Automations laufen gerade",  value: "14",    delta: "+3 neu",    color: "#7C3AED" },
+  { label: "API Response Zeit",                 value: "28ms",  delta: "↓ −62 ms",  color: "#10B981" },
+  { label: "Website-Leads · Dieses Quartal",    value: "148",   delta: "+12,4 %",   color: "#F59E0B" },
 ];
 
 const chartPoints = [35, 52, 41, 68, 74, 61, 88];
@@ -28,7 +28,7 @@ const EditorialDataPanel = () => (
       {/* Panel header row */}
       <div className="flex items-center justify-between px-5 py-3 bg-slate-50 border-b border-slate-200">
         <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400">
-          Medientrupp · Live Dashboard
+          System Monitor <span className="text-violet-600">// online</span>
         </p>
         <span className="flex items-center gap-1.5">
           <span className="pulse-ring">
@@ -76,9 +76,9 @@ const EditorialDataPanel = () => (
       >
         <div className="flex items-center justify-between mb-3">
           <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.12em]">
-            Lead-Wachstum — Letzte 7 Monate
+            Lead-Pipeline — Letzte 7 Monate
           </p>
-          <span className="text-[9px] font-black text-indigo-600 border border-indigo-100 bg-indigo-50 px-1.5 py-0.5">
+          <span className="text-[9px] font-black text-violet-600 border border-violet-100 bg-violet-50 px-1.5 py-0.5">
             +28 %
           </span>
         </div>
@@ -87,7 +87,7 @@ const EditorialDataPanel = () => (
             <motion.div
               key={i}
               className="flex-1"
-              style={{ background: i === chartPoints.length - 1 ? "#4F46E5" : "#EEF2FF" }}
+              style={{ background: i === chartPoints.length - 1 ? "#7C3AED" : "#EDE9FE" }}
               initial={{ height: 0 }}
               animate={{ height: `${h}%` }}
               transition={{ delay: 0.85 + i * 0.06, duration: 0.35, ease: "easeOut" }}
@@ -120,8 +120,10 @@ export const HeroSection = () => {
   return (
     <section className="relative bg-white overflow-hidden">
 
-      {/* Dot-grid — sehr subtil */}
-      <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-[0.3] pointer-events-none" />
+      {/* Tech-grid — feines Linienraster gibt Tech-Infrastruktur-Gefühl */}
+      <div aria-hidden="true" className="tech-grid absolute inset-0 pointer-events-none" />
+      {/* Subtile Dot-Overlay */}
+      <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-[0.2] pointer-events-none" />
 
       {/* Grid: Text | Divider | Panel */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,7 +156,7 @@ export const HeroSection = () => {
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.1 + i * 0.12, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className={`block ${i === 2 ? "text-indigo-600" : ""}`}
+                  className={`block ${i === 2 ? "text-violet-600" : ""}`}
                 >
                   {line}
                 </motion.span>

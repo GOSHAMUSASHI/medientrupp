@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { XCircle, CheckCircle2 } from "lucide-react";
@@ -87,7 +87,7 @@ export const TechComparison = () => {
             >
               Dasselbe Budget.
               <br />
-              <span className="text-indigo-600">Dreifacher Output.</span>
+              <span className="text-violet-600">Dreifacher Output.</span>
             </h2>
           </div>
           <p className="text-sm text-slate-500 max-w-xs leading-relaxed lg:text-right">
@@ -120,7 +120,7 @@ export const TechComparison = () => {
                     {row.id === "ladezeit" && <div className="mt-3"><ProgressBar fast={false} /></div>}
                   </div>
                   <div className="pt-4 border-t border-slate-100">
-                    <span className="text-xs font-bold text-indigo-600 uppercase tracking-widest block mb-2">Medientrupp</span>
+                    <span className="text-xs font-bold text-violet-600 uppercase tracking-widest block mb-2">Medientrupp</span>
                     <div className="flex items-center gap-3">
                       <CheckCircle2 size={20} strokeWidth={2.5} className="text-emerald-500 shrink-0" />
                       <span className="font-black text-slate-900 flex-1">{row.good}</span>
@@ -144,7 +144,7 @@ export const TechComparison = () => {
                   <th className="px-8 py-6 bg-slate-50/50 text-slate-500 font-bold text-xs uppercase tracking-widest text-left border-r border-slate-100 w-[36%]">
                     Klassische Agentur
                   </th>
-                  <th className="px-8 py-6 bg-indigo-50/50 text-indigo-700 font-bold text-xs uppercase tracking-widest text-left w-[36%]">
+                  <th className="px-8 py-6 bg-violet-50/50 text-violet-700 font-bold text-xs uppercase tracking-widest text-left w-[36%]">
                     Medientrupp
                   </th>
                 </tr>
@@ -166,7 +166,7 @@ export const TechComparison = () => {
                         {row.id === "lighthouse" && <ScoreCircle score={45} color="#f97316" duration={2} />}
                       </div>
                     </td>
-                    <td className="px-8 py-6 bg-indigo-50/20 group-hover:bg-indigo-50/50 transition-colors">
+                    <td className="px-8 py-6 bg-violet-50/20 group-hover:bg-violet-50/50 transition-colors">
                       <div className="flex items-center justify-start gap-4">
                         <CheckCircle2 size={18} strokeWidth={2.5} className="text-emerald-500 shrink-0" />
                         <span className="font-bold text-slate-900 w-40 lg:w-44">{row.good}</span>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight, FileText } from "lucide-react";
@@ -21,18 +21,18 @@ export const CtaBanner = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="bg-white border border-slate-200 shadow-xl shadow-slate-200/60 p-8 md:p-12 lg:p-16"
-          style={{ borderLeft: "4px solid #4F46E5" }}
+          style={{ borderLeft: "4px solid #7C3AED" }}
         >
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
 
             {/* Copy */}
             <div className="flex-1">
-              <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
+              <p className="text-xs font-black tracking-[0.2em] uppercase text-violet-600 mb-3">
                 Kostenlose Erstberatung
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4 leading-[1.1]">
                 Jetzt beraten lassen.{" "}
-                <span className="text-indigo-600">Unverbindlich & in 24h.</span>
+                <span className="text-violet-600">Unverbindlich & in 24h.</span>
               </h2>
               <p className="text-base md:text-lg text-slate-500 leading-relaxed max-w-xl">
                 Wir schauen uns Ihre aktuelle digitale Infrastruktur an und zeigen Ihnen
@@ -44,7 +44,7 @@ export const CtaBanner = () => {
             <div className="flex-shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-3">
               <Link
                 href="/projekt-anfragen"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 font-bold text-base flex items-center justify-center gap-2 transition-colors duration-200"
+                className="bg-violet-600 hover:bg-violet-700 text-white px-8 py-4 font-bold text-base flex items-center justify-center gap-2 transition-colors duration-200"
               >
                 Preis berechnen
                 <ArrowRight size={18} />

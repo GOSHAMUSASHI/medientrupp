@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import { Code2, Cpu, ExternalLink, Globe, Layers, Zap } from "lucide-react";
@@ -20,7 +20,7 @@ const projects = [
     category: "Corporate Website & SaaS UI",
     description: "Kompletter Relaunch der Marketing-Website inklusive interaktivem Rendite-Rechner.",
     metrics: ["14k Leads/Mo", "Web-Vitals 100/100", "Dark Mode"],
-    color: "from-indigo-500/20 to-purple-500/20",
+    color: "from-violet-500/20 to-purple-500/20",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
   },
   {
@@ -53,11 +53,11 @@ export default function PortfolioPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <p className="text-sm font-black tracking-[0.2em] uppercase text-indigo-600 mb-6">
+            <p className="text-sm font-black tracking-[0.2em] uppercase text-violet-600 mb-6">
               Case Studies & Referenzen
             </p>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 mb-8">
-              Systeme, die <span className="text-indigo-600">gewinnen.</span>
+              Systeme, die <span className="text-violet-600">gewinnen.</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium">
               Einblicke in unsere Infrastrukturen und Case Studies. Jedes System wird kompromisslos auf Performance und ROI optimiert.
@@ -109,13 +109,13 @@ export default function PortfolioPage() {
                   <div className="flex flex-wrap gap-3 mb-6">
                     {project.metrics.map((metric, i) => (
                       <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white text-slate-800 font-bold text-xs uppercase tracking-widest border border-slate-200 shadow-sm">
-                        <Zap size={14} className="text-indigo-600" />
+                        <Zap size={14} className="text-violet-600" />
                         {metric}
                       </span>
                     ))}
                   </div>
 
-                  <h3 className="text-3xl font-bold tracking-tight text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                  <h3 className="text-3xl font-bold tracking-tight text-slate-900 mb-3 group-hover:text-violet-600 transition-colors">
                     {project.title}
                   </h3>
                   <p className="text-sm font-black uppercase tracking-widest text-slate-400 mb-4">

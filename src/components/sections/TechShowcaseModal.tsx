@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -61,7 +61,7 @@ const SaaSDashboard = () => {
           pieLabel: "Lead-Qualität",
           pieData: [
             { label: "Heiß", pct: "25%", color: "#f59e0b" },
-            { label: "Warm", pct: "40%", color: "#4F46E5" },
+            { label: "Warm", pct: "40%", color: "#7C3AED" },
             { label: "Kalt", pct: "35%", color: "#10b981" },
           ],
         };
@@ -77,7 +77,7 @@ const SaaSDashboard = () => {
           chartLabel: "Traffic-Verlauf",
           pieLabel: "Traffic-Quellen",
           pieData: [
-            { label: "Google", pct: "55%", color: "#4F46E5" },
+            { label: "Google", pct: "55%", color: "#7C3AED" },
             { label: "Direct", pct: "30%", color: "#10b981" },
             { label: "Social", pct: "15%", color: "#f59e0b" },
           ],
@@ -94,7 +94,7 @@ const SaaSDashboard = () => {
           chartLabel: "Ausgeführte Automatisierungen",
           pieLabel: "Automation Typ",
           pieData: [
-            { label: "E-Mail", pct: "45%", color: "#4F46E5" },
+            { label: "E-Mail", pct: "45%", color: "#7C3AED" },
             { label: "CRM Sync", pct: "35%", color: "#10b981" },
             { label: "Slack Allg.", pct: "20%", color: "#f59e0b" },
           ],
@@ -111,7 +111,7 @@ const SaaSDashboard = () => {
           chartLabel: "Performance nach Kanälen",
           pieLabel: "Budget Spend",
           pieData: [
-            { label: "Google Ads", pct: "50%", color: "#4F46E5" },
+            { label: "Google Ads", pct: "50%", color: "#7C3AED" },
             { label: "Meta Ads", pct: "35%", color: "#10b981" },
             { label: "LinkedIn", pct: "15%", color: "#f59e0b" },
           ],
@@ -128,7 +128,7 @@ const SaaSDashboard = () => {
           chartLabel: "Speicherplatz Verlauf",
           pieLabel: "Speichernutzung",
           pieData: [
-            { label: "Bilder", pct: "40%", color: "#4F46E5" },
+            { label: "Bilder", pct: "40%", color: "#7C3AED" },
             { label: "Docs", pct: "20%", color: "#10b981" },
             { label: "Frei", pct: "40%", color: "#f59e0b" },
           ],
@@ -145,7 +145,7 @@ const SaaSDashboard = () => {
           chartLabel: "Lead-Eingang / Woche",
           pieLabel: "Kanal-Verteilung",
           pieData: [
-            { label: "Organisch", pct: "60%", color: "#4F46E5" },
+            { label: "Organisch", pct: "60%", color: "#7C3AED" },
             { label: "Direkt", pct: "25%", color: "#10b981" },
             { label: "Social", pct: "15%", color: "#f59e0b" },
           ],
@@ -160,7 +160,7 @@ const SaaSDashboard = () => {
       {/* Top Nav */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50">
         <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-indigo-600 flex items-center justify-center">
+          <div className="w-6 h-6 bg-violet-600 flex items-center justify-center">
             <span className="text-white font-black text-[9px]">MT</span>
           </div>
           <span className="text-slate-900 font-bold text-sm">Medientrupp CRM</span>
@@ -174,9 +174,9 @@ const SaaSDashboard = () => {
           </div>
           <div className="relative">
             <Bell size={15} className="text-slate-400" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-indigo-600" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-violet-600" />
           </div>
-          <div className="w-6 h-6 bg-indigo-600 flex items-center justify-center">
+          <div className="w-6 h-6 bg-violet-600 flex items-center justify-center">
             <span className="text-white text-[9px] font-black">GS</span>
           </div>
         </div>
@@ -191,7 +191,7 @@ const SaaSDashboard = () => {
               onClick={() => setActiveTab(item.label)}
               className={`flex items-center gap-3 px-3 py-2 mx-2 mb-1 text-xs font-medium cursor-pointer transition-colors ${
                 activeTab === item.label
-                  ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
+                  ? "bg-violet-50 text-violet-600 border border-violet-100"
                   : "text-slate-500 hover:text-slate-900 hover:bg-white"
               }`}
             >
@@ -204,7 +204,7 @@ const SaaSDashboard = () => {
               onClick={() => setActiveTab("Einstellungen")}
               className={`flex items-center gap-3 px-3 py-2 text-xs font-medium cursor-pointer transition-colors ${
                 activeTab === "Einstellungen"
-                  ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
+                  ? "bg-violet-50 text-violet-600 border border-violet-100"
                   : "text-slate-400 hover:text-slate-700 hover:bg-white"
               }`}
             >
@@ -263,7 +263,7 @@ const SaaSDashboard = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
               >
-                <MiniChart heights={currentData.chartHeights} color="#4F46E5" />
+                <MiniChart heights={currentData.chartHeights} color="#7C3AED" />
               </motion.div>
               <div className="flex justify-between mt-2">
                 {["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12"].map((w) => (
@@ -307,14 +307,14 @@ const SaaSDashboard = () => {
           <div className="bg-white border border-slate-200 p-3">
             <div className="flex items-center justify-between mb-2">
               <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Aktivitäts-Feed</p>
-              <span className="text-indigo-600 text-xs font-medium cursor-pointer hover:text-indigo-700">Alle ansehen</span>
+              <span className="text-violet-600 text-xs font-medium cursor-pointer hover:text-violet-700">Alle ansehen</span>
             </div>
             <div className="space-y-2">
               {[
                 { icon: <CheckCircle2 size={11} className="text-emerald-600" />, text: "Schmid GmbH: Angebot akzeptiert — 12.400 €", time: "vor 3 Min." },
-                { icon: <Users size={11} className="text-indigo-600" />, text: "5 neue Leads via Kontaktformular", time: "vor 18 Min." },
+                { icon: <Users size={11} className="text-violet-600" />, text: "5 neue Leads via Kontaktformular", time: "vor 18 Min." },
                 { icon: <Zap size={11} className="text-amber-500" />, text: "KI-Automation: 3 Follow-Ups versendet", time: "vor 1 Std." },
-                { icon: <BarChart2 size={11} className="text-indigo-600" />, text: "Lighthouse Score 100 bestätigt — Baumann AG", time: "vor 2 Std." },
+                { icon: <BarChart2 size={11} className="text-violet-600" />, text: "Lighthouse Score 100 bestätigt — Baumann AG", time: "vor 2 Std." },
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-5 h-5 bg-slate-100 border border-slate-200 flex items-center justify-center flex-shrink-0">
@@ -354,7 +354,7 @@ export const TechShowcaseModal = () => {
               >
                 Überzeugen Sie sich selbst
                 <br />
-                <span className="text-indigo-600">von unserer Infrastruktur.</span>
+                <span className="text-violet-600">von unserer Infrastruktur.</span>
               </h2>
               <p className="text-base text-slate-500 leading-relaxed mt-5 max-w-lg">
                 Keine abstrakten Theorien. Wir zeigen Ihnen das Dashboard, das Ihre Leads,
@@ -363,7 +363,7 @@ export const TechShowcaseModal = () => {
             </div>
             <button
               onClick={() => setIsOpen(true)}
-              className="inline-flex items-center gap-2.5 px-8 py-4 font-bold text-white text-base bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200 self-end"
+              className="inline-flex items-center gap-2.5 px-8 py-4 font-bold text-white text-base bg-violet-600 hover:bg-violet-700 transition-colors duration-200 self-end"
             >
               <Activity size={20} />
               Live-Demo starten

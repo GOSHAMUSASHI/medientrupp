@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,11 +47,11 @@ export const SiteHeader = () => {
             <Link href="/" id="site-logo" className="flex items-center gap-2 group">
               {/* Animated dot accent */}
               <span
-                className="w-2 h-2 bg-indigo-600 group-hover:scale-125 transition-transform duration-300"
+                className="w-2 h-2 bg-violet-600 group-hover:scale-125 transition-transform duration-300"
                 aria-hidden="true"
               />
               <span className="font-black text-[1.35rem] tracking-tight leading-none">
-                <span className="text-indigo-600">Medien</span>
+                <span className="text-violet-600">Medien</span>
                 <span className="text-slate-900">Trupp</span>
               </span>
             </Link>
@@ -65,13 +65,13 @@ export const SiteHeader = () => {
                     key={link.label}
                     href={link.href}
                     className={`relative text-sm font-semibold transition-colors duration-200 group/nav pb-0.5 ${
-                      isActive ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600"
+                      isActive ? "text-violet-600" : "text-slate-600 hover:text-violet-600"
                     }`}
                   >
                     {link.label}
                     {/* Active / hover underline */}
                     <span
-                      className={`absolute -bottom-0.5 left-0 h-[2px] bg-indigo-600 transition-all duration-300 ${
+                      className={`absolute -bottom-0.5 left-0 h-[2px] bg-violet-600 transition-all duration-300 ${
                         isActive
                           ? "w-full opacity-100"
                           : "w-0 opacity-0 group-hover/nav:w-full group-hover/nav:opacity-100"
@@ -100,7 +100,7 @@ export const SiteHeader = () => {
             {/* ── Mobile Toggle ── */}
             <button
               id="mobile-menu-toggle"
-              className="md:hidden p-2 text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors duration-200"
+              className="md:hidden p-2 text-slate-600 hover:text-violet-600 hover:bg-violet-50 transition-colors duration-200"
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Menü öffnen"
               aria-expanded={mobileMenuOpen}
@@ -130,14 +130,14 @@ export const SiteHeader = () => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center gap-2"
               >
-                <span className="w-2 h-2 bg-indigo-600" />
+                <span className="w-2 h-2 bg-violet-600" />
                 <span className="font-black text-xl tracking-tight">
-                  <span className="text-indigo-600">Medien</span>
+                  <span className="text-violet-600">Medien</span>
                   <span className="text-slate-900">Trupp</span>
                 </span>
               </Link>
               <button
-                className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+                className="p-2 text-slate-500 hover:text-violet-600 hover:bg-violet-50 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
                 aria-label="Menü schließen"
               >
@@ -160,7 +160,7 @@ export const SiteHeader = () => {
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`block text-3xl font-black py-3 border-b border-slate-100 transition-colors duration-200 ${
-                        isActive ? "text-indigo-600" : "text-slate-900 hover:text-indigo-600"
+                        isActive ? "text-violet-600" : "text-slate-900 hover:text-violet-600"
                       }`}
                     >
                       {link.label}
