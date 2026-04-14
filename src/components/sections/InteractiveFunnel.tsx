@@ -47,6 +47,7 @@ interface ContactForm {
   email: string;
   company: string;
   phone?: string;
+  gdpr: true;
 }
 
 // ─── Pricing engine ──────────────────────────────────────────────────────────
@@ -92,9 +93,7 @@ const contactSchema = z.object({
   email: z.string().email("Bitte eine gültige E-Mail eingeben."),
   company: z.string().min(2, "Bitte Ihr Unternehmen eingeben."),
   phone: z.string().optional(),
-  gdpr: z.literal(true, {
-    errorMap: () => ({ message: "Zustimmung erforderlich" }),
-  }),
+  gdpr: z.literal(true, { error: "Zustimmung erforderlich" }),
 });
 
 const stepVariants = {
@@ -227,8 +226,8 @@ export const InteractiveFunnel = () => {
         </div>
 
         {status === "success" ? (
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white max-w-2xl mx-auto w-full rounded-[32px] p-8 md:p-12 text-center shadow-2xl border border-slate-100">
-            <div className="w-24 h-24 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-8 border border-emerald-200">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="bg-white max-w-2xl mx-auto w-full p-8 md:p-12 text-center shadow-xl shadow-slate-200/60 border border-slate-200">
+            <div className="w-24 h-24 bg-emerald-50 flex items-center justify-center mx-auto mb-8 border border-emerald-200">
               <CheckCircle2 size={48} className="text-emerald-600" />
             </div>
             <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 mb-4">Anfrage erhalten!</h2>
@@ -253,7 +252,7 @@ export const InteractiveFunnel = () => {
             <div className="flex-1 flex flex-col relative h-[650px] lg:h-auto overflow-hidden">
               
               {/* Internal Header */}
-              <div className="shrink-0 flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white/90 backdrop-blur-md z-20">
+              <div className="shrink-0 flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white z-20">
                 <div className="flex items-center gap-4 w-full">
                   <div className="w-10">
                     {flowIndex > 0 && (
@@ -262,7 +261,7 @@ export const InteractiveFunnel = () => {
                       </button>
                     )}
                   </div>
-                  <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div className="flex-1 h-1 bg-slate-100 overflow-hidden">
                     <div className="h-full bg-indigo-600 transition-all duration-500" style={{ width: `${progressPercent}%` }} />
                   </div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest min-w-[32px] text-right">
@@ -400,7 +399,7 @@ export const InteractiveFunnel = () => {
               </div>
 
               {/* Mobile Embedded Bottom Action Bar (Fixed INSIDE the card) */}
-              <div className="shrink-0 bg-white/90 backdrop-blur-xl border-t border-slate-200 px-5 sm:px-8 py-4 flex items-center justify-between z-20 shadow-[0_-10px_20px_rgba(0,0,0,0.03)]">
+              <div className="shrink-0 bg-white border-t border-slate-200 px-5 sm:px-8 py-4 flex items-center justify-between z-20">
                 <div className="flex flex-col lg:hidden">
                   <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Investment</span>
                   <div className="flex items-baseline gap-1">
@@ -427,8 +426,8 @@ export const InteractiveFunnel = () => {
             {/* ── Right: Live Cost Tracker (Desktop Only) ──────────────────────── */}
             <div className="hidden lg:flex w-[340px] xl:w-[400px] flex-col bg-slate-50 border-l border-slate-200">
                <div className="p-8 xl:p-10 flex-1">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 bg-white shadow-sm mb-10">
-                    <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-slate-200 bg-white shadow-sm mb-10">
+                    <span className="w-2 h-2 bg-indigo-600 animate-pulse" />
                     <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Live-Kalkulation</span>
                   </div>
 
@@ -463,7 +462,7 @@ export const InteractiveFunnel = () => {
                       {/* Short list of addons */}
                       {(Object.keys(addons) as (keyof Addons)[]).filter(k => addons[k]).map((key) => (
                           <div key={key} className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 rounded-full bg-slate-300 flex-shrink-0 mt-1.5 ml-1" />
+                            <div className="w-1.5 h-1.5 bg-slate-300 flex-shrink-0 mt-1.5 ml-1" />
                             <span className="text-xs font-medium text-slate-600">Add-on aktiviert</span>
                           </div>
                       ))}

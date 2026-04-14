@@ -35,36 +35,42 @@ export const FaqSection = () => {
   };
 
   return (
-    <section className="bg-white py-16 md:py-20 border-t border-slate-200">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <section className="bg-slate-50 border-t border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="py-12 border-b border-slate-200 mb-10"
         >
-          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
             Häufige Fragen
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
-            Klartext, keine offenen Fragen.
+          <h2
+            className="font-black tracking-[-0.03em] text-slate-900"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+          >
+            Klartext,
+            <br />
+            <span className="text-indigo-600">keine offenen Fragen.</span>
           </h2>
         </motion.div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 max-w-3xl pb-16">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`border rounded-lg overflow-hidden transition-colors duration-300 ${
-                  isOpen ? "bg-white border-indigo-200 shadow-sm" : "bg-white border-slate-200 hover:border-indigo-100"
+                transition={{ duration: 0.4, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                className={`border overflow-hidden transition-colors duration-300 ${
+                  isOpen ? "bg-white border-indigo-600 shadow-sm" : "bg-white border-slate-200 hover:border-slate-300"
                 }`}
               >
                 <button
@@ -74,7 +80,7 @@ export const FaqSection = () => {
                   <span className={`font-bold text-lg pr-8 transition-colors ${isOpen ? "text-indigo-900" : "text-slate-900"}`}>
                     {faq.question}
                   </span>
-                  <div className={`w-10 h-10 rounded-md flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${isOpen ? "bg-indigo-100 text-indigo-600 rotate-180" : "bg-slate-100 text-slate-400"}`}>
+                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${isOpen ? "bg-indigo-50 text-indigo-600 rotate-180" : "bg-slate-100 text-slate-400"}`}>
                     <ChevronDown size={18} />
                   </div>
                 </button>

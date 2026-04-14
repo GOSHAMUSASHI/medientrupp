@@ -5,121 +5,158 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+// ── Data ──────────────────────────────────────────────────────────────────────
+
 const projects = [
   {
+    index: "01",
     title: "Web-Relaunch & B2B Lead Gen",
     client: "Schmid Maschinenbau",
     category: "High-Performance Web",
     metric: "3,5× mehr Anfragen",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop", 
+    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
   },
   {
+    index: "02",
     title: "Support Automation 24/7",
     client: "Baumann Logistik",
     category: "SaaS & Automation",
-    metric: "-65% Support-Kosten",
-    image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=800&auto=format&fit=crop", 
+    metric: "−65 % Support-Kosten",
+    image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=800&auto=format&fit=crop",
   },
   {
+    index: "03",
     title: "Employer Branding Hub",
     client: "Kaiser Pflege & Gesundheit",
     category: "Funnel & Brand",
     metric: "42 neue Bewerber/Mo",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop", 
-  }
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+  },
 ];
+
+// ── Section ───────────────────────────────────────────────────────────────────
 
 export const ProjectTeaser = () => {
   return (
-    <section className="bg-slate-50 py-16 md:py-20" aria-labelledby="projects-heading">
+    <section
+      className="bg-white border-t border-slate-200"
+      aria-labelledby="projects-heading"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
+
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-6 py-12 border-b border-slate-200"
+        >
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
               Erfolgsgeschichten
             </p>
-            <h2 id="projects-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
-              Wir bauen Systeme, <br />die <span className="text-indigo-600">gewinnen.</span>
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <Link 
-              href="/portfolio"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-bold bg-slate-900 text-white hover:bg-slate-800 transition-colors"
+            <h2
+              id="projects-heading"
+              className="font-black tracking-[-0.03em] text-slate-900"
+              style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
             >
-              Alle Cases ansehen
-              <ArrowRight size={18} />
-            </Link>
-          </motion.div>
-        </div>
+              Systeme,{" "}
+              <span className="text-indigo-600">die gewinnen.</span>
+            </h2>
+          </div>
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200 self-end"
+          >
+            Alle Cases
+            <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />
+          </Link>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Project rows */}
+        <div>
           {projects.map((project, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.15 }}
-              className="group cursor-pointer h-full flex flex-col"
+              transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="group grid grid-cols-1 lg:grid-cols-[60px_1fr_1px_340px] items-stretch border-b border-slate-100 hover:bg-slate-50 transition-colors duration-200"
             >
-              <div 
-                className="relative aspect-[4/3] rounded-md overflow-hidden mb-6 shadow-lg shadow-slate-200 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-indigo-500/20 group-hover:-translate-y-2 bg-slate-200"
-              >
-                {/* Real Image Placeholder */}
-                <Image 
+              {/* Index number */}
+              <div className="hidden lg:flex items-center py-8 pr-4">
+                <span className="text-[11px] font-semibold tracking-[0.2em] text-slate-300">
+                  {project.index}
+                </span>
+              </div>
+
+              {/* Left: copy */}
+              <div className="py-8 lg:pr-10 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1">
+                    {project.category}
+                  </span>
+                  <span className="w-1 h-1 bg-slate-300" aria-hidden="true" />
+                  <span className="text-[11px] font-medium text-slate-400">
+                    {project.client}
+                  </span>
+                </div>
+                <h3
+                  className="font-black tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors duration-200"
+                  style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.75rem)" }}
+                >
+                  {project.title}
+                </h3>
+                <p className="text-sm font-black text-slate-400 mt-3 tracking-[0.1em] uppercase">
+                  {project.metric}
+                </p>
+              </div>
+
+              {/* Vertical rule */}
+              <div className="hidden lg:block bg-slate-200 self-stretch" />
+
+              {/* Right: image */}
+              <div className="hidden lg:block relative overflow-hidden border-l-0 self-stretch min-h-[180px]">
+                <Image
                   src={project.image}
                   alt={project.title}
                   fill
                   style={{ objectFit: "cover" }}
-                  className="transition-transform duration-700 group-hover:scale-105"
+                  className="transition-transform duration-700 group-hover:scale-[1.04]"
                   unoptimized
                 />
-                
-                {/* Image Placeholder Overlay */}
-                <div className="absolute inset-0 bg-slate-900/30 group-hover:bg-slate-900/10 transition-colors duration-500" />
-                
-                {/* Metric Badge */}
-                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-md font-black text-sm text-indigo-600 uppercase tracking-widest shadow-sm">
-                  {project.metric}
-                </div>
-
+                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/10 transition-colors duration-500" />
+                {/* Arrow link overlay */}
                 <Link
                   href="/portfolio"
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute top-4 right-4 w-10 h-10 bg-white text-slate-900 rounded-full flex items-center justify-center opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 shadow-lg z-10"
+                  className="absolute bottom-4 right-4 w-9 h-9 bg-white border border-slate-200 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10"
+                  aria-label={`${project.title} ansehen`}
                 >
-                  <ArrowUpRight size={20} />
+                  <ArrowUpRight size={18} className="text-slate-900" />
                 </Link>
-              </div>
-
-              <div className="flex-1 flex flex-col justify-end">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                    {project.category}
-                  </span>
-                  <span className="w-1 h-1 rounded-full bg-slate-300" />
-                  <span className="text-xs font-medium text-slate-500">
-                    {project.client}
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-slate-900 tracking-tight group-hover:text-indigo-600 transition-colors">
-                  {project.title}
-                </h3>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="py-10"
+        >
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2 px-7 py-3.5 font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200"
+          >
+            Alle Projekte ansehen
+            <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />
+          </Link>
+        </motion.div>
 
       </div>
     </section>

@@ -55,7 +55,7 @@ export default function UeberUnsPage() {
     <div className="bg-slate-50 min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-slate-200/50 blur-[120px] rounded-[100%] pointer-events-none" />
+        <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-[0.25] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -101,7 +101,6 @@ export default function UeberUnsPage() {
 
       {/* Agency Standard / Comparison */}
       <section className="py-16 md:py-20 bg-white border-y border-slate-200 overflow-hidden relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/5 rounded-full blur-[120px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -148,29 +147,26 @@ export default function UeberUnsPage() {
       </section>
 
       {/* Location / Headquarters */}
-      <section className="py-16 md:py-24 bg-slate-900 text-white relative overflow-hidden">
-        {/* Abstract Dark Map/Tech pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-slate-900 to-slate-900"></div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-slate-800/50 rounded-full blur-[100px] pointer-events-none"></div>
+      <section className="py-16 md:py-24 bg-slate-50 border-y border-slate-200 relative overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
           <div className="max-w-xl text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-slate-800 border border-slate-700 mb-8">
-              <MapPin size={16} className="text-indigo-400" />
-              <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Headquarters</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 eyebrow-badge mb-8">
+              <MapPin size={16} className="text-indigo-600" />
+              <span className="text-xs font-bold uppercase tracking-widest text-indigo-700">Headquarters</span>
             </div>
-            
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
+
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
               Made in Germany.<br/>Hosted in Germany.
             </h2>
-            <p className="text-lg text-slate-400 leading-relaxed mb-10">
+            <p className="text-lg text-slate-500 leading-relaxed mb-10">
               In einer digitalisierten Welt ist der Standort des Servers genauso wichtig wie der Firmensitz. Alle unsere Projekte werden DSGVO-konform und mit höchsten Sicherheitsstandards in Deutschland gehostet und entwickelt.
             </p>
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-8 justify-center lg:justify-start">
               <div className="flex items-center gap-4 text-left">
-                <div className="w-12 h-12 bg-slate-800 rounded-md flex items-center justify-center flex-shrink-0">
-                  <Server size={24} className="text-indigo-400" />
+                <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+                  <Server size={24} className="text-indigo-600" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-bold">100% DSGVO-konform</span>
@@ -178,8 +174,8 @@ export default function UeberUnsPage() {
                 </div>
               </div>
               <div className="flex items-center gap-4 text-left">
-                <div className="w-12 h-12 bg-slate-800 rounded-md flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck size={24} className="text-indigo-400" />
+                <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+                  <ShieldCheck size={24} className="text-indigo-600" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-bold">Zertifizierte Sicherheit</span>
@@ -190,18 +186,18 @@ export default function UeberUnsPage() {
           </div>
 
           <div className="flex-1 w-full flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm aspect-square border border-slate-800 rounded-md flex items-center justify-center relative p-8">
-              {/* Subtle pulsing rings */}
-              <div className="absolute inset-0 rounded-full border border-slate-700/50 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
-              <div className="absolute inset-8 rounded-full border border-slate-700/50"></div>
-              <div className="absolute inset-16 rounded-full border border-slate-700/50"></div>
-              
-              <div className="w-32 h-32 bg-slate-800 flex items-center justify-center rounded-full z-10 shadow-2xl shadow-indigo-900/50 border border-slate-700 relative">
-                <MapPin size={40} className="text-indigo-500" />
+            <div className="w-full max-w-sm aspect-square border border-slate-200 flex items-center justify-center relative p-8 bg-white shadow-xl shadow-slate-200/60">
+              {/* Pulsing rings */}
+              <div className="absolute inset-0 border border-slate-100 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+              <div className="absolute inset-8 border border-slate-100"></div>
+              <div className="absolute inset-16 border border-slate-100"></div>
+
+              <div className="w-32 h-32 bg-indigo-600 flex items-center justify-center z-10 shadow-xl shadow-indigo-600/20 border border-indigo-500 relative">
+                <MapPin size={40} className="text-white" />
                 {/* Ping Dot */}
                 <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-4 w-4 bg-indigo-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full bg-indigo-400 opacity-75"></span>
+                  <span className="relative inline-flex h-4 w-4 bg-indigo-600"></span>
                 </span>
               </div>
             </div>

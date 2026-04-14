@@ -18,7 +18,7 @@ export const SiteFooter = () => {
           {/* Brand & Info */}
           <div className="col-span-1 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="w-8 h-8 bg-indigo-600 rounded flex items-center justify-center">
+              <div className="w-8 h-8 bg-indigo-600 flex items-center justify-center">
                 <span className="text-white font-black text-sm">MT</span>
               </div>
               <span className="font-extrabold text-xl tracking-tight text-slate-900">
@@ -78,12 +78,12 @@ export const SiteFooter = () => {
               <input 
                 type="email" 
                 placeholder="E-Mail Adresse" 
-                className="bg-white border border-slate-200 rounded-md px-4 py-3 text-sm focus:outline-none focus:border-indigo-600 text-slate-900"
+                className="bg-white border border-slate-200 px-4 py-3 text-sm focus:outline-none focus:border-indigo-600 text-slate-900"
                 required
               />
               <button 
                 type="button"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-md px-4 py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-3 text-sm font-bold flex items-center justify-center gap-2 transition-colors"
               >
                 Kostenlos abonnieren <ArrowRight size={16} />
               </button>

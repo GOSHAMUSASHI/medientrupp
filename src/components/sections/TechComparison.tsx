@@ -6,9 +6,9 @@ import { XCircle, CheckCircle2 } from "lucide-react";
 // ── Custom Animations ─────────────────────────────────────────────────────────
 
 const ProgressBar = ({ fast }: { fast: boolean }) => (
-  <div className="w-full sm:w-24 h-2 bg-slate-200 rounded-full overflow-hidden shrink-0">
+  <div className="w-full sm:w-24 h-1.5 bg-slate-200 overflow-hidden shrink-0">
     <motion.div
-      className={`h-full rounded-full ${fast ? "bg-emerald-500" : "bg-orange-500"}`}
+      className={`h-full ${fast ? "bg-emerald-500" : "bg-orange-500"}`}
       initial={{ width: "0%" }}
       whileInView={{ width: fast ? "100%" : "60%" }}
       viewport={{ once: true, margin: "-50px" }}
@@ -64,36 +64,40 @@ const rows: RowData[] = [
 export const TechComparison = () => {
   return (
     <section
-      className="bg-white py-16 md:py-20 text-slate-900 relative overflow-hidden"
+      className="bg-white border-t border-slate-200 pb-16 md:pb-20"
       aria-labelledby="techcomparison-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-6 py-12 border-b border-slate-200 mb-10"
         >
-          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
-            C-Level Vergleich
-          </p>
-          <h2
-            id="techcomparison-heading"
-            className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4"
-          >
-            Dasselbe Budget.{" "}
-            <span className="text-indigo-600">Dreifacher Output.</span>
-          </h2>
-          <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
-            Wir haben den Fokus auf die Metriken reduziert, die für Ihre 
-            Skalierung und Kosteneinsparung wirklich zählen.
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
+              C-Level Vergleich
+            </p>
+            <h2
+              id="techcomparison-heading"
+              className="font-black tracking-[-0.03em] text-slate-900"
+              style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+            >
+              Dasselbe Budget.
+              <br />
+              <span className="text-indigo-600">Dreifacher Output.</span>
+            </h2>
+          </div>
+          <p className="text-sm text-slate-500 max-w-xs leading-relaxed lg:text-right">
+            Die Metriken, die für Ihre Skalierung und Kosteneinsparung wirklich zählen.
           </p>
         </motion.div>
 
         {/* Table for Desktop, Cards for Mobile */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}

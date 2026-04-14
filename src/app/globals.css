@@ -4,29 +4,37 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ─────────────────────────────────────────────────────────────
-   MEDIENTRUPP — Global Design Tokens
-   Primary: #4F46E5 (Indigo-600, unser Lila)
-   Text:     #0F172A (slate-900) / #475569 (slate-600)
-   BG:       #FFFFFF / #F8FAFC (slate-50)
-   ───────────────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   MEDIENTRUPP — Editorial B2B Design System v3
+   ─────────────────────────────────────────────────────────────
+   Aesthetic Direction: Airy, Classic & Editorial
+   → Clean White / Soft Grey / Deep Navy
+   → Sharp Corners (rounded-none) — Ingenieurs-Look
+   → Indigo (#4F46E5) chirurgisch präzise eingesetzt
+   ─────────────────────────────────────────────────────────────
+   Brand:    #4F46E5 Indigo (CTAs, aktive Links, eine Linie/Sektion)
+   Surface:  #FFFFFF Weiß / #F8FAFC Slate-50
+   Text:     #0F172B Navy Primary / #64748B Slate-500 Secondary
+   Motion:   subtil — Magazine-Umblättern, kein PowerPoint
+   ═══════════════════════════════════════════════════════════════ */
 
 @theme inline {
-  /* Medientrupp Brand Colors */
+  /* ── Medientrupp Brand Colors ── */
   --color-brand:              #4F46E5;
   --color-brand-hover:        #4338CA;
   --color-brand-light:        #EEF2FF;
-  --color-brand-dark:         #0F172A;
+  --color-brand-dark:         #0F172B;
 
-  /* Surface Colors */
+  /* ── Surface Colors ── */
   --color-background:         var(--background);
   --color-foreground:         var(--foreground);
 
-  /* Shadcn Tokens */
+  /* ── Typography ── */
   --font-sans:                var(--font-inter);
   --font-mono:                var(--font-geist-mono);
   --font-heading:             var(--font-inter);
 
+  /* ── Shadcn Passthrough Tokens ── */
   --color-sidebar-ring:               var(--sidebar-ring);
   --color-sidebar-border:             var(--sidebar-border);
   --color-sidebar-accent-foreground:  var(--sidebar-accent-foreground);
@@ -57,41 +65,40 @@
   --color-card-foreground:    var(--card-foreground);
   --color-card:               var(--card);
 
-  --radius-sm:  calc(var(--radius) * 0.6);
-  --radius-md:  calc(var(--radius) * 0.8);
-  --radius-lg:  var(--radius);
-  --radius-xl:  calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  /* ── Radius Scale — All Zero (Ingenieurs-Look) ── */
+  --radius-sm:  0px;
+  --radius-md:  0px;
+  --radius-lg:  0px;
+  --radius-xl:  0px;
+  --radius-2xl: 0px;
+  --radius-3xl: 0px;
+  --radius-4xl: 0px;
 }
 
-/* ── Light Mode (Default — Medientrupp Style) ── */
+/* ── Light Mode (Default — Medientrupp Editorial) ── */
 :root {
-  /* Shadcn semantic tokens — overridden for Medientrupp brand */
-  --background:              oklch(1 0 0);           /* pure white */
-  --foreground:              oklch(0.13 0.02 263);   /* slate-900 */
+  --background:              oklch(1 0 0);
+  --foreground:              oklch(0.13 0.02 263);
   --card:                    oklch(1 0 0);
   --card-foreground:         oklch(0.13 0.02 263);
   --popover:                 oklch(1 0 0);
   --popover-foreground:      oklch(0.13 0.02 263);
 
-  /* Primary = Medientrupp Lila #4F46E5 */
   --primary:                 oklch(0.51 0.23 264);
   --primary-foreground:      oklch(1 0 0);
 
-  --secondary:               oklch(0.97 0.005 264);  /* indigo-50 */
+  --secondary:               oklch(0.97 0.005 264);
   --secondary-foreground:    oklch(0.51 0.23 264);
 
-  --muted:                   oklch(0.97 0 0);        /* slate-50 */
-  --muted-foreground:        oklch(0.46 0.02 263);   /* slate-500 */
-  --accent:                  oklch(0.95 0.01 264);   /* indigo-100-ish */
+  --muted:                   oklch(0.97 0 0);
+  --muted-foreground:        oklch(0.46 0.02 263);
+  --accent:                  oklch(0.95 0.01 264);
   --accent-foreground:       oklch(0.51 0.23 264);
 
   --destructive:             oklch(0.577 0.245 27.325);
-  --border:                  oklch(0.92 0.005 264);  /* slate-200 */
+  --border:                  oklch(0.92 0.005 264);
   --input:                   oklch(0.92 0.005 264);
-  --ring:                    oklch(0.51 0.23 264);   /* brand ring */
+  --ring:                    oklch(0.51 0.23 264);
 
   --chart-1:                 oklch(0.51 0.23 264);
   --chart-2:                 oklch(0.6 0.18 264);
@@ -99,7 +106,8 @@
   --chart-4:                 oklch(0.8 0.06 264);
   --chart-5:                 oklch(0.9 0.03 264);
 
-  --radius:                  0.625rem;
+  /* Sharp corners everywhere — Ingenieurs-Look */
+  --radius:                  0px;
 
   --sidebar:                 oklch(0.98 0.003 264);
   --sidebar-foreground:      oklch(0.13 0.02 263);
@@ -111,42 +119,13 @@
   --sidebar-ring:            oklch(0.51 0.23 264);
 }
 
-/* ── Dark variant — STRICTLY scoped to .dark class only ─────── */
-/* Medientrupp ist primär Light Mode. Die dark-Klasse wird NUR   */
-/* für die TechShowcase-Sektion bewusst eingesetzt.              */
-.dark {
-  --background:              oklch(0.12 0.02 263);
-  --foreground:              oklch(0.985 0 0);
-  --card:                    oklch(0.17 0.02 263);
-  --card-foreground:         oklch(0.985 0 0);
-  --popover:                 oklch(0.17 0.02 263);
-  --popover-foreground:      oklch(0.985 0 0);
-  --primary:                 oklch(0.65 0.2 264);
-  --primary-foreground:      oklch(0.12 0.02 263);
-  --secondary:               oklch(0.22 0.02 263);
-  --secondary-foreground:    oklch(0.985 0 0);
-  --muted:                   oklch(0.22 0.02 263);
-  --muted-foreground:        oklch(0.65 0.02 263);
-  --accent:                  oklch(0.26 0.04 264);
-  --accent-foreground:       oklch(0.985 0 0);
-  --destructive:             oklch(0.704 0.191 22.216);
-  --border:                  oklch(1 0 0 / 10%);
-  --input:                   oklch(1 0 0 / 15%);
-  --ring:                    oklch(0.65 0.2 264);
-  --sidebar:                 oklch(0.17 0.02 263);
-  --sidebar-foreground:      oklch(0.985 0 0);
-  --sidebar-primary:         oklch(0.65 0.2 264);
-  --sidebar-primary-foreground: oklch(0.12 0.02 263);
-  --sidebar-accent:          oklch(0.22 0.02 263);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border:          oklch(1 0 0 / 10%);
-  --sidebar-ring:            oklch(0.65 0.2 264);
-}
-
-/* ── Base Layer ─────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   BASE LAYER
+   ═══════════════════════════════════════════════════════════════ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    border-radius: 0 !important;
   }
   body {
     @apply bg-white text-slate-900 antialiased;
@@ -161,7 +140,89 @@
   }
 }
 
-/* ── Marquee scrolling for SocialProofSection ─────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   EDITORIAL UTILITIES
+   Dot-Grid, Primary Button, Cards, Eyebrow Badge
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Dot Grid Background ──────────────────────────────────────── */
+/* Subtiles Punkte-Raster für Hero und CTA — Editorial/Architektur-Look */
+.dot-grid {
+  background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Slightly darker dots for slate-50 sections */
+.dot-grid-muted {
+  background-image: radial-gradient(circle, #e2e8f0 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ── Primary CTA Button ─────────────────────────────────────────── */
+/* Flacher, scharfkantiger Indigo-Button. Kein Glow, kein Shimmer. */
+.btn-glow {
+  position: relative;
+  background: #4F46E5;
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 0;
+  box-shadow: none;
+  transition: background 0.2s ease;
+}
+
+.btn-glow:hover {
+  background: #4338CA;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-glow:active {
+  background: #3730A3;
+}
+
+/* ── Editorial Card ──────────────────────────────────────────── */
+/* Flache, scharfkantige Karte mit dezenten Slate-Schatten */
+.ag-card {
+  background: #ffffff;
+  border-radius: 0;
+  border: 1px solid #e2e8f0;
+  box-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.06),
+    0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  will-change: transform;
+}
+
+.ag-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 2px 6px rgba(15, 23, 42, 0.08),
+    0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+/* ── Eyebrow Badge ───────────────────────────────────────────── */
+/* Statischer Kategorie-Badge über Sektions-Headlines */
+.eyebrow-badge {
+  background: #EEF2FF;
+  border: 1px solid rgba(79, 70, 229, 0.20);
+  color: #4F46E5;
+}
+
+/* ── Section Accent Line ─────────────────────────────────────── */
+/* Eine dünne Indigo-Linie als sparsamer Akzent pro Sektion */
+.section-accent {
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: #4F46E5;
+  margin-bottom: 1.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Marquee (SocialProofSection) ─────────────────────────── */
 @keyframes marquee-scroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -178,13 +239,71 @@
   animation-play-state: paused;
 }
 
-/* ── Dashboard float animation for HeroSection ─────────────────── */
+/* ── Dashboard Float (HeroSection) ──────────────────────────── */
 @keyframes dashboard-float {
   0%, 100% { transform: rotateX(11deg) rotateY(-7deg) translateY(0px); }
-  50%       { transform: rotateX(11deg) rotateY(-7deg) translateY(-12px); }
+  50%       { transform: rotateX(11deg) rotateY(-7deg) translateY(-10px); }
 }
 
 .dashboard-mockup {
   animation: dashboard-float 8s ease-in-out infinite;
   will-change: transform;
+}
+
+/* ── Staggered Fade-Slide (card grids) ───────────────────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-1 { animation-delay: 0.0s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.2s; }
+.stagger-4 { animation-delay: 0.3s; }
+.stagger-5 { animation-delay: 0.4s; }
+.stagger-6 { animation-delay: 0.5s; }
+
+/* ── Pulse Ring (live indicator) ─────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  70%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+.pulse-ring {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.4);
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  will-change: transform, opacity;
+}
+
+/* ── Reduced Motion Respect ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .btn-glow,
+  .ag-card,
+  .dashboard-mockup,
+  .marquee-track {
+    transition: none !important;
+    animation: none !important;
+  }
 }

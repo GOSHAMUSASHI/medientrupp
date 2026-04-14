@@ -1,115 +1,173 @@
 "use client";
 
-import { PenTool, Laptop, Zap, Video, ShieldCheck, ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+
+// ── Data ──────────────────────────────────────────────────────────────────────
 
 const services = [
   {
-    icon: <PenTool size={32} />,
-    title: "Marke & Design",
-    benefit: "Ihr erster Eindruck",
+    index: "01",
+    title: "Marke\n& Design",
+    subtitle: "Ihr erster Eindruck",
     action: "Wir optimieren Ihre bestehende Marke oder entwickeln eine komplett neue Identität.",
     result: "Sie heben sich sofort ab und strahlen Autorität aus.",
-    img: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop",
+    tags: ["Corporate Design", "Logo & Visual Identity", "Brand Guidelines"],
   },
   {
-    icon: <Laptop size={32} />,
-    title: "Website und digitales Auftreten",
-    benefit: "Ihr 24/7 Schaufenster",
-    action: "Schnelle, optimierte Website (bis zu 5 Unterseiten). Inklusive verkaufspsychologischer Texte und SEO.",
+    index: "02",
+    title: "Website &\nDigitaler Auftritt",
+    subtitle: "Ihr 24/7 Schaufenster",
+    action: "Schnelle, optimierte Website inklusive verkaufspsychologischer Texte und SEO.",
     result: "Interessenten konvertieren messbar besser in Leads.",
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    tags: ["Next.js High-Performance", "Technical SEO", "Core Web Vitals"],
   },
   {
-    icon: <Zap size={32} />,
-    title: "KI-Systeme & Automatisierungen",
-    benefit: "Mehr Zeit, weniger Fehler",
+    index: "03",
+    title: "KI-Systeme\n& Automation",
+    subtitle: "Mehr Zeit, weniger Fehler",
     action: "Automatisierte Lead-Erfassung, 24/7 Chatbot und automatische Bewertungs-Maschine.",
     result: "Sie gewinnen Stunden in der Woche zurück.",
-    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800&auto=format&fit=crop",
+    tags: ["Lead Automation", "24/7 KI-Chatbot", "CRM-Integration"],
   },
   {
-    icon: <Video size={32} />,
-    title: "Social Media & Videoproduktion",
-    benefit: "Sichtbarkeit die bleibt",
-    action: "Management, Strategie und Produktion von Short-Form Content / Imagefilmen.",
+    index: "04",
+    title: "Social Media\n& Video",
+    subtitle: "Sichtbarkeit die bleibt",
+    action: "Management, Strategie und Produktion von Short-Form Content und Imagefilmen.",
     result: "Artgerechte Präsentation auf allen digitalen Kanälen.",
-    img: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=800&auto=format&fit=crop",
+    tags: ["Content-Strategie", "Videoproduktion", "Performance Marketing"],
   },
   {
-    icon: <ShieldCheck size={32} />,
-    title: "Laufende Betreuung",
-    benefit: "Rundum-Sorglos Paket",
-    action: "Sicheres Hosting, Wartung und lokales Google SEO.",
+    index: "05",
+    title: "Laufende\nBetreuung",
+    subtitle: "Rundum-Sorglos",
+    action: "Sicheres Hosting, Wartung, laufende Optimierung und lokales Google SEO.",
     result: "Technik, die im Hintergrund einfach fehlerfrei läuft.",
-    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    tags: ["Premium Hosting", "Security Updates", "Proaktiver Support"],
   },
 ];
 
+// ── Section ───────────────────────────────────────────────────────────────────
+
 export const ServicesAlternating = () => {
   return (
-    <section className="bg-white py-16 md:py-20" aria-labelledby="services-heading">
+    <section className="bg-slate-50 border-t border-slate-200" aria-labelledby="services-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-10">
-          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
+
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="py-12 border-b border-slate-200"
+        >
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
             Unsere Kernleistungen
           </p>
-          <h2 id="services-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
-            Bausteine für echte <span className="text-indigo-600">Skalierung.</span>
+          <h2
+            id="services-heading"
+            className="font-black tracking-[-0.03em] text-slate-900"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+          >
+            Bausteine für echte
+            <br />
+            <span className="text-indigo-600">Skalierung.</span>
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col gap-12 lg:gap-16">
+        {/* Service rows */}
+        <div>
           {services.map((srv, i) => (
-            <div key={i} className="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
-              {/* Image Left */}
-              <div className="w-full md:w-[45%] lg:w-1/3 relative aspect-[4/3] rounded-md overflow-hidden shadow-xl shadow-slate-200">
-                <Image 
-                  src={srv.img}
-                  alt={srv.title}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  unoptimized
-                />
-                <div className="absolute inset-0 bg-indigo-900/10" />
-              </div>
-              
-              {/* Text Right */}
-              <div className="w-full md:w-[55%] lg:w-2/3">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-                    {srv.icon}
-                  </div>
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] border-b border-slate-200"
+            >
+              {/* LEFT — service title block */}
+              <div className="py-10 lg:pr-12">
+                <div className="flex items-start gap-5">
+                  <span
+                    className="text-[11px] font-semibold tracking-[0.2em] text-slate-400 mt-1 shrink-0"
+                  >
+                    {srv.index}
+                  </span>
                   <div>
-                    <h3 className="text-xl font-semibold text-slate-900">{srv.title}</h3>
-                    <p className="text-sm font-bold uppercase tracking-widest text-slate-400 mt-1">{srv.benefit}</p>
+                    <h3
+                      className="font-black tracking-[-0.02em] text-slate-900 mb-3 whitespace-pre-line"
+                      style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)", lineHeight: 0.95 }}
+                    >
+                      {srv.title}
+                    </h3>
+                    <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-indigo-600">
+                      {srv.subtitle}
+                    </p>
                   </div>
                 </div>
-                
-                <div className="bg-slate-50 p-6 rounded-md border border-slate-100 mb-4">
-                  <span className="text-xs font-bold uppercase tracking-widest text-indigo-600 mb-2 block">Was wir machen</span>
-                  <p className="text-slate-700 leading-relaxed font-medium">{srv.action}</p>
+              </div>
+
+              {/* CENTER — vertical rule */}
+              <div className="hidden lg:block bg-slate-200 self-stretch" />
+
+              {/* RIGHT — detail content */}
+              <div className="py-10 lg:pl-12 flex flex-col justify-center gap-6">
+                {/* Was wir machen */}
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-2">
+                    Was wir machen
+                  </p>
+                  <p className="text-base text-slate-600 leading-relaxed">
+                    {srv.action}
+                  </p>
                 </div>
-                
-                <div className="bg-emerald-50 p-6 rounded-md border border-emerald-100">
-                  <span className="text-xs font-bold uppercase tracking-widest text-emerald-700 mb-2 block">Ihr konkreter Nutzen</span>
-                  <p className="text-emerald-900 leading-relaxed font-bold">{srv.result}</p>
+
+                {/* Ihr Nutzen */}
+                <div className="border-l-2 border-indigo-600 pl-4">
+                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-2">
+                    Ihr konkreter Nutzen
+                  </p>
+                  <p className="text-base font-semibold text-slate-900 leading-relaxed">
+                    {srv.result}
+                  </p>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {srv.tags.map((tag, t) => (
+                    <span
+                      key={t}
+                      className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-500 border border-slate-200 bg-white px-3 py-1"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="mt-12 flex justify-center">
-          <a
+        {/* Bottom CTA row */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="py-10"
+        >
+          <Link
             href="/leistungen"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-md font-bold text-white bg-slate-900 hover:bg-slate-800 transition-colors"
+            className="inline-flex items-center gap-2 px-7 py-3.5 font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200"
           >
-            Alle Leistungen ansehen
-            <ArrowRight size={20} className="text-indigo-500" />
-          </a>
-        </div>
+            Alle Leistungen im Detail
+            <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />
+          </Link>
+        </motion.div>
 
       </div>
     </section>

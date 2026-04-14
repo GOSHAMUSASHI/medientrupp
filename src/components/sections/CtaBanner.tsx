@@ -6,41 +6,55 @@ import Link from "next/link";
 
 export const CtaBanner = () => {
   return (
-    <section className="bg-slate-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="bg-slate-900 rounded-md p-8 md:p-12 lg:p-16 relative overflow-hidden"
-        >
-          {/* Decorative graphic */}
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[400px] h-[400px] bg-slate-700 opacity-20 rounded-full blur-[40px] pointer-events-none" />
-          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[300px] h-[300px] bg-indigo-500 opacity-10 rounded-full blur-[40px] pointer-events-none" />
+    <section className="relative bg-white py-16 md:py-24 overflow-hidden">
 
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
-            <div className="flex-1 text-center md:text-left">
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
-                Jetzt kostenlos beraten lassen.<br /><span className="text-indigo-400">Unverbindlich & in 24h.</span>
+      {/* Dot-grid als editoriales Hintergrund-Detail */}
+      <div
+        aria-hidden="true"
+        className="dot-grid absolute inset-0 opacity-[0.3] pointer-events-none"
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="bg-white border border-slate-200 shadow-xl shadow-slate-200/60 p-8 md:p-12 lg:p-16"
+          style={{ borderLeft: "4px solid #4F46E5" }}
+        >
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+
+            {/* Copy */}
+            <div className="flex-1">
+              <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
+                Kostenlose Erstberatung
+              </p>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4 leading-[1.1]">
+                Jetzt beraten lassen.{" "}
+                <span className="text-indigo-600">Unverbindlich & in 24h.</span>
               </h2>
-              <p className="text-base md:text-lg text-slate-300 leading-relaxed max-w-xl mx-auto md:mx-0">
-                Wir schauen uns Ihre aktuelle digitale Infrastruktur an und zeigen Ihnen konkret, wo der größte Hebel liegt. Kein Pitch, kein Druck.
+              <p className="text-base md:text-lg text-slate-500 leading-relaxed max-w-xl">
+                Wir schauen uns Ihre aktuelle digitale Infrastruktur an und zeigen Ihnen
+                konkret, wo der größte Hebel liegt. Kein Pitch, kein Druck.
               </p>
             </div>
-            
-            <div className="flex-shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-4">
-              <Link 
+
+            {/* CTAs */}
+            <div className="flex-shrink-0 w-full md:w-auto flex flex-col sm:flex-row gap-3">
+              <Link
                 href="/projekt-anfragen"
-                className="bg-indigo-600 text-white px-8 py-4 rounded-md font-bold text-lg flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 font-bold text-base flex items-center justify-center gap-2 transition-colors duration-200"
               >
-                Preis berechnen <ArrowRight size={20} />
+                Preis berechnen
+                <ArrowRight size={18} />
               </Link>
-              <a 
+              <a
                 href="/leistungen"
-                className="border-2 border-white/30 text-white px-8 py-4 rounded-md font-bold text-lg flex items-center justify-center gap-2 hover:bg-white/10 transition-colors"
+                className="border border-slate-200 text-slate-700 hover:border-slate-300 hover:text-slate-900 px-8 py-4 font-semibold text-base flex items-center justify-center gap-2 transition-colors duration-200"
               >
-                <FileText size={20} /> Leistungen ansehen
+                <FileText size={18} />
+                Leistungen ansehen
               </a>
             </div>
           </div>

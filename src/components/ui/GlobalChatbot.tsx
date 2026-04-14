@@ -315,7 +315,7 @@ export const GlobalChatbot = () => {
     if (!text.trim()) return;
 
     const userMsg: ChatMessage = { id: `u-${Date.now()}`, text: text.trim(), sender: "user" };
-    setMessages((prev) => prev.map((m) => ({ ...m, quickReplies: undefined })).concat(userMsg));
+    setMessages((prev) => [...prev.map((m): ChatMessage => ({ ...m, quickReplies: undefined })), userMsg]);
     setMsgCount((c) => c + 1);
     setIsTyping(true);
 
@@ -349,16 +349,13 @@ export const GlobalChatbot = () => {
           <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} className="fixed bottom-6 right-6 z-50">
             <div className="relative group">
               {hasNewMsg && (
-                <motion.div animate={{ scale: [1, 1.4], opacity: [0.5, 0] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 bg-indigo-500 rounded-full" />
-              )}
-              {hasNewMsg && (
-                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -top-1 -right-1 w-5 h-5 bg-rose-500 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold text-white z-10">
+                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-500 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white z-10">
                    1
                  </motion.div>
               )}
               <button
                 onClick={() => setIsOpen(true)}
-                className="relative w-16 h-16 bg-slate-900 border-2 border-indigo-500 text-white rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] transition-all duration-300 group-hover:-translate-y-1"
+                className="relative w-14 h-14 bg-slate-900 border-2 border-indigo-600 text-white flex items-center justify-center shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-colors duration-200"
                 aria-label="Chat öffnen"
               >
                 <MessageCircle size={28} />
@@ -375,16 +372,16 @@ export const GlobalChatbot = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[550px] max-h-[calc(100vh-6rem)] bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl shadow-indigo-900/20 flex flex-col overflow-hidden"
+            className="fixed bottom-6 right-6 z-50 w-[380px] max-w-[calc(100vw-3rem)] h-[550px] max-h-[calc(100vh-6rem)] bg-white border border-slate-200 shadow-2xl shadow-slate-900/12 flex flex-col overflow-hidden"
           >
             {/* Header */}
             <div className="bg-slate-900 text-white p-4 flex items-center justify-between shadow-md z-10">
               <div className="flex items-center gap-3">
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center border border-indigo-500">
+                  <div className="w-10 h-10 bg-indigo-600 flex items-center justify-center border border-indigo-500">
                     <Bot size={20} className="text-white" />
                   </div>
-                  <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-slate-900 shadow-[0_0_8px_#10b981]" />
+                  <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 border-2 border-slate-900" />
                 </div>
                 <div>
                   <h3 className="font-bold tracking-tight text-sm">Medientrupp Support</h3>
@@ -394,7 +391,7 @@ export const GlobalChatbot = () => {
                   </p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-800 transition-colors text-slate-300" aria-label="Chat schließen">
+              <button onClick={() => setIsOpen(false)} className="w-8 h-8 flex items-center justify-center hover:bg-slate-800 transition-colors text-slate-300" aria-label="Chat schließen">
                 <X size={18} />
               </button>
             </div>
@@ -407,10 +404,10 @@ export const GlobalChatbot = () => {
                     <motion.div
                       initial={{ opacity: 0, y: 10, x: m.sender === "user" ? 10 : -10 }}
                       animate={{ opacity: 1, y: 0, x: 0 }}
-                      className={`max-w-[85%] px-4 py-3 text-[14px] leading-relaxed shadow-sm ${
+                      className={`max-w-[85%] px-4 py-3 text-[14px] leading-relaxed ${
                         m.sender === "user"
-                          ? "self-end bg-indigo-600 text-white rounded-2xl rounded-br-sm shadow-indigo-200"
-                          : "self-start bg-white border border-slate-200 text-slate-700 rounded-2xl rounded-bl-sm"
+                          ? "self-end bg-indigo-600 text-white shadow-sm shadow-indigo-900/10"
+                          : "self-start bg-white border border-slate-200 text-slate-700 shadow-sm"
                       }`}
                       dangerouslySetInnerHTML={{ __html: formatText(m.text) }}
                     />
@@ -421,7 +418,7 @@ export const GlobalChatbot = () => {
                           <button
                             key={qi}
                             onClick={() => handleQuickReply(qr)}
-                            className="px-3 py-1.5 bg-indigo-50 border border-indigo-200 hover:border-indigo-400 hover:bg-indigo-100 text-indigo-700 rounded-full text-[12px] font-semibold transition-all"
+                            className="px-3 py-1.5 bg-indigo-50 border border-indigo-200 hover:border-indigo-600 hover:bg-indigo-100 text-indigo-700 text-[12px] font-semibold transition-colors"
                           >
                             {qr}
                           </button>
@@ -432,9 +429,9 @@ export const GlobalChatbot = () => {
                 ))}
                 
                 {isTyping && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="self-start bg-white border border-slate-200 rounded-2xl rounded-bl-sm p-4 flex gap-1.5 shadow-sm">
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="self-start bg-white border border-slate-200 p-4 flex gap-1.5 shadow-sm">
                     {[0, 1, 2].map((i) => (
-                      <motion.div key={i} animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.2 }} className="w-2 h-2 rounded-full bg-indigo-400" />
+                      <motion.div key={i} animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.2 }} className="w-2 h-2 bg-slate-400" />
                     ))}
                   </motion.div>
                 )}
@@ -451,12 +448,12 @@ export const GlobalChatbot = () => {
                   onChange={(e) => setInputVal(e.target.value)}
                   placeholder="Schreiben Sie eine Nachricht..."
                   disabled={isTyping}
-                  className="w-full bg-slate-50 border border-slate-200 rounded-xl py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all font-medium placeholder:text-slate-400 disabled:opacity-50"
+                  className="w-full bg-slate-50 border border-slate-200 py-3.5 pl-4 pr-12 text-sm focus:outline-none focus:border-indigo-600 transition-colors font-medium placeholder:text-slate-400 disabled:opacity-50"
                 />
                 <button
                   type="submit"
                   disabled={!inputVal.trim() || isTyping}
-                  className="absolute right-2 w-9 h-9 flex items-center justify-center bg-indigo-600 text-white rounded-lg disabled:opacity-40 disabled:bg-slate-300 transition-all hover:bg-indigo-700"
+                  className="absolute right-2 w-9 h-9 flex items-center justify-center bg-indigo-600 text-white disabled:opacity-40 disabled:bg-slate-300 transition-colors hover:bg-indigo-700"
                   aria-label="Senden"
                 >
                   <Send size={16} className="ml-0.5" />

@@ -3,161 +3,210 @@
 import { motion } from "framer-motion";
 import { TrendingUp, Eye, Users, Play } from "lucide-react";
 
-// Fixed delay values — no Math.random() to avoid SSR hydration mismatch
-const STAT_DELAYS = [0, 0.15, 0.3];
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+const STAT_DELAYS = [0, 0.12, 0.24];
 
 const contentStats = [
-  { icon: <Eye size={18} />, label: "Ø Reichweite / Woche", value: "84.000", trend: "+38%", color: "#4F46E5" },
-  { icon: <TrendingUp size={18} />, label: "Interaktionsrate", value: "6,2%", trend: "+12%", color: "#10B981" },
-  { icon: <Users size={18} />, label: "Neue Follower / Woche", value: "1.240", trend: "+24%", color: "#F59E0B" },
+  { icon: <Eye      size={16} />, label: "Ø Reichweite / Woche",  value: "84.000", delta: "+38 %", color: "#4F46E5" },
+  { icon: <TrendingUp size={16} />, label: "Interaktionsrate",     value: "6,2 %",  delta: "+12 %", color: "#10B981" },
+  { icon: <Users    size={16} />, label: "Neue Follower / Woche", value: "1.240",  delta: "+24 %", color: "#F59E0B" },
 ];
+
+const features = [
+  { icon: <Play       size={16} />, label: "Contentstrategie mit System", desc: "Datenbasierte Planung für maximale Reichweite und Konsistenz." },
+  { icon: <TrendingUp size={16} />, label: "Plattform-Optimierung",       desc: "Native Formate für Instagram, LinkedIn, TikTok & YouTube." },
+  { icon: <Users      size={16} />, label: "Reichweite & Conversion",     desc: "Inhalte, die nicht nur gesehen werden — sondern zum Handeln führen." },
+];
+
+const chartData  = [42, 58, 51, 72, 68, 84, 91];
+const chartDays  = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+
+// ── Section ───────────────────────────────────────────────────────────────────
 
 export const AlgorithmSection = () => {
   return (
-    <section className="bg-slate-50 py-16 md:py-20 text-slate-900 relative overflow-hidden" aria-labelledby="algorithm-heading">
-      <div className="absolute -left-[20%] top-[10%] w-[600px] h-[600px] bg-slate-500/5 blur-[80px] rounded-full pointer-events-none" />
-      <div className="absolute -right-[10%] bottom-[10%] w-[500px] h-[500px] bg-indigo-500/5 blur-[80px] rounded-full pointer-events-none" />
+    <section
+      className="bg-white border-t border-slate-200"
+      aria-labelledby="algorithm-heading"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        <div className="text-center mb-10">
-          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
-            Video &amp; Content
+        {/* Section header */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="py-12 border-b border-slate-200"
+        >
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
+            Video & Content
           </p>
-          <h2 id="algorithm-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-            Sichtbarkeit ist kein Zufall —{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-indigo-700">
-              sie ist Strategie.
-            </span>
+          <h2
+            id="algorithm-heading"
+            className="font-black tracking-[-0.03em] text-slate-900"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+          >
+            Sichtbarkeit ist kein Zufall —
+            <br />
+            <span className="text-indigo-600">sie ist Strategie.</span>
           </h2>
-          <p className="text-base md:text-lg text-slate-500 max-w-3xl mx-auto leading-relaxed">
-            Wir produzieren hochwertige Short-Form Videos und Content-Strategien, die Ihre Zielgruppe wirklich erreichen — datenbasiert, planbar und messbar.
-          </p>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
-          
-          {/* Left: Text — order-1 */}
-          <div className="lg:w-1/2 order-1">
-            <div className="inline-flex items-center gap-2 text-indigo-600 text-xs font-bold tracking-widest uppercase mb-6 px-3 py-1.5 rounded-md bg-indigo-50 border border-indigo-200">
-              <motion.div 
-                animate={{ opacity: [1, 0.3, 1] }} 
-                transition={{ duration: 1.5, repeat: Infinity }} 
-                className="w-2 h-2 rounded-full bg-indigo-600" 
+        {/* Split: copy | rule | data panel */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] py-12 gap-0">
+
+          {/* LEFT — copy + feature list */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:pr-12"
+          >
+            {/* Live badge */}
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-3 py-1.5 mb-8">
+              <motion.span
+                animate={{ opacity: [1, 0.25, 1] }}
+                transition={{ duration: 1.6, repeat: Infinity }}
+                className="w-1.5 h-1.5 bg-indigo-600"
               />
               Content läuft — jetzt live
             </div>
 
-            <h3 className="text-xl font-semibold text-slate-900 tracking-tight mb-4">
-              Content mit System —<br />nicht mit Glück.
-            </h3>
-            
-            <p className="text-base md:text-lg text-slate-500 leading-relaxed mb-8">
-              Kein Raten, kein Ausprobieren. Wir analysieren, was Ihre Zielgruppe stoppt, und produzieren Inhalte, die auf allen relevanten Plattformen performen.
+            <p className="text-base text-slate-500 leading-relaxed mb-10 max-w-md">
+              Kein Raten, kein Ausprobieren. Wir analysieren, was Ihre Zielgruppe stoppt, und
+              produzieren Inhalte, die auf allen relevanten Plattformen performen.
             </p>
 
-            <ul className="space-y-6 mb-10">
-              {[
-                { icon: <Play size={18} />, label: 'Contentstrategie mit System', desc: 'Datenbasierte Planung für maximale Reichweite und Konsistenz.' },
-                { icon: <TrendingUp size={18} />, label: 'Plattform-Optimierung', desc: 'Native Formate für Instagram, LinkedIn, TikTok & YouTube.' },
-                { icon: <Users size={18} />, label: 'Reichweite & Conversion', desc: 'Inhalte, die nicht nur sehen — sondern handeln lassen.' }
-              ].map((item, idx) => (
-                <li key={idx} className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-md bg-indigo-100 flex items-center justify-center text-indigo-600 flex-shrink-0">
+            {/* Feature rows */}
+            <div>
+              {features.map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -8 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex items-start gap-4 py-5 ${idx < features.length - 1 ? "border-b border-slate-100" : ""}`}
+                >
+                  <div className="w-9 h-9 bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
                     {item.icon}
                   </div>
                   <div>
-                    <h4 className="font-bold text-slate-900 text-lg">{item.label}</h4>
-                    <p className="text-sm text-slate-600 mt-0.5">{item.desc}</p>
+                    <p className="font-semibold text-slate-900 mb-0.5">{item.label}</p>
+                    <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
                   </div>
-                </li>
+                </motion.div>
               ))}
-            </ul>
-          </div>
-
-          {/* Right: Analytics Stats Dashboard — order-2 */}
-          <div className="lg:w-1/2 order-2 w-full flex-shrink-0">
-            <div className="w-full bg-white border border-slate-200 rounded-md shadow-xl shadow-indigo-100/50 overflow-hidden">
-              {/* Dashboard Header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
-                <div>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Content Analytics</p>
-                  <p className="text-sm font-black text-slate-900 mt-0.5">Letzte 30 Tage</p>
-                </div>
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-green-50 border border-green-100">
-                  <motion.span
-                    animate={{ opacity: [1, 0.3, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="w-1.5 h-1.5 rounded-full bg-green-500"
-                  />
-                  <span className="text-xs font-bold text-green-700">LIVE</span>
-                </div>
-              </div>
-
-              {/* Stats Cards */}
-              <div className="p-5 space-y-3">
-                {contentStats.map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: STAT_DELAYS[i], duration: 0.5 }}
-                    className="flex items-center justify-between p-4 rounded-md border border-slate-100"
-                    style={{ background: `${stat.color}06` }}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="w-9 h-9 rounded-md flex items-center justify-center"
-                        style={{ background: `${stat.color}15`, color: stat.color }}
-                      >
-                        {stat.icon}
-                      </div>
-                      <div>
-                        <p className="text-xs text-slate-400 font-medium">{stat.label}</p>
-                        <p className="text-xl font-black text-slate-900" style={{ lineHeight: 1.2 }}>{stat.value}</p>
-                      </div>
-                    </div>
-                    <span
-                      className="text-xs font-bold px-2 py-1 rounded-md"
-                      style={{ background: `${stat.color}15`, color: stat.color }}
-                    >
-                      {stat.trend}
-                    </span>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Bottom bar chart (simplified) */}
-              <div className="px-5 pb-5">
-                <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-3">Wöchentliche Reichweite</p>
-                <div className="flex items-end gap-1.5 h-16">
-                  {[42, 58, 51, 72, 68, 84, 91].map((h, i) => (
-                    <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                      <motion.div
-                        initial={{ height: 0 }}
-                        whileInView={{ height: `${h}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: i * 0.07 }}
-                        className="w-full rounded-sm"
-                        style={{
-                          background: i === 6 ? "#4F46E5" : "rgba(79,70,229,0.2)",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="flex justify-between mt-1.5">
-                  {["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"].map((d) => (
-                    <span key={d} className="flex-1 text-center" style={{ color: "#94A3B8", fontSize: "9px" }}>{d}</span>
-                  ))}
-                </div>
-              </div>
             </div>
-          </div>
+          </motion.div>
+
+          {/* CENTER — vertical rule */}
+          <div className="hidden lg:block bg-slate-200 self-stretch" />
+
+          {/* RIGHT — Editorial data panel */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:pl-12 mt-10 lg:mt-0 flex flex-col justify-center"
+          >
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-6">
+              Echtzeit-Metriken · Beispiel
+            </p>
+
+            {/* Panel with offset-print shadow */}
+            <div
+              className="border border-slate-200 bg-white"
+              style={{ boxShadow: "4px 4px 0 #e2e8f0" }}
+            >
+              {/* Header row */}
+              <div className="flex items-center justify-between px-5 py-3 bg-slate-50 border-b border-slate-200">
+                <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400">
+                  Content Analytics · Letzte 30 Tage
+                </p>
+                <span className="flex items-center gap-1.5">
+                  <span className="pulse-ring">
+                    <span className="w-1.5 h-1.5 bg-green-500 block" />
+                  </span>
+                  <span className="text-[9px] font-black text-green-600 uppercase tracking-[0.15em]">Live</span>
+                </span>
+              </div>
+
+              {/* KPI rows */}
+              {contentStats.map((stat, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 + STAT_DELAYS[i], duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-center justify-between px-5 py-4 border-b border-slate-100"
+                >
+                  <div>
+                    <p className="text-[9px] text-slate-400 uppercase tracking-[0.12em] font-bold mb-1">
+                      {stat.label}
+                    </p>
+                    <p
+                      className="font-black tracking-tight leading-none"
+                      style={{ fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)", color: stat.color }}
+                    >
+                      {stat.value}
+                    </p>
+                  </div>
+                  <span
+                    className="text-[11px] font-black border px-2 py-1"
+                    style={{ color: stat.color, borderColor: `${stat.color}25`, background: `${stat.color}08` }}
+                  >
+                    {stat.delta}
+                  </span>
+                </motion.div>
+              ))}
+
+              {/* Chart row */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.65 }}
+                className="px-5 py-5"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.12em]">
+                    Wöchentliche Reichweite
+                  </p>
+                  <span className="text-[9px] font-black text-indigo-600 border border-indigo-100 bg-indigo-50 px-1.5 py-0.5">
+                    +38 %
+                  </span>
+                </div>
+                <div className="flex items-end gap-1.5 h-[48px]">
+                  {chartData.map((h, i) => (
+                    <motion.div
+                      key={i}
+                      className="flex-1"
+                      style={{ background: i === chartData.length - 1 ? "#4F46E5" : "#EEF2FF" }}
+                      initial={{ height: 0 }}
+                      whileInView={{ height: `${h}%` }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.65 + i * 0.06, duration: 0.35, ease: "easeOut" }}
+                    />
+                  ))}
+                </div>
+                <div className="flex justify-between mt-2">
+                  {chartDays.map((d) => (
+                    <span key={d} className="flex-1 text-center text-[8px] text-slate-300 font-medium">
+                      {d}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
 
         </div>
-
       </div>
     </section>
   );

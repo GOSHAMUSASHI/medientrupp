@@ -4,96 +4,119 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Layers, MousePointerClick, Share2, Bot, Database, Workflow, LineChart } from "lucide-react";
 
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+const visibleItems = [
+  { title: "Websites", icon: <Layers size={20} />, desc: "High-Performance B2B Auftritte" },
+  { title: "Landingpages", icon: <MousePointerClick size={20} />, desc: "Auf Conversion optimierte Sales-Pages" },
+  { title: "Corporate Branding", icon: <Eye size={20} />, desc: "Einheitlicher, professioneller Look" },
+  { title: "Social Media Content", icon: <Share2 size={20} />, desc: "Strategische Sichtbarkeit" },
+];
+
+const invisibleItems = [
+  { title: "Automatisierungen", icon: <Workflow size={20} />, desc: "Kein manuelles Lead-Nurturing mehr" },
+  { title: "KI-Integrationen", icon: <Bot size={20} />, desc: "Chatbots und AI-Assistenz im Hintergrund" },
+  { title: "Backend-Architektur", icon: <Database size={20} />, desc: "CRM, Datenbanken & APIs" },
+  { title: "Daten & Analytics", icon: <LineChart size={20} />, desc: "Echtzeit-Tracking und Conversion-Messung" },
+];
+
+// ── Section ───────────────────────────────────────────────────────────────────
+
 export const IcebergSection = () => {
-  const [isVisible, setIsVisible] = useState(true);
-
-  const visibleItems = [
-    { title: "Websites", icon: <Layers size={24} />, desc: "High-Performance B2B Auftritte" },
-    { title: "Landingpages", icon: <MousePointerClick size={24} />, desc: "Auf Conversion optimierte Sales-Pages" },
-    { title: "Corporate Branding", icon: <Eye size={24} />, desc: "Einheitlicher, professioneller Look" },
-    { title: "Social Media Content", icon: <Share2 size={24} />, desc: "Strategische Sichtbarkeit" },
-  ];
-
-  const invisibleItems = [
-    { title: "Automatisierungen", icon: <Workflow size={24} />, desc: "Kein manuelles Lead-Nurturing mehr" },
-    { title: "KI-Integrationen", icon: <Bot size={24} />, desc: "Chatbots und AI-Assistenz im Hintergrund" },
-    { title: "Backend-Architektur", icon: <Database size={24} />, desc: "CRM, Datenbanken & APIs" },
-    { title: "Daten & Analytics", icon: <LineChart size={24} />, desc: "Echtzeit-Tracking und Conversion-Messung" },
-  ];
+  const [active, setActive] = useState<"visible" | "invisible">("visible");
 
   return (
-    <section className="bg-slate-50 py-16 md:py-20" aria-labelledby="iceberg-heading">
+    <section
+      className="bg-slate-50 border-t border-slate-200"
+      aria-labelledby="iceberg-heading"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-10">
-          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
-            Full-Spectrum Agentur
-          </p>
-          <h2 id="iceberg-heading" className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-            Was Sie sehen.<br/>Und was Sie <span className="text-indigo-600">nicht</span> sehen.
-          </h2>
-          
-          <div className="inline-flex flex-col sm:flex-row items-center gap-2 bg-slate-200/50 p-1.5 rounded-md shadow-inner">
+
+        {/* Section header with toggle */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-6 py-12 border-b border-slate-200">
+          <div>
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
+              Full-Spectrum Agentur
+            </p>
+            <h2
+              id="iceberg-heading"
+              className="font-black tracking-[-0.03em] text-slate-900"
+              style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+            >
+              Was Sie sehen.
+              <br />
+              Und was{" "}
+              <span className="text-indigo-600">darunter liegt.</span>
+            </h2>
+          </div>
+
+          {/* Tab toggle — editorial underline style */}
+          <div className="flex items-end gap-0 border-b border-slate-200 pb-0 self-end">
             <button
-              onClick={() => setIsVisible(true)}
-              className={`flex items-center gap-2 px-6 py-3 min-h-[48px] rounded-md font-bold transition-all ${
-                isVisible ? "bg-indigo-600 text-white shadow-lg" : "text-slate-500 hover:text-slate-700"
+              onClick={() => setActive("visible")}
+              className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold transition-colors border-b-2 ${
+                active === "visible"
+                  ? "text-indigo-600 border-indigo-600"
+                  : "text-slate-400 border-transparent hover:text-slate-700"
               }`}
             >
-              <Eye size={18} /> Was man sieht
+              <Eye size={16} />
+              Sichtbar
             </button>
             <button
-              onClick={() => setIsVisible(false)}
-              className={`flex items-center gap-2 px-6 py-3 min-h-[48px] rounded-md font-bold transition-all ${
-                !isVisible ? "bg-indigo-600 text-white shadow-lg" : "text-slate-500 hover:text-slate-700"
+              onClick={() => setActive("invisible")}
+              className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold transition-colors border-b-2 ${
+                active === "invisible"
+                  ? "text-indigo-600 border-indigo-600"
+                  : "text-slate-400 border-transparent hover:text-slate-700"
               }`}
             >
-              <EyeOff size={18} /> Was man nicht sieht
+              <EyeOff size={16} />
+              Darunter
             </button>
           </div>
         </div>
 
-        <div className="relative min-h-[300px]">
+        {/* Content — animated list */}
+        <div className="min-h-[320px] py-10">
           <AnimatePresence mode="wait">
-            {isVisible ? (
-              <motion.div
-                key="visible"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-              >
-                {visibleItems.map((item, i) => (
-                  <div key={i} className="bg-white p-8 rounded-md border border-slate-200 shadow-sm h-full flex flex-col">
-                    <div className="w-12 h-12 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center mb-5">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold text-slate-900 mb-2">{item.title}</h3>
-                    <p className="text-slate-500 font-medium">{item.desc}</p>
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="grid grid-cols-1 md:grid-cols-2"
+            >
+              {(active === "visible" ? visibleItems : invisibleItems).map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.07, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex items-start gap-5 py-8 ${
+                    i % 2 === 0 && i < (active === "visible" ? visibleItems : invisibleItems).length - 1
+                      ? "md:border-r border-slate-200"
+                      : ""
+                  } ${i < (active === "visible" ? visibleItems : invisibleItems).length - 2 ? "border-b border-slate-200" : ""} ${
+                    i % 2 === 1 ? "md:pl-10" : ""
+                  }`}
+                >
+                  {/* Icon square */}
+                  <div className="w-10 h-10 bg-white border border-slate-200 flex items-center justify-center text-indigo-600 shrink-0">
+                    {item.icon}
                   </div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="invisible"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-              >
-                {invisibleItems.map((item, i) => (
-                  <div key={i} className="bg-slate-900 p-8 rounded-md border border-slate-800 shadow-xl h-full flex flex-col">
-                    <div className="w-12 h-12 rounded-md bg-slate-800 text-indigo-500 flex items-center justify-center mb-5">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-xl font-semibold text-white mb-2">{item.title}</h3>
-                    <p className="text-slate-400 font-medium">{item.desc}</p>
+                  <div>
+                    <h3 className="text-lg font-black tracking-tight text-slate-900 mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-slate-500 leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
-                ))}
-              </motion.div>
-            )}
+                </motion.div>
+              ))}
+            </motion.div>
           </AnimatePresence>
         </div>
 

@@ -52,7 +52,7 @@ interface ContactForm {
   email: string;
   company: string;
   phone?: string;
-  gdpr: boolean;
+  gdpr: true;
 }
 
 // ─── Pricing engine ──────────────────────────────────────────────────────────
@@ -108,9 +108,7 @@ const contactSchema = z.object({
   email: z.string().email("Bitte eine gültige E-Mail eingeben."),
   company: z.string().min(2, "Bitte Ihr Unternehmen eingeben."),
   phone: z.string().optional(),
-  gdpr: z.literal(true, {
-    errorMap: () => ({ message: "Bitte akzeptieren Sie die Datennutzung." }),
-  }),
+  gdpr: z.literal(true, { error: "Bitte akzeptieren Sie die Datennutzung." }),
 });
 
 // ─── Animations ──────────────────────────────────────────────────────────────
@@ -292,7 +290,7 @@ export default function ProjektAnfragenPage() {
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       
       {/* ── Minimal Header ──────────────────────────────────────────────────── */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-[65px] bg-white/80 backdrop-blur-lg border-b border-slate-200">
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-[65px] bg-white border-b border-slate-200">
         <Link href="/" className="text-indigo-600 font-black text-xl tracking-tight">
           Medien<span className="text-slate-900">Trupp</span>
         </Link>
@@ -755,7 +753,7 @@ export default function ProjektAnfragenPage() {
       </div>
 
       {/* ── Mobile Fixed Bottom Nav (The core fix) ────────────────────────── */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-200 px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.15)] z-[100] flex items-center justify-between">
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-4 py-4 pb-[max(1rem,env(safe-area-inset-bottom))] z-[100] flex items-center justify-between">
         
         {/* Mobile Price */}
         <div className="flex flex-col">
