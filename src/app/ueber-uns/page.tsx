@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import { CheckCircle2, XCircle, Code2, ShieldCheck, Scale, Compass, MapPin, Server } from "lucide-react";
@@ -62,11 +62,11 @@ export default function UeberUnsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl"
           >
-            <p className="text-sm font-black tracking-[0.2em] uppercase text-violet-600 mb-6">
+            <p className="text-sm font-black tracking-[0.2em] uppercase text-indigo-600 mb-6">
               Über Medientrupp
             </p>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 mb-8 leading-[1.1]">
-              Wir bauen das digitale Fundament für den <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-purple-600">deutschen Mittelstand.</span>
+              Wir bauen das digitale Fundament für den <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">deutschen Mittelstand.</span>
             </h1>
             <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium max-w-2xl">
               Keine typische Werbeagentur. Wir sind technologische Handwerker, die Vertriebsmaschinen und Automatisierungen für B2B-Unternehmen entwickeln.
@@ -88,7 +88,7 @@ export default function UeberUnsPage() {
                 key={idx}
                 className="bg-white border border-slate-200 p-8 rounded-md shadow-sm hover:shadow-xl hover:shadow-slate-200/50 transition-shadow duration-300 h-full flex flex-col"
               >
-                <div className="w-14 h-14 bg-violet-50 text-violet-600 flex items-center justify-center rounded-md mb-6">
+                <div className="w-14 h-14 bg-indigo-50 text-indigo-600 flex items-center justify-center rounded-md mb-6">
                   {v.icon}
                 </div>
                 <h3 className="text-xl font-bold tracking-tight text-slate-900 mb-3">{v.title}</h3>
@@ -104,7 +104,7 @@ export default function UeberUnsPage() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-xs font-black tracking-[0.2em] uppercase text-violet-600 mb-3">
+            <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
               Der Unterschied
             </p>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
@@ -121,8 +121,8 @@ export default function UeberUnsPage() {
               <div className="p-4 md:p-6 text-center font-bold text-slate-400 bg-slate-50/50">
                 Traditionelle Agentur
               </div>
-              <div className="p-4 md:p-6 text-center lg:text-left flex items-center justify-center lg:justify-start gap-3 bg-violet-50 border-t md:border-t-0 border-violet-100/50 md:border-l md:border-violet-100">
-                <span className="font-black text-violet-700 tracking-tight text-lg">Medien<span className="text-slate-900">Trupp</span></span>
+              <div className="p-4 md:p-6 text-center lg:text-left flex items-center justify-center lg:justify-start gap-3 bg-indigo-50 border-t md:border-t-0 border-indigo-100/50 md:border-l md:border-indigo-100">
+                <span className="font-black text-indigo-700 tracking-tight text-lg">Medien<span className="text-slate-900">Trupp</span></span>
               </div>
             </div>
 
@@ -136,8 +136,8 @@ export default function UeberUnsPage() {
                   <XCircle size={18} className="text-red-400 flex-shrink-0" />
                   <span className="font-medium">{row.traditional}</span>
                 </div>
-                <div className="p-4 md:p-6 flex flex-col md:flex-row items-center gap-3 text-slate-900 justify-center lg:justify-start text-center lg:text-left bg-violet-50/30 border-t md:border-t-0 md:border-l border-violet-100">
-                  <CheckCircle2 size={18} className="text-violet-600 flex-shrink-0" />
+                <div className="p-4 md:p-6 flex flex-col md:flex-row items-center gap-3 text-slate-900 justify-center lg:justify-start text-center lg:text-left bg-indigo-50/30 border-t md:border-t-0 md:border-l border-indigo-100">
+                  <CheckCircle2 size={18} className="text-indigo-600 flex-shrink-0" />
                   <span className="font-bold">{row.medientrupp}</span>
                 </div>
               </div>
@@ -152,8 +152,8 @@ export default function UeberUnsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
           <div className="max-w-xl text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 eyebrow-badge mb-8">
-              <MapPin size={16} className="text-violet-600" />
-              <span className="text-xs font-bold uppercase tracking-widest text-violet-700">Headquarters</span>
+              <MapPin size={16} className="text-indigo-600" />
+              <span className="text-xs font-bold uppercase tracking-widest text-indigo-700">Headquarters</span>
             </div>
 
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
@@ -165,8 +165,8 @@ export default function UeberUnsPage() {
 
             <div className="flex flex-col sm:flex-row flex-wrap gap-8 justify-center lg:justify-start">
               <div className="flex items-center gap-4 text-left">
-                <div className="w-12 h-12 bg-violet-50 border border-violet-100 flex items-center justify-center flex-shrink-0">
-                  <Server size={24} className="text-violet-600" />
+                <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+                  <Server size={24} className="text-indigo-600" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-bold">100% DSGVO-konform</span>
@@ -174,8 +174,8 @@ export default function UeberUnsPage() {
                 </div>
               </div>
               <div className="flex items-center gap-4 text-left">
-                <div className="w-12 h-12 bg-violet-50 border border-violet-100 flex items-center justify-center flex-shrink-0">
-                  <ShieldCheck size={24} className="text-violet-600" />
+                <div className="w-12 h-12 bg-indigo-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+                  <ShieldCheck size={24} className="text-indigo-600" />
                 </div>
                 <div className="flex flex-col">
                   <span className="font-bold">Zertifizierte Sicherheit</span>
@@ -192,12 +192,12 @@ export default function UeberUnsPage() {
               <div className="absolute inset-8 border border-slate-100"></div>
               <div className="absolute inset-16 border border-slate-100"></div>
 
-              <div className="w-32 h-32 bg-violet-600 flex items-center justify-center z-10 shadow-xl shadow-violet-600/20 border border-violet-500 relative">
+              <div className="w-32 h-32 bg-indigo-600 flex items-center justify-center z-10 shadow-xl shadow-indigo-600/20 border border-indigo-500 relative">
                 <MapPin size={40} className="text-white" />
                 {/* Ping Dot */}
                 <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                  <span className="animate-ping absolute inline-flex h-full w-full bg-violet-400 opacity-75"></span>
-                  <span className="relative inline-flex h-4 w-4 bg-violet-600"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full bg-indigo-400 opacity-75"></span>
+                  <span className="relative inline-flex h-4 w-4 bg-indigo-600"></span>
                 </span>
               </div>
             </div>

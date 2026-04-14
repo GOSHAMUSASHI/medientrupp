@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -54,7 +54,7 @@ export const FaqSection = () => {
           >
             Klartext,
             <br />
-            <span className="text-violet-600">keine offenen Fragen.</span>
+            <span className="text-indigo-600">keine offenen Fragen.</span>
           </h2>
         </motion.div>
 
@@ -70,17 +70,17 @@ export const FaqSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 className={`border overflow-hidden transition-colors duration-300 ${
-                  isOpen ? "bg-white border-violet-600 shadow-sm" : "bg-white border-slate-200 hover:border-slate-300"
+                  isOpen ? "bg-white border-indigo-600 shadow-sm" : "bg-white border-slate-200 hover:border-slate-300"
                 }`}
               >
                 <button
                   onClick={() => toggleOpen(index)}
                   className="w-full px-6 py-6 flex items-center justify-between text-left focus:outline-none"
                 >
-                  <span className={`font-bold text-lg pr-8 transition-colors ${isOpen ? "text-violet-900" : "text-slate-900"}`}>
+                  <span className={`font-bold text-lg pr-8 transition-colors ${isOpen ? "text-indigo-900" : "text-slate-900"}`}>
                     {faq.question}
                   </span>
-                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${isOpen ? "bg-violet-50 text-violet-600 rotate-180" : "bg-slate-100 text-slate-400"}`}>
+                  <div className={`w-8 h-8 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${isOpen ? "bg-indigo-50 text-indigo-600 rotate-180" : "bg-slate-100 text-slate-400"}`}>
                     <ChevronDown size={18} />
                   </div>
                 </button>

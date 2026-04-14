@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { Check, X } from "lucide-react";
 import { motion } from "framer-motion";
@@ -19,7 +19,7 @@ export const ComparisonSection = () => {
           >
             Der Unterschied
             <br />
-            <span className="text-violet-600">im Detail.</span>
+            <span className="text-indigo-600">im Detail.</span>
           </h2>
           <p className="text-base text-slate-500 mt-4 max-w-md leading-relaxed">
             Warum Marktführer auf unsere Infrastruktur wechseln.
@@ -63,10 +63,10 @@ export const ComparisonSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="relative bg-white border-2 border-violet-600 shadow-xl shadow-violet-600/8 p-8 sm:p-10"
+            className="relative bg-white border-2 border-indigo-600 shadow-xl shadow-indigo-600/8 p-8 sm:p-10"
           >
             {/* Empfohlen-Badge */}
-            <div className="absolute top-0 right-8 -translate-y-1/2 bg-violet-600 text-white text-xs font-bold tracking-wider uppercase py-1.5 px-4">
+            <div className="absolute top-0 right-8 -translate-y-1/2 bg-indigo-600 text-white text-xs font-bold tracking-wider uppercase py-1.5 px-4">
               Empfohlen
             </div>
 
@@ -84,8 +84,8 @@ export const ComparisonSection = () => {
                 "Nahtlose KI-Integration & Workflows",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="bg-violet-50 border border-violet-100 p-1 shrink-0 mt-0.5">
-                    <Check size={12} className="text-violet-600" strokeWidth={3} />
+                  <div className="bg-indigo-50 border border-indigo-100 p-1 shrink-0 mt-0.5">
+                    <Check size={12} className="text-indigo-600" strokeWidth={3} />
                   </div>
                   <span className="text-slate-900 text-sm font-medium">{item}</span>
                 </li>

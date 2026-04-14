@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import { TrendingUp, Eye, Users, Play } from "lucide-react";
@@ -8,7 +8,7 @@ import { TrendingUp, Eye, Users, Play } from "lucide-react";
 const STAT_DELAYS = [0, 0.12, 0.24];
 
 const contentStats = [
-  { icon: <Eye      size={16} />, label: "Ø Reichweite / Woche",  value: "84.000", delta: "+38 %", color: "#7C3AED" },
+  { icon: <Eye      size={16} />, label: "Ø Reichweite / Woche",  value: "84.000", delta: "+38 %", color: "#4F46E5" },
   { icon: <TrendingUp size={16} />, label: "Interaktionsrate",     value: "6,2 %",  delta: "+12 %", color: "#10B981" },
   { icon: <Users    size={16} />, label: "Neue Follower / Woche", value: "1.240",  delta: "+24 %", color: "#F59E0B" },
 ];
@@ -50,7 +50,7 @@ export const AlgorithmSection = () => {
           >
             Sichtbarkeit ist kein Zufall —
             <br />
-            <span className="text-violet-600">sie ist Strategie.</span>
+            <span className="text-indigo-600">sie ist Strategie.</span>
           </h2>
         </motion.div>
 
@@ -66,11 +66,11 @@ export const AlgorithmSection = () => {
             className="lg:pr-12"
           >
             {/* Live badge */}
-            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.15em] uppercase text-violet-600 border border-violet-100 bg-violet-50 px-3 py-1.5 mb-8">
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-3 py-1.5 mb-8">
               <motion.span
                 animate={{ opacity: [1, 0.25, 1] }}
                 transition={{ duration: 1.6, repeat: Infinity }}
-                className="w-1.5 h-1.5 bg-violet-600"
+                className="w-1.5 h-1.5 bg-indigo-600"
               />
               Content läuft — jetzt live
             </div>
@@ -91,7 +91,7 @@ export const AlgorithmSection = () => {
                   transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   className={`flex items-start gap-4 py-5 ${idx < features.length - 1 ? "border-b border-slate-100" : ""}`}
                 >
-                  <div className="w-9 h-9 bg-violet-50 border border-violet-100 flex items-center justify-center text-violet-600 shrink-0">
+                  <div className="w-9 h-9 bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
                     {item.icon}
                   </div>
                   <div>
@@ -178,7 +178,7 @@ export const AlgorithmSection = () => {
                   <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.12em]">
                     Wöchentliche Reichweite
                   </p>
-                  <span className="text-[9px] font-black text-violet-600 border border-violet-100 bg-violet-50 px-1.5 py-0.5">
+                  <span className="text-[9px] font-black text-indigo-600 border border-indigo-100 bg-indigo-50 px-1.5 py-0.5">
                     +38 %
                   </span>
                 </div>
@@ -187,7 +187,7 @@ export const AlgorithmSection = () => {
                     <motion.div
                       key={i}
                       className="flex-1"
-                      style={{ background: i === chartData.length - 1 ? "#7C3AED" : "#EDE9FE" }}
+                      style={{ background: i === chartData.length - 1 ? "#4F46E5" : "#EEF2FF" }}
                       initial={{ height: 0 }}
                       whileInView={{ height: `${h}%` }}
                       viewport={{ once: true }}

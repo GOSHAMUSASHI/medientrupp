@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -115,13 +115,13 @@ const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: Tog
     onClick={onToggle}
     className={`cursor-pointer p-4 md:p-5 rounded-md border-2 transition-all duration-200 flex items-start gap-3 sm:gap-4 ${
       checked
-        ? "border-violet-600 bg-violet-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
-        : "border-slate-200 hover:border-violet-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
+        ? "border-indigo-600 bg-indigo-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
+        : "border-slate-200 hover:border-indigo-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
     }`}
   >
     <div
       className={`mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded-md flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
-        checked ? "bg-violet-600 border-violet-600" : "border-slate-300 bg-slate-50"
+        checked ? "bg-indigo-600 border-indigo-600" : "border-slate-300 bg-slate-50"
       }`}
     >
       {checked && <Check size={14} className="text-white" strokeWidth={4} />}
@@ -129,7 +129,7 @@ const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: Tog
     <div className="flex-1">
       <p className={`font-bold md:text-lg leading-tight ${checked ? "text-slate-900" : "text-slate-700"}`}>{label}</p>
       {desc && <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-snug">{desc}</p>}
-      <p className={`text-[10px] sm:text-xs mt-1.5 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-violet-600"}`}>
+      <p className={`text-[10px] sm:text-xs mt-1.5 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-indigo-600"}`}>
         {sublabel}
       </p>
     </div>
@@ -214,11 +214,11 @@ export const InteractiveFunnel = () => {
         
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <p className="text-xs font-black tracking-[0.2em] uppercase text-violet-600 mb-3">
+          <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
             Interaktiver Kalkulator
           </p>
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
-            Konfigurieren Sie Ihr <span className="text-violet-600">Projekt.</span>
+            Konfigurieren Sie Ihr <span className="text-indigo-600">Projekt.</span>
           </h2>
           <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Keine undurchsichtigen Angebote. Wählen Sie genau die Bausteine, die Sie für Ihre Skalierung benötigen und sehen Sie den Live-Preis in Echtzeit.
@@ -235,7 +235,7 @@ export const InteractiveFunnel = () => {
               Wir haben Ihr System gespeichert und melden uns rasch mit dem Angebot bei Ihnen.
             </p>
             <div className="bg-slate-50 border border-slate-200 rounded-md p-6 sm:p-8">
-              <div className="flex items-center gap-3 justify-center mb-4 text-violet-600">
+              <div className="flex items-center gap-3 justify-center mb-4 text-indigo-600">
                 <Calendar size={24} />
                 <span className="font-black">Kick-off direkt buchen</span>
               </div>
@@ -262,7 +262,7 @@ export const InteractiveFunnel = () => {
                     )}
                   </div>
                   <div className="flex-1 h-1 bg-slate-100 overflow-hidden">
-                    <div className="h-full bg-violet-600 transition-all duration-500" style={{ width: `${progressPercent}%` }} />
+                    <div className="h-full bg-indigo-600 transition-all duration-500" style={{ width: `${progressPercent}%` }} />
                   </div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest min-w-[32px] text-right">
                     {flowIndex + 1}/{flow.length}
@@ -284,14 +284,14 @@ export const InteractiveFunnel = () => {
                         {MAIN_SERVICES.map((srv) => {
                           const active = services.includes(srv.id);
                           return (
-                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-4 sm:p-5 rounded-md border-2 transition-all flex flex-col gap-3 ${active ? "border-violet-600 bg-violet-50/50" : "border-slate-200 bg-white"}`}>
+                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-4 sm:p-5 rounded-md border-2 transition-all flex flex-col gap-3 ${active ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white"}`}>
                               <div className="flex items-start justify-between">
-                                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${active ? "bg-violet-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
-                                <div className={`w-6 h-6 rounded-md flex items-center justify-center border-2 ${active ? "bg-violet-600 border-violet-600" : "border-slate-300"}`}>{active && <Check size={14} className="text-white" strokeWidth={3} />}</div>
+                                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
+                                <div className={`w-6 h-6 rounded-md flex items-center justify-center border-2 ${active ? "bg-indigo-600 border-indigo-600" : "border-slate-300"}`}>{active && <Check size={14} className="text-white" strokeWidth={3} />}</div>
                               </div>
                               <div>
                                 <p className="font-bold text-slate-900">{srv.label}</p>
-                                <p className="text-[10px] sm:text-xs font-bold text-violet-600 mt-0.5 uppercase">{srv.price}</p>
+                                <p className="text-[10px] sm:text-xs font-bold text-indigo-600 mt-0.5 uppercase">{srv.price}</p>
                               </div>
                             </div>
                           );
@@ -302,7 +302,7 @@ export const InteractiveFunnel = () => {
 
                   {currentStage === "ADDON_MARKE" && (
                      <motion.div key="marke" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-[10px] uppercase mb-1"><Palette size={12} /> Marke</div>
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Palette size={12} /> Marke</div>
                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Welche Details?</h1>
                        <div className="space-y-3">
                          <ToggleCard label="Premium Re-Branding" sublabel="+ 1.500 €" desc="Komplette Neuentwicklung der Markenidentität." checked={addons.marke_premium_rebranding} onToggle={() => toggleAddon("marke_premium_rebranding")} />
@@ -313,7 +313,7 @@ export const InteractiveFunnel = () => {
 
                   {currentStage === "ADDON_WEBSITE" && (
                     <motion.div key="website" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-[10px] uppercase mb-1"><Globe size={12} /> Website</div>
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Globe size={12} /> Website</div>
                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Website Power-Ups</h1>
                        <div className="space-y-3">
                          <ToggleCard label="Premium Copywriting" sublabel="+ 500 €" desc="Verkaufspsychologische Texte für maximale Conversion." checked={addons.website_texte} onToggle={() => toggleAddon("website_texte")} />
@@ -325,7 +325,7 @@ export const InteractiveFunnel = () => {
 
                   {currentStage === "ADDON_KI" && (
                     <motion.div key="ki" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-[10px] uppercase mb-1"><Zap size={12} /> KI Systeme</div>
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Zap size={12} /> KI Systeme</div>
                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Was automatisieren?</h1>
                        <div className="space-y-3">
                          <ToggleCard label="Smarte Lead-Erfassung" sublabel="+ 500 €" desc="CRM Anbindung & Auto-Mails." checked={addons.ki_lead_erfassung} onToggle={() => toggleAddon("ki_lead_erfassung")} />
@@ -337,7 +337,7 @@ export const InteractiveFunnel = () => {
 
                   {currentStage === "ADDON_SOCIAL" && (
                     <motion.div key="social" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-[10px] uppercase mb-1"><Video size={12} /> Social</div>
+                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Video size={12} /> Social</div>
                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Sichtbarkeit Details</h1>
                        <div className="space-y-3">
                          <ToggleCard label="Social Management" sublabel="+ 250 €" isMonthly desc="Laufende Pflege & Posting Ihres Contents." checked={addons.social_management} onToggle={() => toggleAddon("social_management")} />
@@ -366,27 +366,27 @@ export const InteractiveFunnel = () => {
                       </div>
                       <form id="contact-form-homepage" onSubmit={handleSubmit(onSubmitForm)} className="space-y-2">
                         <div className="h-[84px]">
-                          <input {...register("name")} placeholder="Ihr Name *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.name ? "border-rose-400" : "border-slate-200 focus:border-violet-600"}`} />
+                          <input {...register("name")} placeholder="Ihr Name *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.name ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
                           {errors.name && <p className="text-rose-500 text-[11px] font-bold mt-1 px-1">{errors.name.message}</p>}
                         </div>
                         <div className="h-[84px]">
-                          <input {...register("company")} placeholder="Ihr Unternehmen *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.company ? "border-rose-400" : "border-slate-200 focus:border-violet-600"}`} />
+                          <input {...register("company")} placeholder="Ihr Unternehmen *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.company ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
                           {errors.company && <p className="text-rose-500 text-[11px] font-bold mt-1 px-1">{errors.company.message}</p>}
                         </div>
                         <div className="h-[84px]">
-                          <input {...register("email")} type="email" placeholder="Geschäftliche E-Mail *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.email ? "border-rose-400" : "border-slate-200 focus:border-violet-600"}`} />
+                          <input {...register("email")} type="email" placeholder="Geschäftliche E-Mail *" className={`w-full px-5 py-4 rounded-md bg-white border-2 text-base shadow-sm transition-colors ${errors.email ? "border-rose-400" : "border-slate-200 focus:border-indigo-600"}`} />
                           {errors.email && <p className="text-rose-500 text-[11px] font-bold mt-1 px-1">{errors.email.message}</p>}
                         </div>
                         <div className="h-[84px]">
-                          <input {...register("phone")} type="tel" placeholder="Telefon (optional)" className="w-full px-5 py-4 rounded-md bg-white border-2 border-slate-200 focus:border-violet-600 text-base shadow-sm transition-colors" />
+                          <input {...register("phone")} type="tel" placeholder="Telefon (optional)" className="w-full px-5 py-4 rounded-md bg-white border-2 border-slate-200 focus:border-indigo-600 text-base shadow-sm transition-colors" />
                         </div>
                         <div className="min-h-[60px]">
                           <div className="flex items-start gap-3 px-1 py-1">
                             <div className="pt-1">
-                              <input type="checkbox" id="gdpr-home" {...register("gdpr")} className="w-4 h-4 rounded border-slate-300 text-violet-600 focus:ring-violet-600 cursor-pointer" />
+                              <input type="checkbox" id="gdpr-home" {...register("gdpr")} className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer" />
                             </div>
                             <label htmlFor="gdpr-home" className="text-[11px] text-slate-500 leading-snug cursor-pointer">
-                              Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert werden. Details in der <a href="/datenschutz" className="text-violet-600 hover:underline">Datenschutzerklärung</a>. *
+                              Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert werden. Details in der <a href="/datenschutz" className="text-indigo-600 hover:underline">Datenschutzerklärung</a>. *
                             </label>
                           </div>
                           {errors.gdpr && <p className="text-rose-500 text-[10px] font-bold uppercase tracking-wider px-1 mt-1">{errors.gdpr.message}</p>}
@@ -412,7 +412,7 @@ export const InteractiveFunnel = () => {
                 </div>
 
                 {currentStage !== "CONTACT" ? (
-                  <button onClick={() => { onNext(); document.getElementById('funnel-scroll-container')?.scrollTo(0,0); }} disabled={!canProceed} className="flex items-center gap-2 bg-violet-600 disabled:bg-slate-200 disabled:text-slate-400 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-md font-bold transition-all shadow-md">
+                  <button onClick={() => { onNext(); document.getElementById('funnel-scroll-container')?.scrollTo(0,0); }} disabled={!canProceed} className="flex items-center gap-2 bg-indigo-600 disabled:bg-slate-200 disabled:text-slate-400 text-white px-6 sm:px-8 py-3 sm:py-3.5 rounded-md font-bold transition-all shadow-md">
                     Weiter <ArrowRight size={16}/>
                   </button>
                 ) : (
@@ -427,7 +427,7 @@ export const InteractiveFunnel = () => {
             <div className="hidden lg:flex w-[340px] xl:w-[400px] flex-col bg-slate-50 border-l border-slate-200">
                <div className="p-8 xl:p-10 flex-1">
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 border border-slate-200 bg-white shadow-sm mb-10">
-                    <span className="w-2 h-2 bg-violet-600 animate-pulse" />
+                    <span className="w-2 h-2 bg-indigo-600 animate-pulse" />
                     <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">Live-Kalkulation</span>
                   </div>
 
@@ -455,7 +455,7 @@ export const InteractiveFunnel = () => {
                     <div className="space-y-3.5">
                       {services.map((s) => (
                         <div key={s} className="flex items-start gap-3">
-                          <Check size={16} className="text-violet-600 flex-shrink-0 mt-0.5" />
+                          <Check size={16} className="text-indigo-600 flex-shrink-0 mt-0.5" />
                           <span className="text-sm font-bold text-slate-800">{MAIN_SERVICES.find((m) => m.id === s)?.label}</span>
                         </div>
                       ))}

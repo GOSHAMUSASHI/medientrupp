@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import { CheckCircle2, Zap, LayoutTemplate, Bot, Video, ShieldCheck } from "lucide-react";
@@ -85,11 +85,11 @@ export default function LeistungenPage() {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <p className="text-sm font-black tracking-[0.2em] uppercase text-violet-600 mb-6">
+            <p className="text-sm font-black tracking-[0.2em] uppercase text-indigo-600 mb-6">
               Volles Spektrum
             </p>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 mb-8">
-              Unsere Systeme im <span className="text-violet-600">Detail.</span>
+              Unsere Systeme im <span className="text-indigo-600">Detail.</span>
             </h1>
             <p className="text-xl text-slate-500 leading-relaxed font-medium">
               Wir bauen keine Standard-Websites, sondern Vertriebsmaschinen. Entdecken Sie die Bausteine, die Ihr Unternehmen messbar nach vorne bringen.
@@ -114,7 +114,7 @@ export default function LeistungenPage() {
                     <a
                       key={srv.id}
                       href={`#${srv.id}`}
-                      className="text-sm font-bold text-slate-600 hover:text-violet-600 transition-colors flex items-center gap-3"
+                      className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors flex items-center gap-3"
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
                       {srv.subtitle}
@@ -141,10 +141,10 @@ export default function LeistungenPage() {
                     {/* Copy */}
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-5">
-                        <div className="w-12 h-12 rounded-md bg-violet-50 text-violet-600 flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center">
                           {srv.icon}
                         </div>
-                        <span className="text-xs font-black tracking-widest uppercase text-violet-600">
+                        <span className="text-xs font-black tracking-widest uppercase text-indigo-600">
                           {srv.subtitle}
                         </span>
                       </div>
@@ -157,7 +157,7 @@ export default function LeistungenPage() {
                       <ul className="space-y-4">
                         {srv.features.map((feature, i) => (
                           <li key={i} className="flex items-center gap-3 bg-slate-50/50 p-3 rounded-md border border-slate-100">
-                            <CheckCircle2 size={20} className="text-violet-600 flex-shrink-0" />
+                            <CheckCircle2 size={20} className="text-indigo-600 flex-shrink-0" />
                             <span className="text-slate-800 font-semibold text-sm md:text-base">{feature}</span>
                           </li>
                         ))}
@@ -166,7 +166,7 @@ export default function LeistungenPage() {
 
                     {/* Image / Placeholder (Glassmorphism) */}
                     <div className="flex-1 w-full relative group">
-                      <div className="absolute inset-0 bg-violet-500/5 blur-3xl -z-10 transition-opacity duration-500 group-hover:bg-violet-500/10"></div>
+                      <div className="absolute inset-0 bg-indigo-500/5 blur-3xl -z-10 transition-opacity duration-500 group-hover:bg-indigo-500/10"></div>
                       <div className="aspect-[4/3] bg-slate-50 border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/50 flex flex-col items-center justify-center relative transition-transform duration-500 group-hover:-translate-y-1 group-hover:shadow-slate-300/40">
                          <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent z-10 pointer-events-none" />
                          <span className="text-slate-400 font-bold uppercase tracking-widest text-sm z-20 bg-white px-6 py-3 border border-slate-200 shadow-sm">Screenshot / Demo</span>

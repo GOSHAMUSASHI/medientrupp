@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -62,7 +62,7 @@ export const ProjectTeaser = () => {
               style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
             >
               Systeme,{" "}
-              <span className="text-violet-600">die gewinnen.</span>
+              <span className="text-indigo-600">die gewinnen.</span>
             </h2>
           </div>
           <Link
@@ -95,7 +95,7 @@ export const ProjectTeaser = () => {
               {/* Left: copy */}
               <div className="py-8 lg:pr-10 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-violet-600 border border-violet-100 bg-violet-50 px-2.5 py-1">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1">
                     {project.category}
                   </span>
                   <span className="w-1 h-1 bg-slate-300" aria-hidden="true" />
@@ -104,7 +104,7 @@ export const ProjectTeaser = () => {
                   </span>
                 </div>
                 <h3
-                  className="font-black tracking-tight text-slate-900 group-hover:text-violet-600 transition-colors duration-200"
+                  className="font-black tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors duration-200"
                   style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.75rem)" }}
                 >
                   {project.title}

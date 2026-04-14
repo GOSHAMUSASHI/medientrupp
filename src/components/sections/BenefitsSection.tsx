@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion } from "framer-motion";
 
@@ -64,7 +64,7 @@ export const BenefitsSection = () => {
               Fokus auf Ihr Kerngeschäft
               <br />
               statt{" "}
-              <span className="text-violet-600">digitaler Baustellen.</span>
+              <span className="text-indigo-600">digitaler Baustellen.</span>
             </h2>
           </div>
 
@@ -81,7 +81,7 @@ export const BenefitsSection = () => {
             <div className="space-y-3">
               {checklist.map((item, i) => (
                 <div key={i} className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-violet-600 mt-2 shrink-0" aria-hidden="true" />
+                  <span className="w-1.5 h-1.5 bg-indigo-600 mt-2 shrink-0" aria-hidden="true" />
                   <span className="text-slate-700 font-medium">{item}</span>
                 </div>
               ))}
@@ -106,7 +106,7 @@ export const BenefitsSection = () => {
               >
                 {stat.value}
                 <span
-                  className="block text-[11px] font-semibold tracking-[0.2em] uppercase text-violet-600 mt-2"
+                  className="block text-[11px] font-semibold tracking-[0.2em] uppercase text-indigo-600 mt-2"
                 >
                   {stat.label}
                 </span>

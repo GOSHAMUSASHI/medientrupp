@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -145,13 +145,13 @@ const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: Tog
     onClick={onToggle}
     className={`cursor-pointer p-4 md:p-5 rounded-md border-2 transition-all duration-200 flex items-start gap-3 sm:gap-4 ${
       checked
-        ? "border-violet-600 bg-violet-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
-        : "border-slate-200 hover:border-violet-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
+        ? "border-indigo-600 bg-indigo-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
+        : "border-slate-200 hover:border-indigo-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
     }`}
   >
     <div
       className={`mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded-md flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
-        checked ? "bg-violet-600 border-violet-600" : "border-slate-300 bg-slate-50"
+        checked ? "bg-indigo-600 border-indigo-600" : "border-slate-300 bg-slate-50"
       }`}
     >
       {checked && <Check size={14} className="text-white" strokeWidth={4}/>}
@@ -161,7 +161,7 @@ const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: Tog
         {label}
       </p>
       {desc && <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-snug">{desc}</p>}
-      <p className={`text-[10px] sm:text-xs mt-1.5 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-violet-600"}`}>
+      <p className={`text-[10px] sm:text-xs mt-1.5 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-indigo-600"}`}>
         {sublabel}
       </p>
     </div>
@@ -268,7 +268,7 @@ export default function ProjektAnfragenPage() {
             Wir haben Ihr System gespeichert und melden uns rasch mit einem konkreten Angebot bei Ihnen.
           </p>
           <div className="bg-slate-50 border border-slate-200 rounded-md p-8">
-            <div className="flex items-center gap-3 justify-center mb-4 text-violet-600">
+            <div className="flex items-center gap-3 justify-center mb-4 text-indigo-600">
               <Calendar size={24} />
               <span className="font-black">Kick-off direkt buchen</span>
             </div>
@@ -291,13 +291,13 @@ export default function ProjektAnfragenPage() {
       
       {/* ── Minimal Header ──────────────────────────────────────────────────── */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-[65px] bg-white border-b border-slate-200">
-        <Link href="/" className="text-violet-600 font-black text-xl tracking-tight">
+        <Link href="/" className="text-indigo-600 font-black text-xl tracking-tight">
           Medien<span className="text-slate-900">Trupp</span>
         </Link>
         {/* Progress Bar (Desktop only, mobile shows below) */}
         <div className="hidden md:flex items-center gap-4 w-1/3">
           <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-             <div className="h-full bg-violet-600 transition-all duration-500 ease-out" style={{ width: `${progressPercent}%` }} />
+             <div className="h-full bg-indigo-600 transition-all duration-500 ease-out" style={{ width: `${progressPercent}%` }} />
           </div>
           <span className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-none">
             {flowIndex + 1} / {flow.length}
@@ -319,10 +319,10 @@ export default function ProjektAnfragenPage() {
           <div className="md:hidden w-full max-w-2xl mb-8">
             <div className="flex justify-between items-end mb-2">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fortschritt</span>
-              <span className="text-[10px] font-bold text-violet-600 uppercase tracking-widest">{flowIndex + 1} / {flow.length}</span>
+              <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest">{flowIndex + 1} / {flow.length}</span>
             </div>
             <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
-              <div className="h-full bg-violet-600 transition-all duration-500 ease-out" style={{ width: `${progressPercent}%` }} />
+              <div className="h-full bg-indigo-600 transition-all duration-500 ease-out" style={{ width: `${progressPercent}%` }} />
             </div>
           </div>
 
@@ -334,7 +334,7 @@ export default function ProjektAnfragenPage() {
                 <motion.div key="main" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-8">
                   <div className="text-center sm:text-left">
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">
-                      Was benötigt Ihr <span className="text-violet-600">Unternehmen?</span>
+                      Was benötigt Ihr <span className="text-indigo-600">Unternehmen?</span>
                     </h1>
                     <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
                       Wählen Sie alle Bereiche aus, in denen Sie wachsen möchten. Sie sehen sofort Ihren Preis.
@@ -350,25 +350,25 @@ export default function ProjektAnfragenPage() {
                           onClick={() => toggleService(srv.id)}
                           className={`cursor-pointer p-4 sm:p-6 rounded-md border-2 transition-all duration-200 flex flex-col gap-4 ${
                             active
-                              ? "border-violet-600 bg-violet-50/50 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
-                              : "border-slate-200 hover:border-violet-300 bg-white shadow-sm shadow-slate-100/50"
+                              ? "border-indigo-600 bg-indigo-50/50 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
+                              : "border-slate-200 hover:border-indigo-300 bg-white shadow-sm shadow-slate-100/50"
                           }`}
                         >
                           <div className="flex items-start justify-between">
                             <div className={`w-12 h-12 rounded-md flex items-center justify-center transition-colors ${
-                              active ? "bg-violet-600 text-white" : "bg-slate-100 text-slate-500"
+                              active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"
                             }`}>
                               {srv.icon}
                             </div>
                             <div className={`w-6 h-6 rounded-md flex items-center justify-center border-2 transition-colors flex-shrink-0 mt-1 ${
-                              active ? "bg-violet-600 border-violet-600" : "border-slate-300 bg-slate-50"
+                              active ? "bg-indigo-600 border-indigo-600" : "border-slate-300 bg-slate-50"
                             }`}>
                               {active && <Check size={14} className="text-white" strokeWidth={3} />}
                             </div>
                           </div>
                           <div>
                             <p className="font-bold text-lg text-slate-900">{srv.label}</p>
-                            <p className="text-xs font-bold text-violet-600 mt-1 uppercase tracking-widest">{srv.price}</p>
+                            <p className="text-xs font-bold text-indigo-600 mt-1 uppercase tracking-widest">{srv.price}</p>
                           </div>
                         </div>
                       );
@@ -381,7 +381,7 @@ export default function ProjektAnfragenPage() {
               {currentStage === "ADDON_MARKE" && (
                 <motion.div key="marke" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6">
                   <div className="text-center sm:text-left mb-8">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-xs uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Palette size={14} /> Marke & Design
                     </div>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Welche Details?</h1>
@@ -410,7 +410,7 @@ export default function ProjektAnfragenPage() {
               {currentStage === "ADDON_WEBSITE" && (
                 <motion.div key="website" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6">
                   <div className="text-center sm:text-left mb-8">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-xs uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Globe size={14} /> Website
                     </div>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Welche Power-Ups?</h1>
@@ -446,7 +446,7 @@ export default function ProjektAnfragenPage() {
               {currentStage === "ADDON_KI" && (
                 <motion.div key="ki" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6">
                   <div className="text-center sm:text-left mb-8">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-xs uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Zap size={14} /> KI Systeme
                     </div>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Was dürfen wir automatisieren?</h1>
@@ -481,7 +481,7 @@ export default function ProjektAnfragenPage() {
               {currentStage === "ADDON_SOCIAL" && (
                 <motion.div key="social" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6">
                   <div className="text-center sm:text-left mb-8">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-100 text-violet-700 font-black text-xs uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Video size={14} /> Social Media
                     </div>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Sichtbarkeit skalieren</h1>
@@ -568,7 +568,7 @@ export default function ProjektAnfragenPage() {
                         {...register("name")}
                         placeholder="Ihr vollständiger Name *"
                         className={`w-full px-5 py-4 rounded-md bg-white border-2 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all text-base shadow-sm ${
-                          errors.name ? "border-rose-400 bg-rose-50" : "border-slate-200 focus:border-violet-600"
+                          errors.name ? "border-rose-400 bg-rose-50" : "border-slate-200 focus:border-indigo-600"
                         }`}
                       />
                       {errors.name && <p className="text-rose-500 text-[11px] mt-1.5 font-bold uppercase tracking-wider px-1">{errors.name.message}</p>}
@@ -578,7 +578,7 @@ export default function ProjektAnfragenPage() {
                         {...register("company")}
                         placeholder="Ihr Unternehmen *"
                         className={`w-full px-5 py-4 rounded-md bg-white border-2 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all text-base shadow-sm ${
-                          errors.company ? "border-rose-400 bg-rose-50" : "border-slate-200 focus:border-violet-600"
+                          errors.company ? "border-rose-400 bg-rose-50" : "border-slate-200 focus:border-indigo-600"
                         }`}
                       />
                       {errors.company && <p className="text-rose-500 text-[11px] mt-1.5 font-bold uppercase tracking-wider px-1">{errors.company.message}</p>}
@@ -589,7 +589,7 @@ export default function ProjektAnfragenPage() {
                         type="email"
                         placeholder="Geschäftliche E-Mail *"
                         className={`w-full px-5 py-4 rounded-md bg-white border-2 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all text-base shadow-sm ${
-                          errors.email ? "border-rose-400 bg-rose-50" : "border-slate-200 focus:border-violet-600"
+                          errors.email ? "border-rose-400 bg-rose-50" : "border-slate-200 focus:border-indigo-600"
                         }`}
                       />
                       {errors.email && <p className="text-rose-500 text-[11px] mt-1.5 font-bold uppercase tracking-wider px-1">{errors.email.message}</p>}
@@ -599,7 +599,7 @@ export default function ProjektAnfragenPage() {
                         {...register("phone")}
                         type="tel"
                         placeholder="Telefon (optional)"
-                        className="w-full px-5 py-4 rounded-md bg-white border-2 border-slate-200 focus:border-violet-600 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all text-base shadow-sm"
+                        className="w-full px-5 py-4 rounded-md bg-white border-2 border-slate-200 focus:border-indigo-600 text-slate-900 placeholder:text-slate-400 focus:outline-none transition-all text-base shadow-sm"
                       />
                     </div>
 
@@ -610,11 +610,11 @@ export default function ProjektAnfragenPage() {
                             type="checkbox"
                             id="gdpr-page"
                             {...register("gdpr")}
-                            className="w-4 h-4 rounded border-slate-300 text-violet-600 focus:ring-violet-600 cursor-pointer"
+                            className="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-600 cursor-pointer"
                           />
                         </div>
                         <label htmlFor="gdpr-page" className="text-xs text-slate-500 leading-snug cursor-pointer">
-                          Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert und verwendet werden. Weitere Informationen finden Sie in der <Link href="/datenschutz" className="text-violet-600 hover:underline">Datenschutzerklärung</Link>. *
+                          Ich stimme zu, dass meine Daten zur Bearbeitung dieser Anfrage gespeichert und verwendet werden. Weitere Informationen finden Sie in der <Link href="/datenschutz" className="text-indigo-600 hover:underline">Datenschutzerklärung</Link>. *
                         </label>
                       </div>
                       {errors.gdpr && <p className="text-rose-500 text-[11px] font-bold uppercase tracking-wider px-2">{errors.gdpr.message}</p>}
@@ -643,7 +643,7 @@ export default function ProjektAnfragenPage() {
                 <button
                   onClick={onNext}
                   disabled={!canProceed}
-                  className="flex items-center gap-3 px-8 py-4 rounded-md font-black bg-violet-600 text-white hover:bg-violet-700 disabled:opacity-40 disabled:bg-slate-400 disabled:cursor-not-allowed transition-all shadow-xl shadow-violet-600/20 text-lg hover:scale-[1.02] active:scale-[0.98]"
+                  className="flex items-center gap-3 px-8 py-4 rounded-md font-black bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-40 disabled:bg-slate-400 disabled:cursor-not-allowed transition-all shadow-xl shadow-indigo-600/20 text-lg hover:scale-[1.02] active:scale-[0.98]"
                 >
                   Weiter
                   <ArrowRight size={18} />
@@ -666,8 +666,8 @@ export default function ProjektAnfragenPage() {
         <div className="hidden lg:flex lg:w-[360px] xl:w-[420px] lg:sticky lg:top-[65px] lg:h-[calc(100vh-65px)] flex-col bg-white border-l border-slate-200 shadow-[-20px_0_40px_-20px_rgba(0,0,0,0.05)] z-40">
           
           <div className="p-8 xl:p-10 flex-1 overflow-y-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-violet-50 border border-violet-100 text-violet-700 mb-10">
-              <span className="w-2 h-2 rounded-full bg-violet-600 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-700 mb-10">
+              <span className="w-2 h-2 rounded-full bg-indigo-600 animate-pulse" />
               <span className="text-[10px] font-black uppercase tracking-widest">Live-Kalkulation</span>
             </div>
 
@@ -714,7 +714,7 @@ export default function ProjektAnfragenPage() {
               <div className="space-y-3.5">
                 {services.map((s) => (
                   <div key={s} className="flex items-start gap-3">
-                    <Check size={16} className="text-violet-600 flex-shrink-0 mt-0.5" />
+                    <Check size={16} className="text-indigo-600 flex-shrink-0 mt-0.5" />
                     <span className="text-sm font-bold text-slate-700 leading-snug">
                       {MAIN_SERVICES.find((m) => m.id === s)?.label}
                     </span>
@@ -778,7 +778,7 @@ export default function ProjektAnfragenPage() {
             <button 
               onClick={onNext} 
               disabled={!canProceed}
-              className="flex items-center gap-2 bg-violet-600 disabled:bg-slate-300 text-white px-5 sm:px-6 py-3.5 rounded-md font-black text-sm sm:text-base transition-colors shadow-lg shadow-violet-600/20 disabled:shadow-none"
+              className="flex items-center gap-2 bg-indigo-600 disabled:bg-slate-300 text-white px-5 sm:px-6 py-3.5 rounded-md font-black text-sm sm:text-base transition-colors shadow-lg shadow-indigo-600/20 disabled:shadow-none"
             >
               Weiter <ArrowRight size={16}/>
             </button>

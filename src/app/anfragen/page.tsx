@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -53,7 +53,7 @@ export default function AnfragenPage() {
       <div className="max-w-2xl mx-auto px-4">
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Kalkulieren Sie Ihr <span className="text-violet-600">Projekt</span>.</h1>
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">Kalkulieren Sie Ihr <span className="text-indigo-600">Projekt</span>.</h1>
           <p className="text-slate-500 mt-2">Transparente Preise in unter 60 Sekunden.</p>
         </div>
 
@@ -63,7 +63,7 @@ export default function AnfragenPage() {
           {/* Progress Bar */}
           <div className="w-full h-2 bg-slate-100 relative">
             <motion.div 
-              className="absolute top-0 left-0 h-full bg-violet-600"
+              className="absolute top-0 left-0 h-full bg-indigo-600"
               initial={{ width: "25%" }}
               animate={{ width: `${(step / 4) * 100}%` }}
               transition={{ duration: 0.3 }}
@@ -97,18 +97,18 @@ export default function AnfragenPage() {
                           key={item.name}
                           onClick={() => toggleSelection(item.name)}
                           className={`cursor-pointer p-5 border-2 rounded-md transition-all duration-200 flex flex-col gap-2 ${
-                            isActive ? "border-violet-600 bg-violet-50/30" : "border-slate-100 hover:border-violet-300"
+                            isActive ? "border-indigo-600 bg-indigo-50/30" : "border-slate-100 hover:border-indigo-300"
                           }`}
                         >
                           <div className="flex items-center justify-between">
                             <span className={`font-bold ${isActive ? "text-slate-900" : "text-slate-600"}`}>{item.name}</span>
                             <div className={`w-5 h-5 rounded flex items-center justify-center border transition-colors ${
-                              isActive ? "bg-violet-600 border-violet-600" : "border-slate-300"
+                              isActive ? "bg-indigo-600 border-indigo-600" : "border-slate-300"
                             }`}>
                               {isActive && <Check size={14} className="text-white" />}
                             </div>
                           </div>
-                          <span className="text-xs font-bold text-violet-600">ab {item.price}</span>
+                          <span className="text-xs font-bold text-indigo-600">ab {item.price}</span>
                         </div>
                       );
                     })}
@@ -136,7 +136,7 @@ export default function AnfragenPage() {
                         <button 
                           onClick={() => setSeo(true)}
                           className={`flex-1 py-3 font-bold rounded-lg transition-colors border-2 ${
-                            seo ? "bg-violet-600 text-white border-violet-600" : "bg-white text-slate-600 border-slate-200"
+                            seo ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-slate-600 border-slate-200"
                           }`}
                         >Ja, brauche ich</button>
                         <button 
@@ -158,7 +158,7 @@ export default function AnfragenPage() {
                         <button 
                           onClick={() => setBrandingPlus(true)}
                           className={`flex-1 py-3 font-bold rounded-lg transition-colors border-2 ${
-                            brandingPlus ? "bg-violet-600 text-white border-violet-600" : "bg-white text-slate-600 border-slate-200"
+                            brandingPlus ? "bg-indigo-600 text-white border-indigo-600" : "bg-white text-slate-600 border-slate-200"
                           }`}
                         >Ja, bitte</button>
                         <button 
@@ -174,7 +174,7 @@ export default function AnfragenPage() {
                   {!selections.includes("Website") && !selections.includes("Marke & Design") && (
                     <div className="text-center py-10">
                       <p className="text-slate-500">Für Ihre Auswahl sind keine weiteren Technik-Details nötig.</p>
-                      <p className="text-sm font-bold text-violet-600 mt-2">Klicken Sie direkt auf Weiter.</p>
+                      <p className="text-sm font-bold text-indigo-600 mt-2">Klicken Sie direkt auf Weiter.</p>
                     </div>
                   )}
                 </motion.div>
@@ -202,18 +202,18 @@ export default function AnfragenPage() {
                         key={m.id}
                         onClick={() => setMaintenance(m.id as "nein"|"basis"|"premium")}
                         className={`cursor-pointer p-5 border-2 rounded-md transition-all flex justify-between items-center ${
-                          maintenance === m.id ? "border-violet-600 bg-violet-50/30" : "border-slate-100 hover:border-violet-200"
+                          maintenance === m.id ? "border-indigo-600 bg-indigo-50/30" : "border-slate-100 hover:border-indigo-200"
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                            maintenance === m.id ? "border-violet-600" : "border-slate-300"
+                            maintenance === m.id ? "border-indigo-600" : "border-slate-300"
                           }`}>
-                            {maintenance === m.id && <div className="w-2.5 h-2.5 rounded-full bg-violet-600" />}
+                            {maintenance === m.id && <div className="w-2.5 h-2.5 rounded-full bg-indigo-600" />}
                           </div>
                           <span className={`font-semibold ${maintenance === m.id ? "text-slate-900" : "text-slate-600"}`}>{m.label}</span>
                         </div>
-                        <span className="text-xs font-bold text-violet-600">{m.price}</span>
+                        <span className="text-xs font-bold text-indigo-600">{m.price}</span>
                       </div>
                     ))}
                   </div>
@@ -236,7 +236,7 @@ export default function AnfragenPage() {
                   <p className="text-slate-500 mb-8 max-w-sm mx-auto">
                     Klicken Sie den Button, um mit diesen exakten Anforderungen ein erstes Gespräch mit uns zu buchen.
                   </p>
-                  <button className="px-8 py-4 w-full rounded-md font-bold bg-violet-600 text-white shadow-lg shadow-violet-600/20 hover:bg-violet-700 transition-colors">
+                  <button className="px-8 py-4 w-full rounded-md font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/20 hover:bg-indigo-700 transition-colors">
                     Verbindliches Gespräch sichern
                   </button>
                 </motion.div>

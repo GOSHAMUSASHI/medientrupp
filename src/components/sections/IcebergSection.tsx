@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -46,7 +46,7 @@ export const IcebergSection = () => {
               Was Sie sehen.
               <br />
               Und was{" "}
-              <span className="text-violet-600">darunter liegt.</span>
+              <span className="text-indigo-600">darunter liegt.</span>
             </h2>
           </div>
 
@@ -56,7 +56,7 @@ export const IcebergSection = () => {
               onClick={() => setActive("visible")}
               className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold transition-colors border-b-2 ${
                 active === "visible"
-                  ? "text-violet-600 border-violet-600"
+                  ? "text-indigo-600 border-indigo-600"
                   : "text-slate-400 border-transparent hover:text-slate-700"
               }`}
             >
@@ -67,7 +67,7 @@ export const IcebergSection = () => {
               onClick={() => setActive("invisible")}
               className={`flex items-center gap-2 px-5 py-3 text-sm font-semibold transition-colors border-b-2 ${
                 active === "invisible"
-                  ? "text-violet-600 border-violet-600"
+                  ? "text-indigo-600 border-indigo-600"
                   : "text-slate-400 border-transparent hover:text-slate-700"
               }`}
             >
@@ -103,7 +103,7 @@ export const IcebergSection = () => {
                   }`}
                 >
                   {/* Icon square */}
-                  <div className="w-10 h-10 bg-white border border-slate-200 flex items-center justify-center text-violet-600 shrink-0">
+                  <div className="w-10 h-10 bg-white border border-slate-200 flex items-center justify-center text-indigo-600 shrink-0">
                     {item.icon}
                   </div>
                   <div>
