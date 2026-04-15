@@ -349,16 +349,16 @@ export const GlobalChatbot = () => {
           <motion.div initial={{ scale: 0, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0, opacity: 0 }} className="fixed bottom-6 right-6 z-50">
             <div className="relative group">
               {hasNewMsg && (
-                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-500 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white z-10">
+                 <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="chatbot-badge absolute -top-1.5 -right-1.5 w-5 h-5 bg-rose-500 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white z-10">
                    1
                  </motion.div>
               )}
               <button
                 onClick={() => setIsOpen(true)}
-                className="relative w-14 h-14 bg-slate-900 border-2 border-indigo-600 text-white flex items-center justify-center shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-colors duration-200"
+                className="chatbot-bubble relative w-14 h-14 bg-slate-900 border-2 border-indigo-600 text-white flex items-center justify-center shadow-xl shadow-slate-900/20 hover:bg-slate-800 transition-colors duration-200"
                 aria-label="Chat öffnen"
               >
-                <MessageCircle size={28} />
+                <MessageCircle size={26} />
               </button>
             </div>
           </motion.div>

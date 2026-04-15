@@ -3,179 +3,250 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  X, Activity, Sparkles, TrendingUp, Users, Bell, Settings,
+  Activity, TrendingUp, Users, Bell, Settings,
   LayoutDashboard, Search, BarChart2, Zap, Globe, ArrowUpRight,
-  CheckCircle2, ChevronDown,
+  CheckCircle2, ChevronDown, ArrowUp, ArrowDown, Download,
+  Mail, Phone, Filter, X,
 } from "lucide-react";
 
-// ── Dashboard Mockup ────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+type DateRange = "7T" | "30T" | "90T" | "12M";
+
+interface TabDataset {
+  metrics: { label: string; value: string; trend: string; positive: boolean; sub?: string }[];
+  chartHeights: number[];
+  chartLabel: string;
+  chartTrend: string;
+  pipelineStages?: { label: string; count: number; value: string; pct: number }[];
+  feed: { icon: React.ReactNode; text: string; time: string; positive?: boolean }[];
+}
+
+// ── Date multipliers for realistic data variation ─────────────────────────────
+
+const dateMultiplier: Record<DateRange, number> = { "7T": 0.25, "30T": 1, "90T": 3.1, "12M": 13.5 };
+const dateSuffix: Record<DateRange, string> = {
+  "7T": "letzte 7 Tage",
+  "30T": "letzte 30 Tage",
+  "90T": "letzte 90 Tage",
+  "12M": "letzte 12 Monate",
+};
+
+function fmt(n: number, unit = ""): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1).replace(".", ",")} Mio.${unit}`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(n >= 10_000 ? 0 : 1).replace(".", ",")} k${unit}`;
+  return `${Math.round(n).toLocaleString("de-DE")}${unit}`;
+}
+
+// ── Dataset factory per tab ───────────────────────────────────────────────────
+
+function getTabData(tab: string, range: DateRange): TabDataset {
+  const m = dateMultiplier[range];
+
+  switch (tab) {
+    case "Leads":
+      return {
+        metrics: [
+          { label: "Neue Leads",   value: fmt(84 * m),   trend: "+18 % ggü. Vorperiode",   positive: true },
+          { label: "Qualifiziert", value: fmt(45 * m),   trend: "+11 % ggü. Vorperiode",   positive: true },
+          { label: "Termine",      value: fmt(22 * m),   trend: "−4 % unter Ziel",          positive: false, sub: "Ziel: " + fmt(23 * m) },
+          { label: "Abschlüsse",   value: fmt(8 * m),    trend: "+22 % ggü. Vorperiode",   positive: true },
+        ],
+        chartHeights: [20, 30, 25, 45, 40, 55, 50, 65, 60, 80, 72, 88],
+        chartLabel: "Lead-Entwicklung",
+        chartTrend: "+18 %",
+        pipelineStages: [
+          { label: "Besucher",    count: Math.round(4800 * m), value: "",           pct: 100 },
+          { label: "Kontakte",    count: Math.round(840 * m),  value: "",           pct: 18  },
+          { label: "Qualifiziert",count: Math.round(210 * m),  value: "",           pct: 4.4 },
+          { label: "Angebot",     count: Math.round(52 * m),   value: fmt(4800 * m, " €"), pct: 1.1 },
+        ],
+        feed: [
+          { icon: <CheckCircle2 size={11} className="text-emerald-500" />, text: "Baumann GmbH qualifiziert — Termin bestätigt", time: "vor 8 Min.",  positive: true },
+          { icon: <Users        size={11} className="text-indigo-500"  />, text: `${Math.round(5 * m)} neue Leads via Kontaktformular`,            time: "vor 21 Min." },
+          { icon: <Zap          size={11} className="text-amber-500"   />, text: "Lead-Score Update: 3 Kontakte auf 'Heiß'",    time: "vor 1 Std."  },
+        ],
+      };
+
+    case "Analytics":
+      return {
+        metrics: [
+          { label: "Besucher",    value: fmt(12400 * m),  trend: "+22 % ggü. Vorperiode", positive: true },
+          { label: "Absprungrate",value: "38 %",           trend: "−6 % vs. Ziel 45 %",   positive: true, sub: "Ziel: 45 %" },
+          { label: "Verweildauer",value: "2:41 Min.",      trend: "+18 s ggü. Vorperiode", positive: true },
+          { label: "Conversion",  value: "3,6 %",          trend: "+0,5 Pkt ggü. Vorperiode", positive: true },
+        ],
+        chartHeights: [50, 45, 60, 55, 72, 68, 83, 78, 92, 88, 100, 96],
+        chartLabel: "Traffic-Verlauf (Besucher)",
+        chartTrend: "+22 %",
+        pipelineStages: [
+          { label: "Gesamt",    count: Math.round(12400 * m), value: "", pct: 100 },
+          { label: "Organisch", count: Math.round(6820 * m),  value: "55 %", pct: 55 },
+          { label: "Direkt",    count: Math.round(3720 * m),  value: "30 %", pct: 30 },
+          { label: "Social",    count: Math.round(1860 * m),  value: "15 %", pct: 15 },
+        ],
+        feed: [
+          { icon: <TrendingUp   size={11} className="text-emerald-500" />, text: "Lighthouse Score 100 bestätigt — Schmid AG",     time: "vor 2 Std.",  positive: true },
+          { icon: <BarChart2    size={11} className="text-indigo-500"  />, text: "SEO: 4 neue Keywords auf Seite 1 (Google.de)",    time: "gestern"     },
+          { icon: <Globe        size={11} className="text-slate-400"   />, text: "Core Web Vitals: LCP 0,8 s — INP < 100 ms",       time: "vor 3 Std."  },
+        ],
+      };
+
+    case "Automation":
+      return {
+        metrics: [
+          { label: "Runs (Periode)", value: fmt(4200 * m),  trend: "+14 % ggü. Vorperiode",  positive: true },
+          { label: "Erfolgsrate",    value: "99,8 %",        trend: "SLA: 99,5 % — eingehalten", positive: true },
+          { label: "Gesparte Zeit",  value: fmt(142 * m, " h"), trend: `≈ ${fmt(142 * m * 85)} € Personalkosten`, positive: true },
+          { label: "Aktive Flows",   value: "14",             trend: "Kein Fehler aktiv",     positive: true },
+        ],
+        chartHeights: [40, 42, 46, 44, 52, 50, 62, 58, 72, 68, 88, 92],
+        chartLabel: "Ausgeführte Automatisierungen",
+        chartTrend: "+14 %",
+        pipelineStages: [
+          { label: "E-Mail Flows",  count: Math.round(1890 * m), value: "45 %", pct: 45 },
+          { label: "CRM Sync",      count: Math.round(1470 * m), value: "35 %", pct: 35 },
+          { label: "Benachricht.",  count: Math.round(840 * m),  value: "20 %", pct: 20 },
+          { label: "Fehler",        count: Math.round(8 * m),    value: "0,2 %", pct: 0 },
+        ],
+        feed: [
+          { icon: <Zap          size={11} className="text-amber-500"   />, text: `${Math.round(3 * m)} Follow-up-Mails automatisch versendet`,   time: "vor 12 Min." },
+          { icon: <CheckCircle2 size={11} className="text-emerald-500" />, text: "CRM Sync abgeschlossen — 0 Konflikte",           time: "vor 1 Std.",  positive: true },
+          { icon: <Mail         size={11} className="text-indigo-500"  />, text: "Newsletter-Sequenz Baumann AG gestartet (7 Mails)", time: "vor 3 Std."  },
+        ],
+      };
+
+    case "Kanäle":
+      return {
+        metrics: [
+          { label: "Aktive Kanäle", value: "6",       trend: "SEO, Google Ads, Meta, LI, E-Mail, Empfehlung", positive: true },
+          { label: "CPA Ø",         value: "38 €",    trend: "−14 % ggü. Vorperiode",   positive: true, sub: "Branchenø: 62 €" },
+          { label: "ROAS Ø",        value: "5,2×",    trend: "+0,7 ggü. Vorperiode",    positive: true },
+          { label: "Top-Kanal",     value: "SEO",     trend: "62 % aller Leads organisch", positive: true },
+        ],
+        chartHeights: [20, 26, 23, 36, 32, 46, 42, 56, 52, 66, 62, 74],
+        chartLabel: "Lead-Eingang nach Kanal",
+        chartTrend: "+19 %",
+        pipelineStages: [
+          { label: "SEO",        count: Math.round(320 * m), value: "62 %", pct: 62 },
+          { label: "Google Ads", count: Math.round(128 * m), value: "25 %", pct: 25 },
+          { label: "Meta Ads",   count: Math.round(52 * m),  value: "10 %", pct: 10 },
+          { label: "LinkedIn",   count: Math.round(15 * m),  value: "3 %",  pct: 3  },
+        ],
+        feed: [
+          { icon: <TrendingUp   size={11} className="text-emerald-500" />, text: "Google Ads CPA auf 28 € gesenkt — Kampagne A/B",  time: "heute",      positive: true },
+          { icon: <BarChart2    size={11} className="text-indigo-500"  />, text: "SEO: Monatliches Budget um 20 % erhöht",           time: "vor 2 Tg."   },
+          { icon: <Phone        size={11} className="text-amber-500"   />, text: "LinkedIn Awareness-Kampagne Q2 gestartet",         time: "vor 4 Tg."   },
+        ],
+      };
+
+    default: // Dashboard
+      return {
+        metrics: [
+          { label: "Neue Leads",  value: fmt(143 * m),        trend: "+28 % ggü. Vorperiode",   positive: true },
+          { label: "Umsatz",      value: fmt(42800 * m, " €"), trend: "+38 % ggü. Vorperiode",   positive: true },
+          { label: "Conversion",  value: "6,4 %",              trend: "+1,4 Pkt — Ziel: 7 %",    positive: true, sub: "Ziel: 7,0 %" },
+          { label: "Ø Deal-Größe",value: fmt(8500, " €"),      trend: "+12 % ggü. Vorperiode",   positive: true },
+        ],
+        chartHeights: [30, 45, 38, 62, 55, 72, 60, 82, 74, 93, 87, 100],
+        chartLabel: "Lead-Eingang / Woche",
+        chartTrend: "+28 %",
+        pipelineStages: [
+          { label: "Besucher",    count: Math.round(18400 * m), value: "",               pct: 100 },
+          { label: "Leads",       count: Math.round(1430 * m),  value: "7,8 %",          pct: 44  },
+          { label: "Qualifiziert",count: Math.round(420 * m),   value: fmt(2100 * m, " €"), pct: 20  },
+          { label: "Abschlüsse",  count: Math.round(84 * m),    value: fmt(42800 * m, " €"), pct: 6   },
+        ],
+        feed: [
+          { icon: <CheckCircle2 size={11} className="text-emerald-500" />, text: "Schmid GmbH: Angebot akzeptiert — 12.400 €",      time: "vor 3 Min.",  positive: true },
+          { icon: <Users        size={11} className="text-indigo-500"  />, text: `${Math.round(5 * m)} neue Leads via Kontaktformular`, time: "vor 18 Min." },
+          { icon: <Zap          size={11} className="text-amber-500"   />, text: "KI-Automation: Follow-ups versendet",              time: "vor 1 Std."  },
+          { icon: <BarChart2    size={11} className="text-indigo-500"  />, text: "Lighthouse Score 100 — Baumann AG",                time: "vor 2 Std."  },
+        ],
+      };
+  }
+}
+
+// ── Sub-components ────────────────────────────────────────────────────────────
 
 const MetricCard = ({
-  label, value, trend, positive = true,
-}: { label: string; value: string; trend: string; positive?: boolean }) => (
-  <div className="bg-white border border-slate-200 p-4">
-    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">{label}</p>
-    <p className="text-xl font-black text-slate-900 tracking-tight">{value}</p>
-    <p className={`text-xs font-bold mt-1 ${positive ? "text-emerald-600" : "text-rose-500"}`}>{trend}</p>
+  label, value, trend, positive, sub,
+}: {
+  label: string; value: string; trend: string; positive: boolean; sub?: string;
+}) => (
+  <div className="bg-white border border-slate-200 p-3 flex flex-col gap-1">
+    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest leading-none">{label}</p>
+    <p className="text-lg font-black text-slate-900 tracking-tight leading-none">{value}</p>
+    <div className="flex items-center gap-1">
+      {positive
+        ? <ArrowUp size={10} className="text-emerald-500 flex-shrink-0" />
+        : <ArrowDown size={10} className="text-rose-400 flex-shrink-0" />
+      }
+      <p className={`text-[10px] font-bold leading-tight ${positive ? "text-emerald-600" : "text-rose-500"}`}>
+        {trend}
+      </p>
+    </div>
+    {sub && <p className="text-[9px] text-slate-400">{sub}</p>}
   </div>
 );
 
 const MiniChart = ({ heights, color }: { heights: number[]; color: string }) => (
-  <div className="flex items-end gap-1 h-12">
+  <div className="flex items-end gap-0.5 h-12">
     {heights.map((h, i) => (
       <motion.div
         key={i}
         initial={{ height: 0 }}
         animate={{ height: `${h}%` }}
-        transition={{ duration: 0.6, delay: i * 0.05, ease: "easeOut" }}
+        transition={{ duration: 0.5, delay: i * 0.04, ease: "easeOut" }}
         className="flex-1"
-        style={{ background: i === heights.length - 1 ? color : `${color}30` }}
+        style={{ background: i === heights.length - 1 ? color : `${color}28` }}
       />
     ))}
   </div>
 );
 
+// ── Main Dashboard ────────────────────────────────────────────────────────────
+
 const SaaSDashboard = () => {
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const [activeTab, setActiveTab]   = useState("Dashboard");
+  const [dateRange, setDateRange]   = useState<DateRange>("30T");
+  const [showDateMenu, setShowDateMenu] = useState(false);
 
   const tabs = [
-    { icon: <LayoutDashboard size={14} />, label: "Dashboard" },
-    { icon: <Users size={14} />, label: "Leads" },
-    { icon: <TrendingUp size={14} />, label: "Analytics" },
-    { icon: <Zap size={14} />, label: "Automation" },
-    { icon: <Globe size={14} />, label: "Kanäle" },
+    { icon: <LayoutDashboard size={13} />, label: "Dashboard" },
+    { icon: <Users           size={13} />, label: "Leads"     },
+    { icon: <TrendingUp      size={13} />, label: "Analytics" },
+    { icon: <Zap             size={13} />, label: "Automation"},
+    { icon: <Globe           size={13} />, label: "Kanäle"    },
   ];
 
-  const getTabData = (tab: string) => {
-    switch (tab) {
-      case "Leads":
-        return {
-          metrics: [
-            { label: "Neue Leads", value: "84", trend: "+12% vs. Vormonat" },
-            { label: "Qualifiziert", value: "45", trend: "+5% vs. Vormonat" },
-            { label: "Termine", value: "22", trend: "-2% gegenüber Ziel", positive: false },
-            { label: "Abschlüsse", value: "8", trend: "+10% vs. Vormonat" },
-          ],
-          chartHeights: [20, 30, 25, 45, 40, 50, 45, 60, 55, 75, 70, 84],
-          chartLabel: "Lead-Entwicklung",
-          pieLabel: "Lead-Qualität",
-          pieData: [
-            { label: "Heiß", pct: "25%", color: "#f59e0b" },
-            { label: "Warm", pct: "40%", color: "#4F46E5" },
-            { label: "Kalt", pct: "35%", color: "#10b981" },
-          ],
-        };
-      case "Analytics":
-        return {
-          metrics: [
-            { label: "Besucher", value: "12.4k", trend: "+18% vs. Vormonat" },
-            { label: "Absprungrate", value: "42%", trend: "-5% vs. Vormonat", positive: true },
-            { label: "Verweildauer", value: "02:14", trend: "+12s vs. Vormonat" },
-            { label: "Conversion", value: "3.2%", trend: "+0.4% vs. Vormonat" },
-          ],
-          chartHeights: [50, 45, 60, 55, 70, 65, 80, 75, 90, 85, 100, 95],
-          chartLabel: "Traffic-Verlauf",
-          pieLabel: "Traffic-Quellen",
-          pieData: [
-            { label: "Google", pct: "55%", color: "#4F46E5" },
-            { label: "Direct", pct: "30%", color: "#10b981" },
-            { label: "Social", pct: "15%", color: "#f59e0b" },
-          ],
-        };
-      case "Automation":
-        return {
-          metrics: [
-            { label: "Runs (30T)", value: "4.2k", trend: "+8% vs. Vormonat" },
-            { label: "Erfolgsrate", value: "99.8%", trend: "+0.1% vs. Vormonat" },
-            { label: "Gesparte Zeit", value: "142h", trend: "+15h vs. Vormonat" },
-            { label: "Aktive Flows", value: "12", trend: "Keine Fehler" },
-          ],
-          chartHeights: [40, 40, 45, 42, 50, 48, 60, 55, 70, 65, 85, 90],
-          chartLabel: "Ausgeführte Automatisierungen",
-          pieLabel: "Automation Typ",
-          pieData: [
-            { label: "E-Mail", pct: "45%", color: "#4F46E5" },
-            { label: "CRM Sync", pct: "35%", color: "#10b981" },
-            { label: "Slack Allg.", pct: "20%", color: "#f59e0b" },
-          ],
-        };
-      case "Kanäle":
-        return {
-          metrics: [
-            { label: "Active Channels", value: "5", trend: "Stabil" },
-            { label: "Top Kanal", value: "SEO", trend: "60% Anteil" },
-            { label: "CPA Ø", value: "42 €", trend: "-12% vs. Vormonat" },
-            { label: "ROAS Ø", value: "4.8", trend: "+0.5 vs. Vormonat" },
-          ],
-          chartHeights: [20, 25, 22, 35, 30, 45, 40, 55, 50, 65, 60, 70],
-          chartLabel: "Performance nach Kanälen",
-          pieLabel: "Budget Spend",
-          pieData: [
-            { label: "Google Ads", pct: "50%", color: "#4F46E5" },
-            { label: "Meta Ads", pct: "35%", color: "#10b981" },
-            { label: "LinkedIn", pct: "15%", color: "#f59e0b" },
-          ],
-        };
-      case "Einstellungen":
-        return {
-          metrics: [
-            { label: "Plan", value: "Enterprise", trend: "Aktiv" },
-            { label: "Team Members", value: "8/10", trend: "+2 freie Plätze" },
-            { label: "API Nutzung", value: "45%", trend: "Im Rahmen" },
-            { label: "Sicherheit", value: "100%", trend: "2FA Aktiviert" },
-          ],
-          chartHeights: [10, 10, 15, 12, 18, 15, 20, 18, 25, 22, 30, 28],
-          chartLabel: "Speicherplatz Verlauf",
-          pieLabel: "Speichernutzung",
-          pieData: [
-            { label: "Bilder", pct: "40%", color: "#4F46E5" },
-            { label: "Docs", pct: "20%", color: "#10b981" },
-            { label: "Frei", pct: "40%", color: "#f59e0b" },
-          ],
-        };
-      default:
-        return {
-          metrics: [
-            { label: "Neue Leads", value: "143", trend: "+22% vs. Vormonat" },
-            { label: "Conversion", value: "6,4%", trend: "+1.2% gegenüber Ziel" },
-            { label: "Umsatz", value: "42.800 €", trend: "+38% vs. Vormonat" },
-            { label: "Ø Deal-Größe", value: "8.500 €", trend: "+12% Ø Wert" },
-          ],
-          chartHeights: [30, 45, 38, 62, 55, 70, 58, 80, 72, 91, 85, 100],
-          chartLabel: "Lead-Eingang / Woche",
-          pieLabel: "Kanal-Verteilung",
-          pieData: [
-            { label: "Organisch", pct: "60%", color: "#4F46E5" },
-            { label: "Direkt", pct: "25%", color: "#10b981" },
-            { label: "Social", pct: "15%", color: "#f59e0b" },
-          ],
-        };
-    }
-  };
-
-  const currentData = getTabData(activeTab);
+  const current = getTabData(activeTab, dateRange);
+  const VIOLET  = "#7c3aed";
 
   return (
-    <div className="w-full bg-white border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/80">
-      {/* Top Nav */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50">
-        <div className="flex items-center gap-3">
-          <div className="w-6 h-6 bg-indigo-600 flex items-center justify-center">
+    <div className="w-full bg-white border border-slate-200 overflow-hidden">
+      {/* ── Top Nav ── */}
+      <div className="flex items-center justify-between px-3 py-2.5 border-b border-slate-200 bg-slate-50">
+        <div className="flex items-center gap-2.5">
+          <div className="w-6 h-6 bg-indigo-600 flex items-center justify-center flex-shrink-0">
             <span className="text-white font-black text-[9px]">MT</span>
           </div>
-          <span className="text-slate-900 font-bold text-sm">Medientrupp CRM</span>
-          <span className="text-slate-400 text-xs">/ Dashboard</span>
+          <span className="text-slate-900 font-bold text-xs">Medientrupp CRM</span>
+          <span className="text-slate-300 text-xs hidden sm:inline">/ {activeTab}</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1.5 px-2 py-1 bg-white border border-slate-200 text-slate-500 text-xs">
-            <Search size={11} />
-            <span>Suchen...</span>
-            <span className="ml-2 text-slate-300">⌘K</span>
+          <div className="hidden sm:flex items-center gap-1.5 px-2 py-1 bg-white border border-slate-200 text-slate-400 text-[10px]">
+            <Search size={10} />
+            <span>Suchen…</span>
+            <span className="text-slate-300 ml-1">⌘K</span>
           </div>
-          <div className="relative">
-            <Bell size={15} className="text-slate-400" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 bg-indigo-600" />
-          </div>
+          <button className="p-1 hover:bg-slate-100 transition-colors relative">
+            <Bell size={13} className="text-slate-400" />
+            <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-indigo-600" />
+          </button>
+          <button className="p-1 hover:bg-slate-100 transition-colors">
+            <Download size={13} className="text-slate-400" />
+          </button>
           <div className="w-6 h-6 bg-indigo-600 flex items-center justify-center">
             <span className="text-white text-[9px] font-black">GS</span>
           </div>
@@ -183,154 +254,176 @@ const SaaSDashboard = () => {
       </div>
 
       <div className="flex min-h-0">
-        {/* Sidebar */}
-        <div className="w-11 md:w-44 border-r border-slate-200 bg-slate-50 flex flex-col py-4">
-          {tabs.map((item, i) => (
-            <div
-              key={i}
+        {/* ── Sidebar ── */}
+        <div className="w-10 md:w-40 border-r border-slate-200 bg-slate-50 flex flex-col py-3 flex-shrink-0">
+          {tabs.map((item) => (
+            <button
+              key={item.label}
               onClick={() => setActiveTab(item.label)}
-              className={`flex items-center gap-3 px-3 py-2 mx-2 mb-1 text-xs font-medium cursor-pointer transition-colors ${
+              className={`flex items-center gap-2.5 px-2.5 py-2 mx-1.5 mb-0.5 text-[11px] font-semibold transition-colors text-left ${
                 activeTab === item.label
-                  ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
-                  : "text-slate-500 hover:text-slate-900 hover:bg-white"
+                  ? "bg-white border border-slate-200 text-indigo-600 shadow-sm"
+                  : "text-slate-500 hover:text-slate-800 hover:bg-white"
               }`}
             >
               {item.icon}
               <span className="hidden md:block">{item.label}</span>
-            </div>
+            </button>
           ))}
-          <div className="mt-auto mx-2">
-            <div
+          <div className="mt-auto mx-1.5">
+            <button
               onClick={() => setActiveTab("Einstellungen")}
-              className={`flex items-center gap-3 px-3 py-2 text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "Einstellungen"
-                  ? "bg-indigo-50 text-indigo-600 border border-indigo-100"
-                  : "text-slate-400 hover:text-slate-700 hover:bg-white"
-              }`}
+              className="flex items-center gap-2.5 px-2.5 py-2 w-full text-[11px] font-semibold text-slate-400 hover:text-slate-700 hover:bg-white transition-colors"
             >
-              <Settings size={14} />
+              <Settings size={13} />
               <span className="hidden md:block">Einstellungen</span>
-            </div>
+            </button>
           </div>
         </div>
 
-        {/* Main Content */}
-        <div className="flex-1 p-4 space-y-4 overflow-hidden bg-white">
-          {/* Header Row */}
-          <div className="flex items-center justify-between">
+        {/* ── Main Content ── */}
+        <div className="flex-1 min-w-0 overflow-hidden bg-white">
+          <AnimatePresence mode="wait">
             <motion.div
-              key={activeTab + "-header"}
-              initial={{ opacity: 0, y: 5 }}
+              key={activeTab + "-" + dateRange}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="p-3 space-y-3"
             >
-              <h3 className="text-slate-900 font-bold text-sm">{activeTab} Übersicht</h3>
-              <p className="text-slate-400 text-xs">Letzte 30 Tage</p>
-            </motion.div>
-            <div className="flex items-center gap-1.5 px-2 py-1 bg-slate-50 border border-slate-200 text-xs text-slate-500">
-              Apr 2025
-              <ChevronDown size={11} />
-            </div>
-          </div>
-
-          {/* Metrics Grid */}
-          <motion.div
-            key={activeTab + "-metrics"}
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3"
-          >
-            {currentData.metrics.map((m, i) => (
-              <MetricCard key={i} label={m.label} value={m.value} trend={m.trend} positive={m.positive} />
-            ))}
-          </motion.div>
-
-          {/* Chart Row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {/* Main Chart */}
-            <div className="md:col-span-2 bg-white border border-slate-200 p-4">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">{currentData.chartLabel}</p>
-                <div className="flex items-center gap-1.5 text-emerald-600 text-xs font-bold">
-                  <ArrowUpRight size={12} />
-                  +38%
+              {/* Header Row */}
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <h3 className="text-slate-900 font-bold text-sm">{activeTab} Übersicht</h3>
+                  <p className="text-slate-400 text-[10px]">{dateSuffix[dateRange]}</p>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <button className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 text-[10px] text-slate-500 hover:border-slate-300 transition-colors">
+                    <Filter size={10} />
+                    <span className="hidden sm:inline">Filter</span>
+                  </button>
+                  {/* Date range picker */}
+                  <div className="relative">
+                    <button
+                      onClick={() => setShowDateMenu(!showDateMenu)}
+                      className="flex items-center gap-1 px-2 py-1 bg-slate-50 border border-slate-200 text-[10px] font-bold text-slate-700 hover:border-slate-300 transition-colors"
+                    >
+                      {dateRange}
+                      <ChevronDown size={10} className={`transition-transform ${showDateMenu ? "rotate-180" : ""}`} />
+                    </button>
+                    {showDateMenu && (
+                      <div className="absolute right-0 top-full mt-1 bg-white border border-slate-200 shadow-lg z-50 min-w-[120px]">
+                        {(["7T", "30T", "90T", "12M"] as DateRange[]).map((r) => (
+                          <button
+                            key={r}
+                            onClick={() => { setDateRange(r); setShowDateMenu(false); }}
+                            className={`w-full text-left px-3 py-2 text-[11px] font-semibold transition-colors ${
+                              dateRange === r
+                                ? "bg-indigo-50 text-indigo-700 border-l-2 border-indigo-600"
+                                : "text-slate-600 hover:bg-slate-50"
+                            }`}
+                          >
+                            {r === "7T" ? "Letzte 7 Tage" : r === "30T" ? "Letzte 30 Tage" : r === "90T" ? "Letzte 90 Tage" : "Letzte 12 Monate"}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-              <motion.div
-                key={activeTab + "-chart"}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                <MiniChart heights={currentData.chartHeights} color="#4F46E5" />
-              </motion.div>
-              <div className="flex justify-between mt-2">
-                {["W1", "W2", "W3", "W4", "W5", "W6", "W7", "W8", "W9", "W10", "W11", "W12"].map((w) => (
-                  <span key={w} className="text-slate-300 text-[9px]">{w}</span>
+
+              {/* Metrics Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                {current.metrics.map((m, i) => (
+                  <MetricCard key={i} label={m.label} value={m.value} trend={m.trend} positive={m.positive} sub={m.sub} />
                 ))}
               </div>
-            </div>
 
-            {/* Donut + Legend */}
-            <div className="bg-white border border-slate-200 p-4 flex flex-col justify-between">
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3">{currentData.pieLabel}</p>
-              <motion.div
-                key={activeTab + "-pie"}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4 }}
-                className="flex items-center gap-4"
-              >
-                <div className="relative w-16 h-16 flex-shrink-0">
-                  <svg viewBox="0 0 36 36" className="w-full h-full -rotate-90">
-                    <circle cx="18" cy="18" r="15.9" fill="none" stroke="#e2e8f0" strokeWidth="3" />
-                    <circle cx="18" cy="18" r="15.9" fill="none" stroke={currentData.pieData[0].color} strokeWidth="3" strokeDasharray="60 40" />
-                    <circle cx="18" cy="18" r="15.9" fill="none" stroke={currentData.pieData[1].color} strokeWidth="3" strokeDasharray="25 75" strokeDashoffset="-60" />
-                    <circle cx="18" cy="18" r="15.9" fill="none" stroke={currentData.pieData[2].color} strokeWidth="3" strokeDasharray="15 85" strokeDashoffset="-85" />
-                  </svg>
+              {/* Chart + Pipeline Row */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                {/* Main Chart */}
+                <div className="md:col-span-2 bg-white border border-slate-200 p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">
+                      {current.chartLabel}
+                    </p>
+                    <div className="flex items-center gap-1 text-emerald-600 text-[10px] font-bold">
+                      <ArrowUpRight size={11} />
+                      {current.chartTrend}
+                    </div>
+                  </div>
+                  <MiniChart heights={current.chartHeights} color={VIOLET} />
+                  <div className="flex justify-between mt-1">
+                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"].map((w) => (
+                      <span key={w} className="text-slate-200 text-[8px]">{w}</span>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-1.5 text-xs w-full">
-                  {currentData.pieData.map((s) => (
-                    <div key={s.label} className="flex items-center gap-2 w-full">
-                      <span className="w-2 h-2 flex-shrink-0" style={{ background: s.color }} />
-                      <span className="text-slate-500 whitespace-nowrap">{s.label}</span>
-                      <span className="text-slate-900 font-bold ml-auto">{s.pct}</span>
+
+                {/* Pipeline Funnel */}
+                <div className="bg-white border border-slate-200 p-3">
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-2">Pipeline</p>
+                  <div className="space-y-1.5">
+                    {current.pipelineStages?.map((stage, i) => (
+                      <div key={i}>
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className="text-[9px] font-semibold text-slate-500">{stage.label}</span>
+                          <span className="text-[9px] font-black text-slate-700">
+                            {stage.value || stage.count.toLocaleString("de-DE")}
+                          </span>
+                        </div>
+                        <div className="h-1.5 bg-slate-100 w-full">
+                          <motion.div
+                            className="h-full"
+                            style={{ background: i === 0 ? "#ede9fe" : VIOLET, opacity: 1 - i * 0.18 }}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${Math.max(stage.pct, 2)}%` }}
+                            transition={{ duration: 0.5, delay: i * 0.08 }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Activity Feed */}
+              <div className="bg-white border border-slate-200 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Aktivitäts-Feed</p>
+                  <span className="text-indigo-600 text-[10px] font-semibold cursor-pointer hover:text-indigo-700">
+                    Alle ansehen
+                  </span>
+                </div>
+                <div className="space-y-1.5">
+                  {current.feed.map((item, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-slate-50 border border-slate-200 flex items-center justify-center flex-shrink-0">
+                        {item.icon}
+                      </div>
+                      <span className="text-slate-600 text-[11px] flex-1 truncate">{item.text}</span>
+                      <span className="text-slate-300 text-[9px] whitespace-nowrap">{item.time}</span>
                     </div>
                   ))}
                 </div>
-              </motion.div>
-            </div>
-          </div>
-
-          {/* Recent Activity */}
-          <div className="bg-white border border-slate-200 p-3">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Aktivitäts-Feed</p>
-              <span className="text-indigo-600 text-xs font-medium cursor-pointer hover:text-indigo-700">Alle ansehen</span>
-            </div>
-            <div className="space-y-2">
-              {[
-                { icon: <CheckCircle2 size={11} className="text-emerald-600" />, text: "Schmid GmbH: Angebot akzeptiert — 12.400 €", time: "vor 3 Min." },
-                { icon: <Users size={11} className="text-indigo-600" />, text: "5 neue Leads via Kontaktformular", time: "vor 18 Min." },
-                { icon: <Zap size={11} className="text-amber-500" />, text: "KI-Automation: 3 Follow-Ups versendet", time: "vor 1 Std." },
-                { icon: <BarChart2 size={11} className="text-indigo-600" />, text: "Lighthouse Score 100 bestätigt — Baumann AG", time: "vor 2 Std." },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-3">
-                  <div className="w-5 h-5 bg-slate-100 border border-slate-200 flex items-center justify-center flex-shrink-0">
-                    {item.icon}
-                  </div>
-                  <span className="text-slate-600 text-xs flex-1 truncate">{item.text}</span>
-                  <span className="text-slate-400 text-[10px] whitespace-nowrap">{item.time}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </div>
   );
 };
+
+// ── Preview Teaser Metrics (always visible) ──────────────────────────────────
+
+const previewStats = [
+  { label: "Neue Leads / Monat",   value: "143",      color: "#7c3aed" },
+  { label: "Ø Conversion Rate",    value: "6,4 %",    color: "#10B981" },
+  { label: "Gesparte Arbeitsstd.", value: "142 h",    color: "#F59E0B" },
+  { label: "Automation Erfolgsq.", value: "99,8 %",   color: "#7c3aed" },
+];
 
 // ── Main Export ─────────────────────────────────────────────────────────────
 
@@ -339,10 +432,17 @@ export const TechShowcaseModal = () => {
 
   return (
     <>
-      {/* ── Editorial Call-Out Bar */}
       <section className="bg-slate-50 border-t border-slate-200" aria-labelledby="techshowcase-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-8 py-12 border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+
+          {/* Section header */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-8 pb-10 border-b border-slate-200"
+          >
             <div>
               <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
                 Live-Infrastruktur
@@ -357,18 +457,64 @@ export const TechShowcaseModal = () => {
                 <span className="text-indigo-600">von unserer Infrastruktur.</span>
               </h2>
               <p className="text-base text-slate-500 leading-relaxed mt-5 max-w-lg">
-                Keine abstrakten Theorien. Wir zeigen Ihnen das Dashboard, das Ihre Leads,
-                Metriken und Automatisierungen in Echtzeit visualisiert.
+                Keine abstrakten Theorien. Klicken Sie sich durch das echte CRM-Dashboard —
+                wechseln Sie Zeiträume, Ansichten und sehen Sie, wie Ihre Daten
+                in Echtzeit visualisiert werden.
               </p>
             </div>
             <button
               onClick={() => setIsOpen(true)}
               className="inline-flex items-center gap-2.5 px-8 py-4 font-bold text-white text-base bg-indigo-600 hover:bg-indigo-700 transition-colors duration-200 self-end"
             >
-              <Activity size={20} />
+              <Activity size={18} />
               Live-Demo starten
             </button>
-          </div>
+          </motion.div>
+
+          {/* Static preview KPIs — Appetizer ohne das volle Dashboard */}
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-0 mt-10 border border-slate-200 bg-white"
+            style={{ boxShadow: "4px 4px 0 #e2e8f0" }}
+          >
+            {previewStats.map((s, i) => (
+              <div
+                key={i}
+                className={`p-6 flex flex-col gap-2 ${i < 3 ? "border-r border-slate-100" : ""}`}
+              >
+                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">
+                  {s.label}
+                </p>
+                <p
+                  className="font-black tracking-tight leading-none"
+                  style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", color: s.color }}
+                >
+                  {s.value}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* CTA hint below */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="text-center text-sm text-slate-400 mt-6"
+          >
+            Beispiel-Metriken eines typischen Medientrupp-Kunden ·{" "}
+            <button
+              onClick={() => setIsOpen(true)}
+              className="text-indigo-600 font-semibold hover:underline"
+            >
+              Alle Daten im interaktiven Dashboard ansehen →
+            </button>
+          </motion.p>
+
         </div>
       </section>
 
@@ -379,34 +525,44 @@ export const TechShowcaseModal = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-16 overflow-y-auto"
-            style={{ background: "rgba(15,23,42,0.65)" }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-12 pb-8 overflow-y-auto"
+            style={{ background: "rgba(15,23,42,0.72)" }}
             onClick={() => setIsOpen(false)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 10 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative w-full max-w-4xl"
+              initial={{ opacity: 0, y: 24, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 12, scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 280, damping: 28 }}
+              className="relative w-full max-w-5xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
+              {/* Close button */}
               <button
                 onClick={() => setIsOpen(false)}
-                className="absolute -top-3 -right-3 z-10 w-9 h-9 flex items-center justify-center bg-white border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors"
+                className="absolute -top-3 -right-3 z-20 w-9 h-9 flex items-center justify-center bg-white border border-slate-200 text-slate-500 hover:text-slate-900 hover:bg-slate-50 transition-colors shadow-md"
+                aria-label="Demo schließen"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
 
               {/* Label */}
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 bg-emerald-500 animate-pulse" />
-                <span className="text-xs font-bold uppercase tracking-widest text-slate-300">Live-System Preview</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-300">
+                  Live-System Preview · Beispieldaten
+                </span>
               </div>
 
               {/* Dashboard */}
-              <SaaSDashboard />
+              <div style={{ boxShadow: "6px 6px 0 rgba(15,23,42,0.3)" }}>
+                <SaaSDashboard />
+              </div>
+
+              <p className="text-center text-[11px] text-slate-400 mt-4">
+                Alle Daten sind Musterdaten eines typischen Medientrupp-Kunden aus dem deutschen Mittelstand
+              </p>
             </motion.div>
           </motion.div>
         )}

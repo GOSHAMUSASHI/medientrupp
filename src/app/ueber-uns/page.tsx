@@ -132,7 +132,7 @@ export default function UeberUnsPage() {
                 <div className="p-4 md:p-6 font-bold text-slate-900 flex items-center justify-center md:justify-start md:border-r border-slate-100 text-center md:text-left">
                   {row.category}
                 </div>
-                <div className="p-4 md:p-6 flex flex-col md:flex-row items-center gap-3 text-slate-500 justify-center text-center">
+                <div className="p-4 md:p-6 flex flex-row items-center gap-3 text-slate-500 justify-start text-left">
                   <XCircle size={18} className="text-red-400 flex-shrink-0" />
                   <span className="font-medium">{row.traditional}</span>
                 </div>

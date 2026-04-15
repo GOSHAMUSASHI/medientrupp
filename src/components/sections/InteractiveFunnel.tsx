@@ -113,23 +113,23 @@ interface ToggleCardProps {
 const ToggleCard = ({ label, sublabel, desc, checked, onToggle, isMonthly }: ToggleCardProps) => (
   <div
     onClick={onToggle}
-    className={`cursor-pointer p-4 md:p-5 rounded-md border-2 transition-all duration-200 flex items-start gap-3 sm:gap-4 ${
+    className={`cursor-pointer p-3 sm:p-4 border-2 transition-all duration-200 flex items-start gap-3 ${
       checked
-        ? "border-indigo-600 bg-indigo-50/70 shadow-[0_4px_12px_-4px_rgba(99,102,241,0.2)]"
-        : "border-slate-200 hover:border-indigo-300 bg-white shadow-[0_2px_8px_-2px_rgba(0,0,0,0.02)]"
+        ? "border-indigo-600 bg-indigo-50/70"
+        : "border-slate-200 hover:border-indigo-300 bg-white"
     }`}
   >
     <div
-      className={`mt-1 w-5 h-5 sm:w-6 sm:h-6 rounded-md flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
+      className={`mt-0.5 w-5 h-5 flex items-center justify-center border-2 transition-colors flex-shrink-0 ${
         checked ? "bg-indigo-600 border-indigo-600" : "border-slate-300 bg-slate-50"
       }`}
     >
-      {checked && <Check size={14} className="text-white" strokeWidth={4} />}
+      {checked && <Check size={12} className="text-white" strokeWidth={4} />}
     </div>
-    <div className="flex-1">
-      <p className={`font-bold md:text-lg leading-tight ${checked ? "text-slate-900" : "text-slate-700"}`}>{label}</p>
-      {desc && <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-snug">{desc}</p>}
-      <p className={`text-[10px] sm:text-xs mt-1.5 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-indigo-600"}`}>
+    <div className="flex-1 min-w-0">
+      <p className={`font-bold text-sm leading-tight ${checked ? "text-slate-900" : "text-slate-700"}`}>{label}</p>
+      {desc && <p className="text-xs text-slate-500 mt-0.5 leading-snug">{desc}</p>}
+      <p className={`text-[10px] mt-1 font-bold uppercase tracking-widest ${isMonthly ? "text-amber-600" : "text-indigo-600"}`}>
         {sublabel}
       </p>
     </div>
@@ -246,13 +246,13 @@ export const InteractiveFunnel = () => {
             </div>
           </motion.div>
         ) : (
-          <div className="bg-white rounded-md shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-200/60 overflow-hidden flex flex-col lg:flex-row max-w-6xl mx-auto min-h-[650px]">
-            
+          <div className="bg-white shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] border border-slate-200/60 overflow-hidden flex flex-col lg:flex-row max-w-6xl mx-auto min-h-[600px]">
+
             {/* ── Left: Wizard Content ──────────────────────────────────────────── */}
-            <div className="flex-1 flex flex-col relative h-[650px] lg:h-auto overflow-hidden">
+            <div className="flex-1 flex flex-col relative overflow-hidden" style={{ height: "min(620px, calc(100svh - 140px))" }}>
               
               {/* Internal Header */}
-              <div className="shrink-0 flex items-center justify-between px-6 py-5 border-b border-slate-100 bg-white z-20">
+              <div className="shrink-0 flex items-center justify-between px-4 py-3 border-b border-slate-100 bg-white z-20">
                 <div className="flex items-center gap-4 w-full">
                   <div className="w-10">
                     {flowIndex > 0 && (
@@ -271,27 +271,27 @@ export const InteractiveFunnel = () => {
               </div>
 
               {/* Scrollable Content Container */}
-              <div className="flex-1 overflow-x-hidden overflow-y-auto px-6 py-8 sm:px-10 lg:px-16" id="funnel-scroll-container">
+              <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 py-5 sm:px-8 lg:px-14" id="funnel-scroll-container">
                 <AnimatePresence mode="wait" custom={direction}>
                   
                   {currentStage === "MAIN" && (
-                    <motion.div key="main" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 sm:space-y-8 pb-4">
+                    <motion.div key="main" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                       <div>
-                        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 mb-2">Was benötigt Ihr Unternehmen?</h1>
-                        <p className="text-slate-500 text-sm">Mehrfachauswahl möglich. Preise entstehen live.</p>
+                        <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-900 mb-1.5">Was benötigt Ihr Unternehmen?</h1>
+                        <p className="text-slate-500 text-xs sm:text-sm">Mehrfachauswahl möglich. Preise entstehen live.</p>
                       </div>
-                      <div className="flex flex-col sm:grid sm:grid-cols-2 gap-3 sm:gap-4">
+                      <div className="grid grid-cols-2 gap-2 sm:gap-3">
                         {MAIN_SERVICES.map((srv) => {
                           const active = services.includes(srv.id);
                           return (
-                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-4 sm:p-5 rounded-md border-2 transition-all flex flex-col gap-3 ${active ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white"}`}>
+                            <div key={srv.id} onClick={() => toggleService(srv.id)} className={`cursor-pointer p-3 sm:p-4 border-2 transition-all flex flex-col gap-2.5 ${active ? "border-indigo-600 bg-indigo-50/50" : "border-slate-200 bg-white"}`}>
                               <div className="flex items-start justify-between">
-                                <div className={`w-10 h-10 rounded-md flex items-center justify-center ${active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
-                                <div className={`w-6 h-6 rounded-md flex items-center justify-center border-2 ${active ? "bg-indigo-600 border-indigo-600" : "border-slate-300"}`}>{active && <Check size={14} className="text-white" strokeWidth={3} />}</div>
+                                <div className={`w-9 h-9 flex items-center justify-center ${active ? "bg-indigo-600 text-white" : "bg-slate-100 text-slate-500"}`}>{srv.icon}</div>
+                                <div className={`w-5 h-5 flex items-center justify-center border-2 ${active ? "bg-indigo-600 border-indigo-600" : "border-slate-300"}`}>{active && <Check size={12} className="text-white" strokeWidth={3} />}</div>
                               </div>
                               <div>
-                                <p className="font-bold text-slate-900">{srv.label}</p>
-                                <p className="text-[10px] sm:text-xs font-bold text-indigo-600 mt-0.5 uppercase">{srv.price}</p>
+                                <p className="font-bold text-sm text-slate-900">{srv.label}</p>
+                                <p className="text-[10px] font-bold text-indigo-600 mt-0.5 uppercase">{srv.price}</p>
                               </div>
                             </div>
                           );
@@ -301,10 +301,10 @@ export const InteractiveFunnel = () => {
                   )}
 
                   {currentStage === "ADDON_MARKE" && (
-                     <motion.div key="marke" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Palette size={12} /> Marke</div>
-                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Welche Details?</h1>
-                       <div className="space-y-3">
+                     <motion.div key="marke" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Palette size={11} /> Marke</div>
+                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Welche Details?</h1>
+                       <div className="space-y-2">
                          <ToggleCard label="Premium Re-Branding" sublabel="+ 1.500 €" desc="Komplette Neuentwicklung der Markenidentität." checked={addons.marke_premium_rebranding} onToggle={() => toggleAddon("marke_premium_rebranding")} />
                          <ToggleCard label="Geschäftsausstattung" sublabel="+ 500 €" desc="Visitenkarten, Briefpapier & Mailsignaturen." checked={addons.marke_geschaeftsausstattung} onToggle={() => toggleAddon("marke_geschaeftsausstattung")} />
                        </div>
@@ -312,10 +312,10 @@ export const InteractiveFunnel = () => {
                   )}
 
                   {currentStage === "ADDON_WEBSITE" && (
-                    <motion.div key="website" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Globe size={12} /> Website</div>
-                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Website Power-Ups</h1>
-                       <div className="space-y-3">
+                    <motion.div key="website" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Globe size={11} /> Website</div>
+                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Website Power-Ups</h1>
+                       <div className="space-y-2">
                          <ToggleCard label="Premium Copywriting" sublabel="+ 500 €" desc="Verkaufspsychologische Texte für maximale Conversion." checked={addons.website_texte} onToggle={() => toggleAddon("website_texte")} />
                          <ToggleCard label="Tech SEO & On-Page" sublabel="+ 500 €" desc="Besseres initiales Google-Ranking durch Setup." checked={addons.website_seo} onToggle={() => toggleAddon("website_seo")} />
                          <ToggleCard label="Recruiting-System" sublabel="+ 500 €" desc="Eigene Karrierepage für einfaches Bewerber-Management." checked={addons.website_recruiting} onToggle={() => toggleAddon("website_recruiting")} />
@@ -324,23 +324,23 @@ export const InteractiveFunnel = () => {
                   )}
 
                   {currentStage === "ADDON_KI" && (
-                    <motion.div key="ki" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Zap size={12} /> KI Systeme</div>
-                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Was automatisieren?</h1>
-                       <div className="space-y-3">
+                    <motion.div key="ki" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Zap size={11} /> KI Systeme</div>
+                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Was automatisieren?</h1>
+                       <div className="space-y-2">
                          <ToggleCard label="Smarte Lead-Erfassung" sublabel="+ 500 €" desc="CRM Anbindung & Auto-Mails." checked={addons.ki_lead_erfassung} onToggle={() => toggleAddon("ki_lead_erfassung")} />
                          <ToggleCard label="KI-Chatbot 24/7" sublabel="+ 500 €" desc="Beantwortet Support-Fragen Ihrer Kunden." checked={addons.ki_chatbot} onToggle={() => toggleAddon("ki_chatbot")} />
-                         <ToggleCard label="Bewertungs-Maschine" sublabel="+ 250 €" desc="Fängst automatisiert 5-Sterne Reviews ab." checked={addons.ki_bewertung} onToggle={() => toggleAddon("ki_bewertung")} />
+                         <ToggleCard label="Bewertungs-Maschine" sublabel="+ 250 €" desc="Fängt automatisiert 5-Sterne-Reviews ab." checked={addons.ki_bewertung} onToggle={() => toggleAddon("ki_bewertung")} />
                        </div>
                     </motion.div>
                   )}
 
                   {currentStage === "ADDON_SOCIAL" && (
-                    <motion.div key="social" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-[10px] uppercase mb-1"><Video size={12} /> Social</div>
-                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Sichtbarkeit Details</h1>
-                       <div className="space-y-3">
-                         <ToggleCard label="Social Management" sublabel="+ 250 €" isMonthly desc="Laufende Pflege & Posting Ihres Contents." checked={addons.social_management} onToggle={() => toggleAddon("social_management")} />
+                    <motion.div key="social" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Video size={11} /> Social</div>
+                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Sichtbarkeit Details</h1>
+                       <div className="space-y-2">
+                         <ToggleCard label="Social Management" sublabel="+ 250 €/Mo" isMonthly desc="Laufende Pflege & Posting Ihres Contents." checked={addons.social_management} onToggle={() => toggleAddon("social_management")} />
                          <ToggleCard label="Strategie Workshop" sublabel="+ 1.000 €" desc="Wir erarbeiten Ihren viralen Masterplan." checked={addons.social_workshop} onToggle={() => toggleAddon("social_workshop")} />
                          <ToggleCard label="Reel-/Videoproduktion" sublabel="+ 500 €" desc="Professioneller Schnitt & Drehtag." checked={addons.social_video} onToggle={() => toggleAddon("social_video")} />
                        </div>
@@ -348,21 +348,21 @@ export const InteractiveFunnel = () => {
                   )}
 
                   {currentStage === "MAINTENANCE" && (
-                    <motion.div key="maintenance" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                       <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-black text-[10px] uppercase mb-1"><ShieldCheck size={12} /> Betreuung</div>
-                       <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Laufender Support</h1>
-                       <div className="space-y-3">
-                         <ToggleCard label="Premium-Hosting" sublabel="+ 100 €" isMonthly desc="Backups, Sicherheitsupdates & superschnelle Ladezeiten." checked={maintenance.hosting} onToggle={() => toggleMaintenance("hosting")} />
-                         <ToggleCard label="Local SEO" sublabel="+ 150 €" isMonthly desc="Google Map Dominanz und Reichweite in der Region." checked={maintenance.local_seo} onToggle={() => toggleMaintenance("local_seo")} />
+                    <motion.div key="maintenance" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
+                       <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 text-slate-700 font-black text-[10px] uppercase"><ShieldCheck size={11} /> Betreuung</div>
+                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Laufender Support</h1>
+                       <div className="space-y-2">
+                         <ToggleCard label="Premium-Hosting" sublabel="+ 100 €/Mo" isMonthly desc="Backups, Sicherheitsupdates & superschnelle Ladezeiten." checked={maintenance.hosting} onToggle={() => toggleMaintenance("hosting")} />
+                         <ToggleCard label="Local SEO" sublabel="+ 150 €/Mo" isMonthly desc="Google Map Dominanz und Reichweite in der Region." checked={maintenance.local_seo} onToggle={() => toggleMaintenance("local_seo")} />
                        </div>
                     </motion.div>
                   )}
 
                   {currentStage === "CONTACT" && (
-                    <motion.div key="contact" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6 pb-4">
-                      <div className="mb-6">
-                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Letzter Schritt.</h1>
-                        <p className="text-slate-500 text-sm mt-2">Ihre Kontaktdaten für das kostenlose Strategie-Gespräch.</p>
+                    <motion.div key="contact" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
+                      <div className="mb-4">
+                        <h1 className="text-xl sm:text-3xl font-black text-slate-900">Letzter Schritt.</h1>
+                        <p className="text-slate-500 text-xs sm:text-sm mt-1.5">Ihre Kontaktdaten für das kostenlose Strategie-Gespräch.</p>
                       </div>
                       <form id="contact-form-homepage" onSubmit={handleSubmit(onSubmitForm)} className="space-y-2">
                         <div className="h-[84px]">
@@ -399,11 +399,11 @@ export const InteractiveFunnel = () => {
               </div>
 
               {/* Mobile Embedded Bottom Action Bar (Fixed INSIDE the card) */}
-              <div className="shrink-0 bg-white border-t border-slate-200 px-5 sm:px-8 py-4 flex items-center justify-between z-20">
+              <div className="shrink-0 bg-white border-t border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between z-20">
                 <div className="flex flex-col lg:hidden">
                   <span className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Investment</span>
                   <div className="flex items-baseline gap-1">
-                    <span className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-none">ab {setup.toLocaleString()} €</span>
+                    <span className="text-lg sm:text-2xl font-black text-slate-900 tracking-tight leading-none">ab {setup.toLocaleString()} €</span>
                   </div>
                 </div>
                 

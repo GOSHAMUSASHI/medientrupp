@@ -7,7 +7,7 @@ import Link from "next/link";
 // ── Editorial data ──────────────────────────────────────────────────────────
 
 const kpiRows = [
-  { label: "Website-Leads · Dieses Quartal", value: "148",  delta: "+12,4 %", color: "#4F46E5" },
+  { label: "Website-Leads · Dieses Quartal", value: "148",  delta: "+12,4 %", color: "#7c3aed" },
   { label: "Zeitersparnis durch KI",          value: "38h",  delta: "+23,0 %", color: "#10B981" },
   { label: "Ø Conversion Rate",               value: "8,4 %", delta: "+3,1 Pkt", color: "#F59E0B" },
 ];
@@ -87,7 +87,7 @@ const EditorialDataPanel = () => (
             <motion.div
               key={i}
               className="flex-1"
-              style={{ background: i === chartPoints.length - 1 ? "#4F46E5" : "#EEF2FF" }}
+              style={{ background: i === chartPoints.length - 1 ? "#7c3aed" : "#ede9fe" }}
               initial={{ height: 0 }}
               animate={{ height: `${h}%` }}
               transition={{ delay: 0.85 + i * 0.06, duration: 0.35, ease: "easeOut" }}

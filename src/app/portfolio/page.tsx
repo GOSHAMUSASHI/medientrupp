@@ -1,162 +1,172 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Cpu, ExternalLink, Globe, Layers, Zap } from "lucide-react";
+import { Code2, Cpu, Globe, Layers, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 
-// Mock Data for Projects
 const projects = [
   {
+    index: "01",
     title: "Global Supply Group",
     category: "Full-Stack B2B Plattform",
     description: "Automatisierte Lead-Gen und Client-Portal für einen internationalen Logistiker.",
-    metrics: ["Conversion +40%", "Ladezeit 0.12s", "CRM-Sync"],
-    color: "from-blue-500/20 to-cyan-500/20",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
+    metrics: ["Conversion +40 %", "Ladezeit 0,12 s", "CRM-Sync"],
+    image: "/images/case-supply.png",
   },
   {
+    index: "02",
     title: "FinTech Navigator",
     category: "Corporate Website & SaaS UI",
     description: "Kompletter Relaunch der Marketing-Website inklusive interaktivem Rendite-Rechner.",
-    metrics: ["14k Leads/Mo", "Web-Vitals 100/100", "Dark Mode"],
-    color: "from-indigo-500/20 to-purple-500/20",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
+    metrics: ["14 k Leads/Mo", "Web-Vitals 100/100", "Dark Mode"],
+    image: "/images/case-fintech.png",
   },
   {
+    index: "03",
     title: "MedTech Recruiting",
     category: "Automatisierter Funnel",
-    description: "Ein spezialisiertes Karriere-Portal zur vollautomatischen Vorqualifizierung von Fachkräften.",
-    metrics: ["-80% Time-to-Hire", "KI-Screening", "Voll automatisiert"],
-    color: "from-emerald-500/20 to-teal-500/20",
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop"
+    description:
+      "Spezialisiertes Karriere-Portal zur vollautomatischen Vorqualifizierung von Fachkräften.",
+    metrics: ["−80 % Time-to-Hire", "KI-Screening", "Voll automatisiert"],
+    image: "/images/case-medtech.png",
   },
   {
+    index: "04",
     title: "Industrial Systems",
     category: "E-Commerce Headless",
-    description: "Ein rasend schneller B2B Online-Shop mit Anbindung an bestehende SAP-Warenwirtschaft.",
-    metrics: ["3.4M+ Umsatz", "+120% Sichtbarkeit", "Headless"],
-    color: "from-orange-500/20 to-red-500/20",
-    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop"
-  }
+    description:
+      "Rasend schneller B2B Online-Shop mit Anbindung an bestehende SAP-Warenwirtschaft.",
+    metrics: ["3,4 M+ Umsatz", "+120 % Sichtbarkeit", "Headless"],
+    image: "/images/case-industrie.png",
+  },
 ];
 
 export default function PortfolioPage() {
   return (
-    <div className="bg-slate-50 min-h-screen">
-      {/* Premium Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden relative">
-        <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-[0.25] pointer-events-none" />
+    <div className="bg-white min-h-screen">
+
+      {/* Hero */}
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16 border-b border-slate-200 relative overflow-hidden">
+        <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-[0.2] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center max-w-4xl mx-auto"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="text-sm font-black tracking-[0.2em] uppercase text-indigo-600 mb-6">
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
               Case Studies & Referenzen
             </p>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 mb-8">
-              Systeme, die <span className="text-indigo-600">gewinnen.</span>
+            <h1
+              className="font-black tracking-[-0.03em] text-slate-900 mb-4"
+              style={{ fontSize: "clamp(2.4rem, 5.5vw, 4.5rem)", lineHeight: 0.93 }}
+            >
+              Systeme,{" "}
+              <span className="text-indigo-600">die gewinnen.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium">
-              Einblicke in unsere Infrastrukturen und Case Studies. Jedes System wird kompromisslos auf Performance und ROI optimiert.
+            <p className="text-base text-slate-500 max-w-xl leading-relaxed">
+              Jedes System wird kompromisslos auf Performance und ROI optimiert.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Massive modern Grid Layout */}
-      <section className="pb-16 md:pb-20">
+      {/* Project List — kompakte Tabellenzeilen */}
+      <section className="border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14">
-            {projects.map((project, idx) => (
-              <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                key={idx}
-                className="group flex flex-col h-full cursor-pointer"
-              >
-                {/* Visual Placeholder for Mockups */}
-                <div className="relative aspect-[4/3] rounded-md overflow-hidden mb-8 shadow-xl shadow-slate-200/50 border border-slate-200 bg-white">
-                  {/* Subtle Background Glow per project */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-40 z-0`}></div>
-                  
-                  {/* Image implementation with minimal zoom on hover */}
-                  <Image 
-                    src={project.image} 
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-[1.03] z-10"
-                    unoptimized
-                  />
+          {projects.map((project, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 8 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              className="group grid grid-cols-1 lg:grid-cols-[56px_1fr_1px_200px] items-stretch border-b border-slate-100 hover:bg-slate-50 transition-colors duration-200"
+            >
+              {/* Index */}
+              <div className="hidden lg:flex items-center py-8">
+                <span className="text-[11px] font-semibold tracking-[0.2em] text-slate-300">
+                  {project.index}
+                </span>
+              </div>
 
-                  {/* Glass Overlay on Hover */}
-                  <div className="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 flex items-center justify-center">
-                    {/* Secondary Button Fading in */}
-                    <span className="translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-[400ms] ease-out bg-slate-900 text-white font-bold px-8 py-4 rounded-md shadow-2xl flex items-center gap-2">
-                      <ExternalLink size={20} />
-                      Live-Vorschau ansehen
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content & Metrics */}
-                <div className="flex flex-col flex-1">
-                  {/* Metrics Badges */}
-                  <div className="flex flex-wrap gap-3 mb-6">
-                    {project.metrics.map((metric, i) => (
-                      <span key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-white text-slate-800 font-bold text-xs uppercase tracking-widest border border-slate-200 shadow-sm">
-                        <Zap size={14} className="text-indigo-600" />
-                        {metric}
-                      </span>
-                    ))}
-                  </div>
-
-                  <h3 className="text-3xl font-bold tracking-tight text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm font-black uppercase tracking-widest text-slate-400 mb-4">
+              {/* Content */}
+              <div className="py-7 lg:pr-12 flex flex-col justify-center gap-3">
+                {/* Top row: category + metrics */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[10px] font-bold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1">
                     {project.category}
-                  </p>
-                  <p className="text-lg text-slate-500 leading-relaxed mb-6">
-                    {project.description}
-                  </p>
+                  </span>
+                  {project.metrics.map((m, i) => (
+                    <span
+                      key={i}
+                      className="text-[10px] font-semibold text-slate-400 border border-slate-100 bg-slate-50 px-2.5 py-1 uppercase tracking-wide"
+                    >
+                      {m}
+                    </span>
+                  ))}
                 </div>
-              </motion.div>
-            ))}
-          </div>
+
+                {/* Title */}
+                <h2
+                  className="font-black tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors duration-200"
+                  style={{ fontSize: "clamp(1.15rem, 2.2vw, 1.6rem)" }}
+                >
+                  {project.title}
+                </h2>
+
+                {/* Description */}
+                <p className="text-sm text-slate-500 leading-relaxed max-w-2xl">
+                  {project.description}
+                </p>
+              </div>
+
+              {/* Vertical rule */}
+              <div className="hidden lg:block bg-slate-100 self-stretch" />
+
+              {/* Thumbnail */}
+              <div className="hidden lg:block relative overflow-hidden self-stretch min-h-[140px]">
+                <Image
+                  src={project.image}
+                  alt={`${project.title} – ${project.category}`}
+                  fill
+                  sizes="(max-width: 1024px) 0px, 200px"
+                  style={{ objectFit: "cover" }}
+                  className="transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-slate-900/15 group-hover:bg-slate-900/5 transition-colors duration-500" />
+                <div className="absolute bottom-3 right-3 w-8 h-8 bg-white border border-slate-200 flex items-center justify-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                  <ArrowUpRight size={16} className="text-slate-900" />
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Subtle Tech-Stack Bar */}
-      <section className="border-t border-slate-200 bg-white py-16 md:py-20">
+      {/* Tech-Stack Bar */}
+      <section className="bg-slate-50 border-b border-slate-200 py-12 md:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-black uppercase tracking-widest text-slate-400 mb-10">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-10">
             Gefertigt mit modernsten Webtechnologien
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-20 opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-500">
-            {/* React */}
-            <div className="flex flex-col items-center gap-3 text-slate-800 font-semibold">
-              <Code2 size={36} className="text-sky-500" /> 
-              <span>React</span>
+          <div className="flex flex-wrap items-center justify-center gap-12 md:gap-20 opacity-50 hover:opacity-100 transition-opacity duration-500">
+            <div className="flex items-center gap-2.5 text-slate-700 font-semibold text-sm">
+              <Code2 size={22} className="text-sky-500" />
+              React
             </div>
-            {/* Next.js */}
-            <div className="flex flex-col items-center gap-3 text-slate-800 font-semibold">
-              <Globe size={36} className="text-slate-900" /> 
-              <span>Next.js</span>
+            <div className="flex items-center gap-2.5 text-slate-700 font-semibold text-sm">
+              <Globe size={22} className="text-slate-900" />
+              Next.js
             </div>
-            {/* Framer */}
-            <div className="flex flex-col items-center gap-3 text-slate-800 font-semibold">
-              <Layers size={36} className="text-pink-500" /> 
-              <span>Framer Motion</span>
+            <div className="flex items-center gap-2.5 text-slate-700 font-semibold text-sm">
+              <Layers size={22} className="text-pink-500" />
+              Framer Motion
             </div>
-            {/* Vercel */}
-            <div className="flex flex-col items-center gap-3 text-slate-800 font-semibold">
-              <Cpu size={36} className="text-slate-900" /> 
-              <span>Vercel</span>
+            <div className="flex items-center gap-2.5 text-slate-700 font-semibold text-sm">
+              <Cpu size={22} className="text-slate-900" />
+              Vercel
             </div>
           </div>
         </div>

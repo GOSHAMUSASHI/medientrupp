@@ -14,7 +14,7 @@ const projects = [
     client: "Schmid Maschinenbau",
     category: "High-Performance Web",
     metric: "3,5× mehr Anfragen",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=800&auto=format&fit=crop",
+    image: "/images/teaser-maschinenbau.png",
   },
   {
     index: "02",
@@ -22,7 +22,7 @@ const projects = [
     client: "Baumann Logistik",
     category: "SaaS & Automation",
     metric: "−65 % Support-Kosten",
-    image: "https://images.unsplash.com/photo-1555421689-d68471e189f2?q=80&w=800&auto=format&fit=crop",
+    image: "/images/teaser-logistik.png",
   },
   {
     index: "03",
@@ -30,7 +30,7 @@ const projects = [
     client: "Kaiser Pflege & Gesundheit",
     category: "Funnel & Brand",
     metric: "42 neue Bewerber/Mo",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+    image: "/images/teaser-pflege.png",
   },
 ];
 
@@ -121,11 +121,11 @@ export const ProjectTeaser = () => {
               <div className="hidden lg:block relative overflow-hidden border-l-0 self-stretch min-h-[180px]">
                 <Image
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.client} – ${project.title}`}
                   fill
+                  sizes="(max-width: 1024px) 0px, 340px"
                   style={{ objectFit: "cover" }}
                   className="transition-transform duration-700 group-hover:scale-[1.04]"
-                  unoptimized
                 />
                 <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/10 transition-colors duration-500" />
                 {/* Arrow link overlay */}

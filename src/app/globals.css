@@ -20,9 +20,21 @@
 
 @theme inline {
   /* ── Medientrupp Brand Colors ── */
-  --color-brand:              #4F46E5;
-  --color-brand-hover:        #4338CA;
-  --color-brand-light:        #EEF2FF;
+  --color-brand:              #7c3aed;
+  --color-brand-hover:        #6d28d9;
+  --color-brand-light:        #f5f3ff;
+
+  /* ── Indigo → Violet remap (alle indigo-* Klassen zeigen auf Violet) ── */
+  --color-indigo-50:          #f5f3ff;
+  --color-indigo-100:         #ede9fe;
+  --color-indigo-200:         #ddd6fe;
+  --color-indigo-300:         #c4b5fd;
+  --color-indigo-400:         #a78bfa;
+  --color-indigo-500:         #8b5cf6;
+  --color-indigo-600:         #7c3aed;
+  --color-indigo-700:         #6d28d9;
+  --color-indigo-800:         #5b21b6;
+  --color-indigo-900:         #4c1d95;
   --color-brand-dark:         #0F172B;
 
   /* ── Surface Colors ── */
@@ -162,7 +174,7 @@
 /* Flacher, scharfkantiger Indigo-Button. Kein Glow, kein Shimmer. */
 .btn-glow {
   position: relative;
-  background: #4F46E5;
+  background: #7c3aed;
   color: #ffffff;
   font-weight: 600;
   border-radius: 0;
@@ -171,13 +183,13 @@
 }
 
 .btn-glow:hover {
-  background: #4338CA;
+  background: #6d28d9;
   transform: none;
   box-shadow: none;
 }
 
 .btn-glow:active {
-  background: #3730A3;
+  background: #5b21b6;
 }
 
 /* ── Editorial Card ──────────────────────────────────────────── */
@@ -203,18 +215,18 @@
 /* ── Eyebrow Badge ───────────────────────────────────────────── */
 /* Statischer Kategorie-Badge über Sektions-Headlines */
 .eyebrow-badge {
-  background: #EEF2FF;
-  border: 1px solid rgba(79, 70, 229, 0.20);
-  color: #4F46E5;
+  background: #f5f3ff;
+  border: 1px solid rgba(124, 58, 237, 0.20);
+  color: #7c3aed;
 }
 
 /* ── Section Accent Line ─────────────────────────────────────── */
-/* Eine dünne Indigo-Linie als sparsamer Akzent pro Sektion */
+/* Eine dünne Violet-Linie als sparsamer Akzent pro Sektion */
 .section-accent {
   display: block;
   width: 40px;
   height: 2px;
-  background: #4F46E5;
+  background: #7c3aed;
   margin-bottom: 1.5rem;
 }
 
@@ -295,6 +307,18 @@
   background: rgba(16, 185, 129, 0.4);
   animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   will-change: transform, opacity;
+}
+
+/* ── Chatbot Toggle — Ausnahme: vollständig rund ─────────────── */
+/* Bewusstes Design-Statement: runde Bubble hebt sich vom kantigen
+   Ingenieurs-Look ab und signalisiert "konversationell / menschlich" */
+.chatbot-bubble {
+  border-radius: 50% !important;
+}
+
+/* Notification badge am Chatbot — ebenfalls rund */
+.chatbot-badge {
+  border-radius: 9999px !important;
 }
 
 /* ── Reduced Motion Respect ──────────────────────────────────── */
