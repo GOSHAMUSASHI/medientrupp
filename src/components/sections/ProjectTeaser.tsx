@@ -14,7 +14,7 @@ const projects = [
     client: "Schmid Maschinenbau",
     category: "High-Performance Web",
     metric: "3,5× mehr Anfragen",
-    image: "/images/teaser-maschinenbau.png",
+    image: "/images/teaser-maschinenbau.webp",
   },
   {
     index: "02",
@@ -22,7 +22,7 @@ const projects = [
     client: "Baumann Logistik",
     category: "SaaS & Automation",
     metric: "−65 % Support-Kosten",
-    image: "/images/teaser-logistik.png",
+    image: "/images/teaser-logistik.webp",
   },
   {
     index: "03",
@@ -30,7 +30,7 @@ const projects = [
     client: "Kaiser Pflege & Gesundheit",
     category: "Funnel & Brand",
     metric: "42 neue Bewerber/Mo",
-    image: "/images/teaser-pflege.png",
+    image: "/images/teaser-pflege.webp",
   },
 ];
 

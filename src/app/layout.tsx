@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     locale: "de_DE",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/opengraph-image.webp",
         width: 1200,
         height: 630,
         alt: "Medientrupp Vorschau Bild",

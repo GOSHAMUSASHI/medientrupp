@@ -12,7 +12,7 @@ const projects = [
     category: "Full-Stack B2B Plattform",
     description: "Automatisierte Lead-Gen und Client-Portal für einen internationalen Logistiker.",
     metrics: ["Conversion +40 %", "Ladezeit 0,12 s", "CRM-Sync"],
-    image: "/images/case-supply.png",
+    image: "/images/case-supply.webp",
   },
   {
     index: "02",
@@ -20,7 +20,7 @@ const projects = [
     category: "Corporate Website & SaaS UI",
     description: "Kompletter Relaunch der Marketing-Website inklusive interaktivem Rendite-Rechner.",
     metrics: ["14 k Leads/Mo", "Web-Vitals 100/100", "Dark Mode"],
-    image: "/images/case-fintech.png",
+    image: "/images/case-fintech.webp",
   },
   {
     index: "03",
@@ -29,7 +29,7 @@ const projects = [
     description:
       "Spezialisiertes Karriere-Portal zur vollautomatischen Vorqualifizierung von Fachkräften.",
     metrics: ["−80 % Time-to-Hire", "KI-Screening", "Voll automatisiert"],
-    image: "/images/case-medtech.png",
+    image: "/images/case-medtech.webp",
   },
   {
     index: "04",
@@ -38,7 +38,7 @@ const projects = [
     description:
       "Rasend schneller B2B Online-Shop mit Anbindung an bestehende SAP-Warenwirtschaft.",
     metrics: ["3,4 M+ Umsatz", "+120 % Sichtbarkeit", "Headless"],
-    image: "/images/case-industrie.png",
+    image: "/images/case-industrie.webp",
   },
 ];
 
