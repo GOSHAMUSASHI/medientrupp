@@ -12,7 +12,7 @@ const services = [
     title: "Schlüsselfertige Websites für Ihren Erfolg",
     subtitle: "Websites",
     icon: <LayoutTemplate size={24} />,
-    image: "/images/leistungen-websites.webp",
+    image: "/images/leistungen-websites.png",
     description: "Von der Idee bis zum Launch. Wir bauen Websites, die funktionieren, schnell laden und auf jedem Gerät perfekt aussehen. Wartungsfrei und bereit für Ihre Kunden.",
     features: [
       "Responsive Design für alle Geräte",
@@ -26,7 +26,7 @@ const services = [
     title: "KI und Automatisierung für Ihre Prozesse",
     subtitle: "Intelligenz",
     icon: <Bot size={24} />,
-    image: "/images/leistungen-ki-automatisierung.webp",
+    image: "/images/leistungen-ki-automatisierung.png",
     description: "Wir implementieren intelligente Workflows, die Ihre Zeit zurückgeben. KI-Lösungen optimieren Ihre Prozesse und schaffen Raum für das Wesentliche.",
     features: [
       "24/7 KI Lead-Qualifizierung",
@@ -40,7 +40,7 @@ const services = [
     title: "Marke und Design für Ihren Auftritt",
     subtitle: "Identität",
     icon: <Zap size={24} />,
-    image: "/images/leistungen-marke-design.webp",
+    image: "/images/leistungen-marke-design.png",
     description: "Eine starke Marke ist das Fundament. Wir entwickeln Logodesigns, Corporate Design und visuelle Leitlinien, die Ihr Unternehmen prägen und im Gedächtnis bleiben.",
     features: [
       "Strategische Positionierung",
@@ -54,7 +54,7 @@ const services = [
     title: "Reichweite durch Video und Social Media",
     subtitle: "Sichtbarkeit",
     icon: <Video size={24} />,
-    image: "/images/leistungen-social-video.webp",
+    image: "/images/leistungen-social-video.png",
     description: "Wir produzieren Inhalte, die wirken. Kampagnen, Videos und Strategien, die Ihre Botschaft zu den richtigen Menschen bringen.",
     features: [
       "Content-Strategie & Redaktionsplan",
@@ -68,7 +68,7 @@ const services = [
     title: "Laufende Unterstützung für Ihren Erfolg",
     subtitle: "Betreuung",
     icon: <ShieldCheck size={24} />,
-    image: "/images/leistungen-betreuung.webp",
+    image: "/images/leistungen-betreuung.png",
     description: "Nach dem Launch beginnt die echte Arbeit. Wir kümmern uns um Wartung, Support und kontinuierliche Verbesserung Ihrer digitalen Systeme.",
     features: [
       "Premium Cloud Hosting",
