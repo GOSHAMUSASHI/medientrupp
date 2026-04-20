@@ -39,7 +39,10 @@ export async function POST(req: NextRequest) {
     // ----------------------------------------
     // LAYER 1: RATE LIMITING (IP BASED)
     // ----------------------------------------
-    const ip = req.ip || req.headers.get("x-forwarded-for") || "unknown-ip";
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0] ||
+      req.headers.get("x-real-ip") ||
+      "unknown-ip";
     const now = Date.now();
 
     let rateData = rateLimitMap.get(ip);
@@ -68,9 +71,9 @@ export async function POST(req: NextRequest) {
     const email = typeof body.email === "string" ? body.email.toLowerCase().trim() : "";
     const phone = typeof body.phone === "string" ? body.phone.trim() : "";
     const timeBucket = Math.floor(now / 10000); // 10 second buckets
-    
+
     const dedupeHash = `${email}|${phone}|${timeBucket}`;
-    
+
     if (dedupeCache.has(dedupeHash)) {
       console.warn(`[Protection] Deduplicated identical submission from: ${email}`);
       return NextResponse.json(
@@ -78,7 +81,7 @@ export async function POST(req: NextRequest) {
         { status: 409 }
       );
     }
-    
+
     // Lock the hash for the next 5 seconds
     dedupeCache.set(dedupeHash, now + DEDUPE_WINDOW_MS);
 
@@ -87,14 +90,14 @@ export async function POST(req: NextRequest) {
     // LAYER 3: PAYLOAD & BOT VALIDATION
     // ----------------------------------------
     const validationResult = LeadFormSchema.safeParse(body);
-    
+
     if (!validationResult.success) {
       // Map Zod errors for frontend consumption
       const errors = validationResult.error.errors.map(err => ({
         field: err.path.join("."),
         message: err.message
       }));
-      
+
       return NextResponse.json(
         { success: false, error: "Validation failed", details: errors },
         { status: 400 }
