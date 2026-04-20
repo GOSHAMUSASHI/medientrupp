@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
 
     if (!validationResult.success) {
       // Map Zod errors for frontend consumption
-      const errors = validationResult.error.errors.map(err => ({
+      const errors = validationResult.error.issues.map(err => ({
         field: err.path.join("."),
         message: err.message
       }));
