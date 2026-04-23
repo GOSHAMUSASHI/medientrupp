@@ -1,31 +1,43 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Euro, Shield, User, Code2, Handshake } from "lucide-react";
+import type { ReactNode } from "react";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
-const stats = [
-  {
-    value: "0,09s",
-    label: "Ladezeit garantiert",
-    sub: "38× schneller als Marktdurchschnitt. Jede Sekunde Ladezeit kostet 7 % Conversion Rate.",
-  },
-  {
-    value: "100 %",
-    label: "Festpreis-Garantie",
-    sub: "Kein Stundensatz, kein Overrun. Preis fixiert vor Projektstart — schriftlich und verbindlich.",
-  },
-  {
-    value: "3–6",
-    label: "Wochen bis Go-Live",
-    sub: "Strukturierte Sprints statt endloser Feedback-Schleifen. Ergebnisse, nicht Prozesse.",
-  },
-];
+interface TrustPoint {
+  icon: ReactNode;
+  title: string;
+  body: string;
+}
 
-const checklist = [
-  "Kein Fachchinesisch. Klare Kommunikation.",
-  "Echter Business-Impact statt nur bunte Bilder.",
-  "Ein Ansprechpartner für alles Digitale.",
+const trustPoints: TrustPoint[] = [
+  {
+    icon: <Euro size={20} strokeWidth={1.75} />,
+    title: "Festpreise statt Stundenlotto",
+    body: "Ihr Preis steht vor Projektbeginn fest. Schriftlich fixiert, ohne Nachverhandlung.",
+  },
+  {
+    icon: <Shield size={20} strokeWidth={1.75} />,
+    title: "Hosting in Deutschland",
+    body: "Server stehen in Deutschland, DSGVO-konform. Keine US-Cloud, keine rechtliche Grauzone.",
+  },
+  {
+    icon: <User size={20} strokeWidth={1.75} />,
+    title: "Ein fester Ansprechpartner",
+    body: "Sie sprechen vom ersten Gespräch bis zum Go-Live mit derselben Person. Kein Ticket-System.",
+  },
+  {
+    icon: <Code2 size={20} strokeWidth={1.75} />,
+    title: "Kein Outsourcing",
+    body: "Konzeption, Code und Design entstehen im eigenen Team. Keine Weitergabe an Subunternehmer.",
+  },
+  {
+    icon: <Handshake size={20} strokeWidth={1.75} />,
+    title: "Kein Abo-Lock-in",
+    body: "Nach dem Launch bleiben wir an Bord, wenn Sie das wollen. Kein Zwang, keine Mindestlaufzeit.",
+  },
 ];
 
 // ── Section ───────────────────────────────────────────────────────────────────
@@ -44,75 +56,53 @@ export const BenefitsSection = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* Top: headline + sub-copy */}
+        {/* Top: headline */}
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] border-b border-slate-200 py-12 gap-0"
+          className="py-12 md:py-16 border-b border-slate-200 text-center"
         >
-          <div className="lg:pr-12">
-            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
-              Der Medientrupp Unterschied
-            </p>
-            <h2
-              id="benefits-heading"
-              className="font-black tracking-[-0.03em] text-slate-900"
-              style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
-            >
-              Fokus auf Ihr Kerngeschäft
-              <br />
-              statt{" "}
-              <span className="text-indigo-600">digitaler Baustellen.</span>
-            </h2>
-          </div>
-
-          {/* Vertical rule */}
-          <div className="hidden lg:block bg-slate-200 self-stretch" />
-
-          {/* Right: copy + checklist */}
-          <div className="lg:pl-12 flex flex-col justify-center mt-8 lg:mt-0">
-            <p className="text-base text-slate-500 leading-relaxed mb-8">
-              Sicher, Sie könnten einen Baukasten nutzen oder den Praktikanten ranlassen. Aber im
-              Mittelstand zahlt sich Professionalität aus. Wir bauen Systeme, die Leads generieren,
-              Zeit sparen und Ihre Marke stärken.
-            </p>
-            <div className="space-y-3">
-              {checklist.map((item, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span className="w-1.5 h-1.5 bg-indigo-600 mt-2 shrink-0" aria-hidden="true" />
-                  <span className="text-slate-700 font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
+            Warum Medientrupp
+          </p>
+          <h2
+            id="benefits-heading"
+            className="font-semibold tracking-[-0.03em] text-slate-900 mb-4"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+          >
+            Der Medientrupp{" "}
+            <span className="text-indigo-600">Unterschied.</span>
+          </h2>
+          <p className="text-base text-slate-500 leading-relaxed max-w-xl mx-auto">
+            Warum Geschäftsführer im Mittelstand uns weiterempfehlen.
+          </p>
         </motion.div>
 
-        {/* Bottom: KPI stat row */}
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          {stats.map((stat, i) => (
+        {/* Trust points — 5-column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 py-12 md:py-16">
+          {trustPoints.map((point, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 8 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className={`py-12 ${i < stats.length - 1 ? "md:border-r border-b md:border-b-0 border-slate-200" : "border-b md:border-b-0 border-slate-200"} ${i > 0 ? "md:pl-10" : ""}`}
+              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className={`px-4 sm:px-6 py-5 md:py-8 lg:py-4 ${
+                i < trustPoints.length - 1
+                  ? "border-b sm:border-b-0 sm:[&:nth-child(odd)]:border-r lg:[&:nth-child(odd)]:border-r lg:border-r lg:[&:last-child]:border-r-0 border-slate-200"
+                  : ""
+              }`}
             >
-              <p
-                className="font-black tracking-tight text-slate-900 mb-1"
-                style={{ fontSize: "clamp(2.2rem, 4vw, 3rem)", lineHeight: 1 }}
-              >
-                {stat.value}
-                <span
-                  className="block text-[11px] font-semibold tracking-[0.2em] uppercase text-indigo-600 mt-2"
-                >
-                  {stat.label}
-                </span>
-              </p>
-              <p className="text-sm text-slate-500 leading-relaxed mt-4 max-w-xs">
-                {stat.sub}
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-md bg-indigo-50 text-indigo-600 mb-4">
+                {point.icon}
+              </span>
+              <h3 className="font-semibold tracking-tight text-slate-900 text-base leading-snug mb-2">
+                {point.title}
+              </h3>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                {point.body}
               </p>
             </motion.div>
           ))}

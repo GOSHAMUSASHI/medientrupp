@@ -221,7 +221,7 @@ export const InteractiveFunnel = () => {
             Konfigurieren Sie Ihr <span className="text-indigo-600">Projekt.</span>
           </h2>
           <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Keine undurchsichtigen Angebote. Wählen Sie genau die Bausteine, die Sie für Ihre Skalierung benötigen und sehen Sie den Live-Preis in Echtzeit.
+            Keine versteckten Kosten. Wählen Sie Ihre Bausteine und sehen Sie den Festpreis sofort.
           </p>
         </div>
 
@@ -271,7 +271,7 @@ export const InteractiveFunnel = () => {
               </div>
 
               {/* Scrollable Content Container */}
-              <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 py-5 sm:px-8 lg:px-14" id="funnel-scroll-container">
+              <div className="flex-1 overflow-x-hidden overflow-y-auto px-4 py-3 sm:px-8 sm:py-5 lg:px-14" id="funnel-scroll-container">
                 <AnimatePresence mode="wait" custom={direction}>
                   
                   {currentStage === "MAIN" && (
@@ -341,7 +341,7 @@ export const InteractiveFunnel = () => {
                        <h1 className="text-xl sm:text-3xl font-black text-slate-900">Sichtbarkeit Details</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Social Management" sublabel="+ 250 €/Mo" isMonthly desc="Laufende Pflege & Posting Ihres Contents." checked={addons.social_management} onToggle={() => toggleAddon("social_management")} />
-                         <ToggleCard label="Strategie Workshop" sublabel="+ 1.000 €" desc="Wir erarbeiten Ihren viralen Masterplan." checked={addons.social_workshop} onToggle={() => toggleAddon("social_workshop")} />
+                         <ToggleCard label="Strategie Workshop" sublabel="+ 1.000 €" desc="Wir erarbeiten Ihren Content-Masterplan." checked={addons.social_workshop} onToggle={() => toggleAddon("social_workshop")} />
                          <ToggleCard label="Reel-/Videoproduktion" sublabel="+ 500 €" desc="Professioneller Schnitt & Drehtag." checked={addons.social_video} onToggle={() => toggleAddon("social_video")} />
                        </div>
                     </motion.div>
@@ -353,7 +353,7 @@ export const InteractiveFunnel = () => {
                        <h1 className="text-xl sm:text-3xl font-black text-slate-900">Laufender Support</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Premium-Hosting" sublabel="+ 100 €/Mo" isMonthly desc="Backups, Sicherheitsupdates & superschnelle Ladezeiten." checked={maintenance.hosting} onToggle={() => toggleMaintenance("hosting")} />
-                         <ToggleCard label="Local SEO" sublabel="+ 150 €/Mo" isMonthly desc="Google Map Dominanz und Reichweite in der Region." checked={maintenance.local_seo} onToggle={() => toggleMaintenance("local_seo")} />
+                         <ToggleCard label="Local SEO" sublabel="+ 150 €/Mo" isMonthly desc="Google-Präsenz und lokale Sichtbarkeit in Ihrer Region." checked={maintenance.local_seo} onToggle={() => toggleMaintenance("local_seo")} />
                        </div>
                     </motion.div>
                   )}

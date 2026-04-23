@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/ui/SiteHeader";
 import { SiteFooter } from "@/components/ui/SiteFooter";
-import { GlobalChatbot } from "@/components/ui/GlobalChatbot";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -58,7 +57,6 @@ const RootLayout = ({
         <div className="flex-1">
           {children}
         </div>
-        <GlobalChatbot />
         <SiteFooter />
       </body>
     </html>

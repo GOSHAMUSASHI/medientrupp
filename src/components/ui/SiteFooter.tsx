@@ -50,8 +50,8 @@ export const SiteFooter = () => {
             <ul className="flex flex-col gap-4 text-sm">
               <li><Link href="/ueber-uns" className="hover:text-indigo-600 transition-colors">Über uns</Link></li>
               <li><Link href="/portfolio" className="hover:text-indigo-600 transition-colors">Portfolio & Cases</Link></li>
-              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Unser Prozess</Link></li>
-              <li><a href="/ueber-uns" className="hover:text-indigo-600 transition-colors">Karriere</a></li>
+              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Alle Leistungen</Link></li>
+              <li><Link href="/ueber-uns#team" className="hover:text-indigo-600 transition-colors">Karriere</Link></li>
               <li><Link href="/projekt-anfragen" className="hover:text-indigo-600 transition-colors font-semibold text-slate-900">Projekt berechnen</Link></li>
             </ul>
           </div>
@@ -60,11 +60,12 @@ export const SiteFooter = () => {
           <div>
             <h4 className="text-slate-900 font-bold mb-6">Leistungen</h4>
             <ul className="flex flex-col gap-4 text-sm">
-              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Marke & Design</Link></li>
-              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Websites & Portale</Link></li>
-              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">KI & Automatisierung</Link></li>
-              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Video & Social Media</Link></li>
-              <li><Link href="/leistungen" className="hover:text-indigo-600 transition-colors">Laufende Betreuung</Link></li>
+              <li><Link href="/leistungen/branding" className="hover:text-indigo-600 transition-colors">Marke & Design</Link></li>
+              <li><Link href="/leistungen/websites" className="hover:text-indigo-600 transition-colors">Websites & Portale</Link></li>
+              <li><Link href="/leistungen/ki-automation" className="hover:text-indigo-600 transition-colors">KI & Automatisierung</Link></li>
+              <li><Link href="/leistungen/ki-plattformen" className="hover:text-indigo-600 transition-colors">Individuelle KI-Plattformen</Link></li>
+              <li><Link href="/leistungen/social-media-video" className="hover:text-indigo-600 transition-colors">Video & Social Media</Link></li>
+              <li><Link href="/leistungen/betreuung" className="hover:text-indigo-600 transition-colors">Laufende Betreuung</Link></li>
             </ul>
           </div>
 

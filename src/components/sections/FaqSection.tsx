@@ -6,44 +6,39 @@ import { ChevronDown } from "lucide-react";
 
 const faqs = [
   {
-    question: "Was kostet eine neue Website bei MedienTrupp?",
+    question: "Was kostet ein Projekt bei Medientrupp und welche Folgekosten entstehen?",
     answer:
-      "Unsere High-Performance Websites starten bei einem Festpreis von 3.500 €. Jedes Projekt ist individuell, aber wir kommunizieren alle Kosten transparent vorab. Nutzen Sie unseren Projekt-Kalkulator weiter oben, um eine sofortige Einschätzung für Ihren speziellen Bedarf zu erhalten.",
+      "Sie erhalten vor Projektbeginn einen verbindlichen Festpreis, schriftlich fixiert. Keine Stundensätze, keine Nachkalkulation, keine Überraschungen. Enthalten sind Konzept, Design, Entwicklung, Testing, Go-Live und 30 Tage Nachbetreuung. Laufende Betreuung und Erweiterungen werden separat kalkuliert.",
   },
   {
-    question: "Wie lange dauert ein typisches Projekt?",
+    question: "Wie lange dauert es von der Beauftragung bis zum Go-Live?",
     answer:
-      "Ein typischer Website-Relaunch dauert bei uns 4 bis 6 Wochen. KI-Automatisierungen können oft schon nach 1 bis 3 Wochen live gehen. Wir legen großen Wert auf schnelle Umsetzung ohne Qualitätsverlust.",
+      "Websites gehen typischerweise in 3 bis 6 Wochen live. KI-Automatisierungen sind oft in 1 bis 3 Wochen produktiv. Größere KI-Plattformen und Individual-Projekte planen wir in 8 bis 12 Wochen. Den konkreten Zeitrahmen fixieren wir im Angebot, verbindlich mit Meilensteinen.",
   },
   {
-    question: "Gibt es versteckte Kosten?",
+    question: "Gehören die Systeme, Daten und Quellcodes nach Projektende uns?",
     answer:
-      "Nein. Wir arbeiten mit transparenten Festpreisen, die wir vor Projektstart in einem klaren Angebot fixieren. Über den Projektrechner erhalten Sie bereits eine erste realistische Kostenindikation.",
+      "Ja. Sie erhalten nach Abnahme volle Eigentumsrechte an Code, Design, Inhalten und Daten. Keine Abhängigkeit von proprietären Agentur-Systemen. Sie können das Projekt jederzeit zu einem anderen Anbieter mitnehmen. Wir dokumentieren alles entsprechend.",
   },
   {
-    question: "Was beinhaltet die laufende Betreuung?",
+    question: "Was passiert, wenn wir die Zusammenarbeit irgendwann beenden?",
     answer:
-      "In der laufenden Betreuung kümmern wir uns um schnelles Premium-Hosting, Sicherheitsupdates, Backups, kleinere Inhaltsänderungen und regelmäßige Performance-Reports. Sie müssen sich um keine technischen Details mehr kümmern.",
+      "Nichts Unangenehmes. Laufende Betreuungsverträge sind monatlich kündbar. Sie behalten alle Zugänge, Quelldaten und Dokumentation. Auf Wunsch übergeben wir sauber an Ihr internes Team oder einen neuen Dienstleister. Wir setzen auf Qualität statt Vertragsbindung.",
   },
   {
-    question: "Brauche ich wirklich KI in meinem Unternehmen?",
+    question: "Arbeiten Sie mit festen Ansprechpartnern oder wechselndem Team?",
     answer:
-      "Künstliche Intelligenz ist kein Hype mehr, sondern ein Hebel für Effizienz. Auch für kleinere mittelständische Unternehmen lohnen sich schon einfache Automatisierungen — wie automatische Rechnungsauslese oder KI-gestützte Kundenkommunikation — um messbar Zeit zu sparen.",
+      "Sie haben vom ersten Gespräch bis zum Go-Live denselben Ansprechpartner. Kein Ticket-System, keine Projekt-Manager-Kette. Das Kernteam aus Strategie, Design und Entwicklung bleibt über die gesamte Laufzeit identisch, auch in der späteren Betreuung.",
   },
   {
-    question: "Welche Prozesse lassen sich wirklich automatisieren?",
+    question: "Wo werden unsere Daten gehostet und wie ist die DSGVO-Lage?",
     answer:
-      "Die häufigsten Quick-Wins im Mittelstand sind: automatische Anfragen-Qualifizierung (Lead Scoring), digitale Eingangsrechnungsverarbeitung, Terminbuchung mit CRM-Sync, Follow-up-E-Mails nach Erstkontakt sowie automatisierte Google-Bewertungsanfragen nach Projektabschluss. Wir analysieren in einem kostenlosen Erstgespräch, welche drei Prozesse in Ihrem Unternehmen den größten Zeitgewinn bringen.",
+      "Alle Systeme laufen auf DSGVO-konformen Servern in Deutschland, primär in Frankfurt. Keine US-Clouds für personenbezogene Daten, keine rechtlichen Grauzonen. Auftragsverarbeitungsverträge nach Art. 28 DSGVO stellen wir standardmäßig bereit. Auf Wunsch auch Hosting in Ihrer eigenen Infrastruktur.",
   },
   {
-    question: "Warum ein Festpreis — und was ist darin enthalten?",
+    question: "Für welche Unternehmensgrößen und Branchen arbeiten Sie?",
     answer:
-      "Stundensätze sind das größte Vertrauensproblem klassischer Agenturen. Ein Festpreis bedeutet: Sie kennen Ihr Investment auf den Cent genau, bevor wir anfangen. Enthalten sind Konzept, Design, Entwicklung, Testing, Go-Live und eine 30-tägige Nachbetreuungsphase. Keine Nachkalkulation, keine Überraschungen.",
-  },
-  {
-    question: "Können wir auch nur einen einzelnen Bereich automatisieren?",
-    answer:
-      "Ja — unser modularer Ansatz ist genau dafür gemacht. Sie müssen nicht alles auf einmal umstellen. Viele unserer Kunden starten mit einem einzigen Automatisierungs-Modul (z. B. KI-Chatbot oder Lead-Erfassung) und erweitern das System schrittweise. Das minimiert Risiko und ermöglicht einen messbaren ROI bereits in den ersten Wochen.",
+      "Unser Fokus liegt auf dem deutschen Mittelstand mit 30 bis 500 Mitarbeitern. Typische Branchen sind Industrie, Logistik, Finanzen, Gesundheit, Handwerk und B2B-Dienstleister. Wir arbeiten nicht mit B2C-Startups, Krypto-Projekten oder Glücksspiel. Ein erstes Gespräch klärt schnell, ob wir zueinander passen.",
   },
 ];
 
@@ -64,13 +59,13 @@ export const FaqSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="py-12 border-b border-slate-200 mb-10 text-center"
+          className="py-8 md:py-12 border-b border-slate-200 mb-6 md:mb-10 text-center"
         >
           <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
             Häufige Fragen
           </p>
           <h2
-            className="font-black tracking-[-0.03em] text-slate-900"
+            className="font-semibold tracking-[-0.03em] text-slate-900"
             style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
           >
             Klartext,
@@ -80,7 +75,7 @@ export const FaqSection = () => {
         </motion.div>
 
         {/* FAQ Accordion — zentriert */}
-        <div className="max-w-3xl mx-auto space-y-4 pb-16">
+        <div className="max-w-3xl mx-auto space-y-3 md:space-y-4 pb-10 md:pb-16">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
 

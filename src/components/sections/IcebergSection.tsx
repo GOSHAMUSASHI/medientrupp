@@ -7,17 +7,17 @@ import { Eye, EyeOff, Layers, MousePointerClick, Share2, Bot, Database, Workflow
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const visibleItems = [
-  { title: "Websites", icon: <Layers size={20} />, desc: "High-Performance B2B Auftritte" },
-  { title: "Landingpages", icon: <MousePointerClick size={20} />, desc: "Auf Conversion optimierte Sales-Pages" },
-  { title: "Corporate Branding", icon: <Eye size={20} />, desc: "Einheitlicher, professioneller Look" },
-  { title: "Social Media Content", icon: <Share2 size={20} />, desc: "Strategische Sichtbarkeit" },
+  { title: "Websites", icon: <Layers size={20} />, desc: "Schnelle, suchmaschinenoptimierte Unternehmensauftritte" },
+  { title: "Landingpages", icon: <MousePointerClick size={20} />, desc: "Seiten, die Besucher zuverlässig in Anfragen verwandeln" },
+  { title: "Corporate Branding", icon: <Eye size={20} />, desc: "Logo, Farben und Design, einheitlich auf allen Kanälen" },
+  { title: "Social Media & Video", icon: <Share2 size={20} />, desc: "Content, der Ihre Zielgruppe regelmäßig erreicht" },
 ];
 
 const invisibleItems = [
-  { title: "Automatisierungen", icon: <Workflow size={20} />, desc: "Kein manuelles Lead-Nurturing mehr" },
-  { title: "KI-Integrationen", icon: <Bot size={20} />, desc: "Chatbots und AI-Assistenz im Hintergrund" },
-  { title: "Backend-Architektur", icon: <Database size={20} />, desc: "CRM, Datenbanken & APIs" },
-  { title: "Daten & Analytics", icon: <LineChart size={20} />, desc: "Echtzeit-Tracking und Conversion-Messung" },
+  { title: "Automatisierungen", icon: <Workflow size={20} />, desc: "Kein manuelles Nachfassen von Interessenten. Das System erledigt es." },
+  { title: "KI-Integrationen", icon: <Bot size={20} />, desc: "Ein digitaler Assistent beantwortet Kundenfragen rund um die Uhr." },
+  { title: "Backend-Architektur", icon: <Database size={20} />, desc: "Kundenverwaltung, Datenbanken und Schnittstellen zu externen Systemen." },
+  { title: "Daten & Analytics", icon: <LineChart size={20} />, desc: "Klare Zahlen darüber, woher Anfragen kommen und was daraus wird." },
 ];
 
 // ── Section ───────────────────────────────────────────────────────────────────
@@ -33,20 +33,19 @@ export const IcebergSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header with toggle */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-6 py-12 border-b border-slate-200">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] items-end gap-6 py-8 md:py-12 border-b border-slate-200">
           <div>
             <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
-              Full-Spectrum Agentur
+              Vordergrund & Hintergrund
             </p>
             <h2
               id="iceberg-heading"
-              className="font-black tracking-[-0.03em] text-slate-900"
+              className="font-semibold tracking-[-0.03em] text-slate-900"
               style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
             >
-              Was Sie sehen.
+              Alles, was Ihr Unternehmen
               <br />
-              Und was{" "}
-              <span className="text-indigo-600">darunter liegt.</span>
+              <span className="text-indigo-600">digital braucht.</span>
             </h2>
           </div>
 
@@ -78,7 +77,7 @@ export const IcebergSection = () => {
         </div>
 
         {/* Content — animated list */}
-        <div className="min-h-[320px] py-10">
+        <div className="min-h-[280px] py-5 md:py-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
@@ -94,7 +93,7 @@ export const IcebergSection = () => {
                   initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.07, duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className={`flex items-start gap-5 py-8 ${
+                  className={`flex items-start gap-5 py-5 md:py-8 ${
                     i % 2 === 0 && i < (active === "visible" ? visibleItems : invisibleItems).length - 1
                       ? "md:border-r border-slate-200"
                       : ""

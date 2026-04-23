@@ -18,12 +18,12 @@ interface TrustBadge {
 }
 
 const trustBadges: TrustBadge[] = [
-  { icon: <ShieldCheck size={16} strokeWidth={1.75} />, text: "Deutsche Qualität & Standards" },
-  { icon: <Tag        size={16} strokeWidth={1.75} />, text: "Transparente Festpreise" },
-  { icon: <UserCheck  size={16} strokeWidth={1.75} />, text: "Persönlicher Ansprechpartner" },
-  { icon: <Lock       size={16} strokeWidth={1.75} />, text: "Höchste Datensicherheit" },
-  { icon: <FileCheck  size={16} strokeWidth={1.75} />, text: "100% DSGVO-konform" },
-  { icon: <Zap        size={16} strokeWidth={1.75} />, text: "Go-Live in 3–6 Wochen" },
+  { icon: <ShieldCheck size={16} strokeWidth={1.75} />, text: "Hosting in Deutschland" },
+  { icon: <Tag        size={16} strokeWidth={1.75} />, text: "Festpreis vor Projektstart" },
+  { icon: <UserCheck  size={16} strokeWidth={1.75} />, text: "Ein fester Ansprechpartner" },
+  { icon: <Lock       size={16} strokeWidth={1.75} />, text: "100 % DSGVO-konform" },
+  { icon: <FileCheck  size={16} strokeWidth={1.75} />, text: "Code & Daten gehören Ihnen" },
+  { icon: <Zap        size={16} strokeWidth={1.75} />, text: "Kein Outsourcing" },
 ];
 
 // Double for seamless loop
@@ -37,9 +37,9 @@ export const SocialProofSection = () => {
       className="bg-slate-50 border-y border-slate-200"
       aria-label="Vertrauenssignale"
     >
-      {/* Single horizontal rule accent */}
+      {/* Headline only — Google-Sterne wurden in Hero-Eyebrow verschoben (keine Doppelung) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="py-5 border-b border-slate-200 mb-0">
+        <div className="py-5 border-b border-slate-200 mb-0 text-center">
           <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400">
             Vertraut von Mittelstandsunternehmen in Deutschland
           </p>

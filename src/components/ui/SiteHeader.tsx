@@ -41,10 +41,20 @@ export const SiteHeader = () => {
         style={{ willChange: "background, box-shadow" }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
+          {/*
+            Mobile : flex + justify-between  → [Logo ── MobileToggle]
+            Desktop: 3-column grid [1fr auto 1fr] → [Logo | Menu (centered) | CTA]
+            Grid mit [1fr_auto_1fr] garantiert dass das Menü exakt mittig ist,
+            unabhängig von Logo- oder CTA-Breite.
+          */}
+          <div className="flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] md:gap-6">
 
-            {/* ── Logo ── */}
-            <Link href="/" id="site-logo" className="flex items-center gap-2 group">
+            {/* ── Logo (links) ── */}
+            <Link
+              href="/"
+              id="site-logo"
+              className="flex items-center gap-2 group md:justify-self-start"
+            >
               {/* Animated dot accent */}
               <span
                 className="w-2 h-2 bg-indigo-600 group-hover:scale-125 transition-transform duration-300"
@@ -56,15 +66,18 @@ export const SiteHeader = () => {
               </span>
             </Link>
 
-            {/* ── Desktop Nav ── */}
-            <nav className="hidden md:flex items-center gap-7" aria-label="Hauptnavigation">
+            {/* ── Desktop Nav (mittig) ── */}
+            <nav
+              className="hidden md:flex items-center gap-7 md:justify-self-center"
+              aria-label="Hauptnavigation"
+            >
               {navLinks.map((link) => {
                 const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
                 return (
                   <Link
                     key={link.label}
                     href={link.href}
-                    className={`relative text-sm font-semibold transition-colors duration-200 group/nav pb-0.5 ${
+                    className={`relative text-sm font-medium transition-colors duration-200 group/nav pb-0.5 ${
                       isActive ? "text-indigo-600" : "text-slate-600 hover:text-indigo-600"
                     }`}
                   >
@@ -81,21 +94,21 @@ export const SiteHeader = () => {
                   </Link>
                 );
               })}
-
-              {/* CTA — btn-glow from design system */}
-              <Link
-                href="/projekt-anfragen"
-                id="header-cta"
-                className="btn-glow inline-flex items-center gap-2 px-5 py-2.5 text-sm"
-              >
-                Projekt anfragen
-                <ArrowRight
-                  size={15}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </Link>
             </nav>
+
+            {/* ── Desktop CTA (rechts) ── */}
+            <Link
+              href="/projekt-anfragen"
+              id="header-cta"
+              className="hidden md:inline-flex btn-glow items-center gap-2 px-5 py-2.5 text-sm md:justify-self-end group"
+            >
+              Projekt anfragen
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </Link>
 
             {/* ── Mobile Toggle ── */}
             <button
@@ -159,7 +172,7 @@ export const SiteHeader = () => {
                     <Link
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`block text-3xl font-black py-3 border-b border-slate-100 transition-colors duration-200 ${
+                      className={`block text-2xl font-medium py-3 border-b border-slate-100 transition-colors duration-200 ${
                         isActive ? "text-indigo-600" : "text-slate-900 hover:text-indigo-600"
                       }`}
                     >

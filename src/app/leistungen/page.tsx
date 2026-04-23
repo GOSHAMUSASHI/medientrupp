@@ -1,193 +1,190 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Zap, LayoutTemplate, Bot, Video, ShieldCheck } from "lucide-react";
+import { ArrowRight, LayoutTemplate, Bot, Cpu, Zap, Video, ShieldCheck } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 
-// The 5 sections content based on the raw HTML
-const services = [
+// Placeholder component for services without an image
+const ImagePlaceholder = ({ icon }: { icon: ReactNode }) => (
+  <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-indigo-50 via-slate-50 to-indigo-100">
+    <div className="w-12 h-12 rounded-md bg-indigo-600 flex items-center justify-center text-white">
+      {icon}
+    </div>
+    <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-slate-400">Individuelles Projekt</p>
+  </div>
+);
+
+// ── Services ────────────────────────────────────────────────────────────────
+
+interface ServiceCard {
+  id: string;
+  title: string;
+  subtitle: string;
+  icon: ReactNode;
+  image: string | null;
+  description: string;
+  href: string;
+}
+
+const services: ServiceCard[] = [
+  {
+    id: "branding",
+    title: "Marke & Design",
+    subtitle: "Identität",
+    icon: <Zap size={20} strokeWidth={1.75} />,
+    image: "/images/leistungen-marke-design.png",
+    description:
+      "Strategische Positionierung, Corporate Design und Brand Guidelines. Ein Auftritt, der Autorität ausstrahlt.",
+    href: "/leistungen/branding",
+  },
   {
     id: "websites",
-    title: "Schlüsselfertige Websites für Ihren Erfolg",
-    subtitle: "Websites",
-    icon: <LayoutTemplate size={24} />,
+    title: "Websites & Digitaler Auftritt",
+    subtitle: "Schaufenster",
+    icon: <LayoutTemplate size={20} strokeWidth={1.75} />,
     image: "/images/leistungen-websites.png",
-    description: "Von der Idee bis zum Launch. Wir bauen Websites, die funktionieren, schnell laden und auf jedem Gerät perfekt aussehen. Wartungsfrei und bereit für Ihre Kunden.",
-    features: [
-      "Responsive Design für alle Geräte",
-      "Schnelle Ladezeiten (< 0.09s)",
-      "Technical SEO & Core Web Vitals",
-      "Wartungsfrei und zukunftssicher"
-    ]
+    description:
+      "Schnelle, SEO-optimierte Websites mit verkaufspsychologischen Texten. Ihre beste Vertrieblerin, rund um die Uhr.",
+    href: "/leistungen/websites",
   },
   {
-    id: "ai-automatisierung",
-    title: "KI und Automatisierung für Ihre Prozesse",
-    subtitle: "Intelligenz",
-    icon: <Bot size={24} />,
+    id: "ki-automation",
+    title: "KI & Automation",
+    subtitle: "Standard-Workflows",
+    icon: <Bot size={20} strokeWidth={1.75} />,
     image: "/images/leistungen-ki-automatisierung.png",
-    description: "Wir implementieren intelligente Workflows, die Ihre Zeit zurückgeben. KI-Lösungen optimieren Ihre Prozesse und schaffen Raum für das Wesentliche.",
-    features: [
-      "24/7 KI Lead-Qualifizierung",
-      "Automatisches Follow-Up System",
-      "CRM Seamless Integration",
-      "Reduzierung manueller Tasks um bis zu 80%"
-    ]
+    description:
+      "Lead-Qualifizierung, 24/7 Chatbot und CRM-Automation. Sie gewinnen Stunden pro Woche zurück.",
+    href: "/leistungen/ki-automation",
   },
   {
-    id: "marke-design",
-    title: "Marke und Design für Ihren Auftritt",
-    subtitle: "Identität",
-    icon: <Zap size={24} />,
-    image: "/images/leistungen-marke-design.png",
-    description: "Eine starke Marke ist das Fundament. Wir entwickeln Logodesigns, Corporate Design und visuelle Leitlinien, die Ihr Unternehmen prägen und im Gedächtnis bleiben.",
-    features: [
-      "Strategische Positionierung",
-      "Einheitliches Corporate Design System",
-      "Premium B2B Branding",
-      "Digitale Brand Guidelines"
-    ]
+    id: "ki-plattformen",
+    title: "Individuelle KI-Projekte",
+    subtitle: "Maßgeschneidert",
+    icon: <Cpu size={20} strokeWidth={1.75} />,
+    image: "/images/leistungen-ki-plattformen.webp",
+    description:
+      "Eigene KI-Plattformen und trainierte Modelle für Ihre Branche. Ein einzigartiges Werkzeug, das Wettbewerber nicht haben.",
+    href: "/leistungen/ki-plattformen",
   },
   {
-    id: "social-media",
-    title: "Reichweite durch Video und Social Media",
+    id: "social-media-video",
+    title: "Social Media & Video",
     subtitle: "Sichtbarkeit",
-    icon: <Video size={24} />,
+    icon: <Video size={20} strokeWidth={1.75} />,
     image: "/images/leistungen-social-video.png",
-    description: "Wir produzieren Inhalte, die wirken. Kampagnen, Videos und Strategien, die Ihre Botschaft zu den richtigen Menschen bringen.",
-    features: [
-      "Content-Strategie & Redaktionsplan",
-      "Hochwertige Videoproduktion",
-      "Social Performance Marketing",
-      "Datengesteuerte Skalierung"
-    ]
+    description:
+      "Content-Strategie, Videoproduktion und Performance Marketing. Ihre Botschaft erreicht die richtigen Menschen.",
+    href: "/leistungen/social-media-video",
   },
   {
     id: "betreuung",
-    title: "Laufende Unterstützung für Ihren Erfolg",
-    subtitle: "Betreuung",
-    icon: <ShieldCheck size={24} />,
+    title: "Laufende Betreuung",
+    subtitle: "Rundum-Sorglos",
+    icon: <ShieldCheck size={20} strokeWidth={1.75} />,
     image: "/images/leistungen-betreuung.png",
-    description: "Nach dem Launch beginnt die echte Arbeit. Wir kümmern uns um Wartung, Support und kontinuierliche Verbesserung Ihrer digitalen Systeme.",
-    features: [
-      "Premium Cloud Hosting",
-      "Regelmäßige Sicherheits-Updates",
-      "Persönlicher Support-Kanal",
-      "Proaktive Conversion-Optimierung"
-    ]
-  }
+    description:
+      "Hosting, Wartung und kontinuierliche Optimierung. Technik, die im Hintergrund fehlerfrei läuft.",
+    href: "/leistungen/betreuung",
+  },
 ];
+
+// ── Page ────────────────────────────────────────────────────────────────────
 
 export default function LeistungenPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-20 bg-slate-50 relative overflow-hidden">
+      <section className="pt-24 pb-10 md:pt-40 md:pb-20 bg-slate-50 relative overflow-hidden">
         <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-[0.3] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <p className="text-sm font-black tracking-[0.2em] uppercase text-indigo-600 mb-6">
+            <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-6">
               Volles Spektrum
             </p>
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-slate-900 mb-8">
+            <h1
+              className="font-semibold tracking-[-0.03em] text-slate-900 mb-8"
+              style={{ fontSize: "clamp(2.6rem, 5.5vw, 4.75rem)", lineHeight: 0.95 }}
+            >
               Unsere Systeme im <span className="text-indigo-600">Detail.</span>
             </h1>
-            <p className="text-xl text-slate-500 leading-relaxed font-medium">
+            <p className="text-lg md:text-xl text-slate-500 leading-relaxed font-medium">
               Wir bauen keine Standard-Websites, sondern Vertriebsmaschinen. Entdecken Sie die Bausteine, die Ihr Unternehmen messbar nach vorne bringen.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Main Content with Sticky Nav */}
-      <section className="py-16 md:py-20 relative">
+      {/* Cards Grid */}
+      <section className="section-y">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-16">
-            
-            {/* Sticky Navigation Sidebar */}
-            <div className="lg:w-1/4 hidden lg:block">
-              <div className="sticky top-32 bg-slate-50/50 p-6 rounded-md border border-slate-100 shadow-sm">
-                <h3 className="text-xs font-black uppercase tracking-widest text-slate-500 mb-6">
-                  Inhalt
-                </h3>
-                <nav className="flex flex-col gap-5">
-                  {services.map((srv) => (
-                    <a
-                      key={srv.id}
-                      href={`#${srv.id}`}
-                      className="text-sm font-bold text-slate-600 hover:text-indigo-600 transition-colors flex items-center gap-3"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-                      {srv.subtitle}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {services.map((srv, i) => (
+              <motion.div
+                key={srv.id}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.5, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Link
+                  href={srv.href}
+                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-lg"
+                >
+                  {/* Image */}
+                  <div className="relative w-full overflow-hidden bg-slate-100" style={{ aspectRatio: "16 / 10" }}>
+                    {srv.image ? (
+                      <Image
+                        src={srv.image}
+                        alt={srv.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        style={{ objectFit: "cover" }}
+                        className="transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                    ) : (
+                      <ImagePlaceholder icon={srv.icon} />
+                    )}
+                  </div>
 
-            {/* Services List */}
-            <div className="lg:w-3/4 flex flex-col gap-24 md:gap-32">
-              {services.map((srv, index) => {
-                const isEven = index % 2 === 0;
-                return (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.7 }}
-                    key={srv.id} 
-                    id={srv.id}
-                    className={`flex flex-col gap-10 lg:gap-16 items-center scroll-mt-32 ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}
-                  >
-                    {/* Copy */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-5">
-                        <div className="w-12 h-12 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                          {srv.icon}
-                        </div>
-                        <span className="text-xs font-black tracking-widest uppercase text-indigo-600">
-                          {srv.subtitle}
-                        </span>
-                      </div>
-                      <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
-                        {srv.title}
-                      </h2>
-                      <p className="text-base md:text-lg text-slate-500 leading-relaxed mb-8">
-                        {srv.description}
-                      </p>
-                      <ul className="space-y-4">
-                        {srv.features.map((feature, i) => (
-                          <li key={i} className="flex items-center gap-3 bg-slate-50/50 p-3 rounded-md border border-slate-100">
-                            <CheckCircle2 size={20} className="text-indigo-600 flex-shrink-0" />
-                            <span className="text-slate-800 font-semibold text-sm md:text-base">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  {/* Body */}
+                  <div className="flex flex-1 flex-col p-6 lg:p-7">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-md bg-indigo-50 text-indigo-600">
+                        {srv.icon}
+                      </span>
+                      <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-slate-400">
+                        {srv.subtitle}
+                      </span>
                     </div>
 
-                    {/* Image */}
-                    <div className="flex-1 w-full relative group">
-                      <div className="aspect-[4/3] border border-slate-200 overflow-hidden relative transition-transform duration-500 group-hover:-translate-y-1">
-                        <Image
-                          src={srv.image}
-                          alt={srv.title}
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          style={{ objectFit: "cover" }}
-                          className="transition-transform duration-700 group-hover:scale-[1.03]"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                    <h2 className="mb-3 font-semibold tracking-[-0.02em] text-slate-900 text-xl lg:text-2xl leading-tight">
+                      {srv.title}
+                    </h2>
 
+                    <p className="mb-6 text-sm text-slate-500 leading-relaxed">
+                      {srv.description}
+                    </p>
+
+                    <span className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 group-hover:text-indigo-800 transition-colors">
+                      Mehr erfahren
+                      <ArrowRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-0.5"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

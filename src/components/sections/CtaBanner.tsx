@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const CtaBanner = () => {
   return (
-    <section className="relative bg-white py-16 md:py-24 overflow-hidden">
+    <section className="relative bg-white section-y overflow-hidden">
 
       {/* Dot-grid als editoriales Hintergrund-Detail */}
       <div
@@ -20,10 +20,10 @@ export const CtaBanner = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-white border border-slate-200 shadow-xl shadow-slate-200/60 p-8 md:p-12 lg:p-16"
+          className="bg-white border border-slate-200 shadow-xl shadow-slate-200/60 p-6 md:p-12 lg:p-16"
           style={{ borderLeft: "4px solid #4F46E5" }}
         >
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-10">
 
             {/* Copy */}
             <div className="flex-1">
@@ -31,12 +31,11 @@ export const CtaBanner = () => {
                 Kostenlose Erstberatung
               </p>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-4 leading-[1.1]">
-                Jetzt beraten lassen.{" "}
-                <span className="text-indigo-600">Unverbindlich & in 24h.</span>
+                Erstgespräch buchen.{" "}
+                <span className="text-indigo-600">Kostenlos & in 24h.</span>
               </h2>
               <p className="text-base md:text-lg text-slate-500 leading-relaxed max-w-xl">
-                Wir schauen uns Ihre aktuelle digitale Infrastruktur an und zeigen Ihnen
-                konkret, wo der größte Hebel liegt. Kein Pitch, kein Druck.
+                Wir analysieren Ihre aktuelle Situation und zeigen Ihnen konkret, wo der größte Hebel liegt. Kein Pitch, kein Druck.
               </p>
             </div>
 

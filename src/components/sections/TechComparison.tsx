@@ -82,7 +82,7 @@ export const TechComparison = () => {
             </p>
             <h2
               id="techcomparison-heading"
-              className="font-black tracking-[-0.03em] text-slate-900"
+              className="font-semibold tracking-[-0.03em] text-slate-900"
               style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
             >
               Dasselbe Budget.

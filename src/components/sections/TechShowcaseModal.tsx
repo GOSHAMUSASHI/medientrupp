@@ -449,7 +449,7 @@ export const TechShowcaseModal = () => {
               </p>
               <h2
                 id="techshowcase-heading"
-                className="font-black tracking-[-0.03em] text-slate-900"
+                className="font-semibold tracking-[-0.03em] text-slate-900"
                 style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
               >
                 Überzeugen Sie sich selbst

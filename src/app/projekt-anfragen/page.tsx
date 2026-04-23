@@ -349,7 +349,7 @@ export default function ProjektAnfragenPage() {
       {/* ── Minimal Header ──────────────────────────────────────────────────── */}
       <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-[65px] bg-white border-b border-slate-200">
         <Link href="/" className="text-indigo-600 font-black text-xl tracking-tight">
-          Medien<span className="text-slate-900">Trupp</span>
+          Medientrupp
         </Link>
         {/* Progress Bar (Desktop only, mobile shows below) */}
         <div className="hidden md:flex items-center gap-4 w-1/3">

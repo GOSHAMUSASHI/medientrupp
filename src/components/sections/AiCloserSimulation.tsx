@@ -73,7 +73,7 @@ export const AiCloserSimulation = () => {
           </p>
           <h2
             id="aismulator-heading"
-            className="font-black tracking-[-0.03em] text-slate-900"
+            className="font-semibold tracking-[-0.03em] text-slate-900"
             style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
           >
             Ihr digitaler Mitarbeiter —
@@ -195,10 +195,10 @@ export const AiCloserSimulation = () => {
             {/* Feature list */}
             <div className="space-y-0 mb-10">
               {[
-                "Leads qualifizieren — ohne manuellen Aufwand",
+                "Leads qualifizieren, ohne manuellen Aufwand",
                 "Antworten auf Produktfragen in Echtzeit",
                 "Nahtlose CRM-Integration & Follow-up",
-                "DSGVO-konform — Daten bleiben in Deutschland",
+                "DSGVO-konform. Daten bleiben in Deutschland.",
               ].map((item, i) => (
                 <div key={i} className={`flex items-start gap-3 py-4 ${i < 3 ? "border-b border-slate-100" : ""}`}>
                   <span className="w-1.5 h-1.5 bg-indigo-600 mt-2 shrink-0" />
