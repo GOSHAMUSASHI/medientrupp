@@ -15,8 +15,8 @@ const steps = [
     desc: "30 Minuten. Ziel, Umfang und Termin — den Rest übernehmen wir vollständig.",
     detail: "Kein weiterer Aufwand Ihrerseits",
     Icon: MessageSquare,
-    iconBg: "bg-indigo-600",
-    glow: "rgba(99,102,241,0.35)",
+    iconGradient: "linear-gradient(135deg,#6366f1,#4f46e5)",
+    glow: "rgba(99,102,241,0.4)",
     shadowCard: "rgba(99,102,241,0.12)",
     shadowHover: "rgba(99,102,241,0.22)",
     pillBg: "bg-indigo-50",
@@ -32,8 +32,8 @@ const steps = [
     desc: "Ihr Team arbeitet weiter. Wir liefern getaktete Zwischenstände zur Freigabe.",
     detail: "Volle Transparenz, kein Chaos",
     Icon: Code2,
-    iconBg: "bg-violet-600",
-    glow: "rgba(124,58,237,0.35)",
+    iconGradient: "linear-gradient(135deg,#7c3aed,#6d28d9)",
+    glow: "rgba(124,58,237,0.4)",
     shadowCard: "rgba(124,58,237,0.12)",
     shadowHover: "rgba(124,58,237,0.22)",
     pillBg: "bg-violet-50",
@@ -49,8 +49,8 @@ const steps = [
     desc: "Getestet, dokumentiert, live. Festpreis — messbare Ergebnisse ab Tag 1.",
     detail: "Festpreis-Garantie inklusive",
     Icon: Rocket,
-    iconBg: "bg-purple-600",
-    glow: "rgba(147,51,234,0.35)",
+    iconGradient: "linear-gradient(135deg,#9333ea,#7e22ce)",
+    glow: "rgba(147,51,234,0.4)",
     shadowCard: "rgba(147,51,234,0.12)",
     shadowHover: "rgba(147,51,234,0.22)",
     pillBg: "bg-purple-50",
@@ -60,6 +60,42 @@ const steps = [
     iconDuration: 2.2,
   },
 ];
+
+// ── Shared icon component ─────────────────────────────────────────────────────
+
+const StepIcon = ({
+  step,
+  size,
+  inView,
+  delay,
+  className = "",
+}: {
+  step: typeof steps[number];
+  size: number;
+  inView: boolean;
+  delay: number;
+  className?: string;
+}) => (
+  <motion.div
+    className={`relative flex items-center justify-center text-white overflow-hidden rounded-2xl shrink-0 ${className}`}
+    style={{
+      background: step.iconGradient,
+      boxShadow: `0 6px 20px -4px ${step.glow}, 0 0 0 4px ${step.glow.replace("0.4", "0.1")}`,
+    }}
+    animate={inView ? step.iconAnim : {}}
+    transition={{
+      delay,
+      duration: step.iconDuration,
+      repeat: Infinity,
+      repeatType: "loop",
+      ease: "easeInOut",
+    }}
+  >
+    {/* Inner shine */}
+    <div className="absolute inset-0 bg-gradient-to-b from-white/25 to-transparent pointer-events-none" />
+    <step.Icon size={size} strokeWidth={2} className="relative z-10" />
+  </motion.div>
+);
 
 // ── Section ───────────────────────────────────────────────────────────────────
 
@@ -73,16 +109,13 @@ export const ProcessSection = () => {
       className="relative bg-slate-50 border-t border-slate-200 section-y overflow-hidden"
       aria-labelledby="process-heading"
     >
-
       {/* ── Mesh gradient background ── */}
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Coloured blobs */}
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-300 opacity-[0.07] blur-[80px]" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-violet-400 opacity-[0.06] blur-[100px]" />
         <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-purple-300 opacity-[0.07] blur-[80px]" />
-        {/* Fine grid */}
         <div
-          className="absolute inset-0 opacity-[0.035]"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
             backgroundImage:
               "linear-gradient(#6366f1 1px,transparent 1px),linear-gradient(to right,#6366f1 1px,transparent 1px)",
@@ -98,9 +131,9 @@ export const ProcessSection = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-14 md:mb-20"
+          className="text-center mb-10 md:mb-16"
         >
-          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-4">
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-3">
             Einfacher Ablauf
           </p>
           <h2
@@ -111,141 +144,143 @@ export const ProcessSection = () => {
             In 3 Schritten zu Ihrem{" "}
             <span className="text-indigo-600">neuen System.</span>
           </h2>
-          <p className="mt-4 text-base text-slate-500 max-w-md mx-auto leading-relaxed">
+          <p className="mt-3 text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
             Keine Abstimmungs-Loops. Wir übernehmen die Komplexität.
           </p>
         </motion.div>
 
-        {/* ── Cards + connector ── */}
-        <div className="relative grid grid-cols-3 gap-3 sm:gap-5 lg:gap-7">
-
-          {/* ── Flowing connector line — behind cards ── */}
-          {/* Positioned at icon center: card pt-5/6 (20-24px) + icon w-12/14 half (24-28px) ≈ top-[44px] sm:top-[52px] */}
-          <div
-            className="absolute z-0 sm:hidden"
-            style={{
-              top: 44,
-              left: "calc(100% / 6)",
-              right: "calc(100% / 6)",
-              height: 2,
-            }}
-          >
-            <div className="absolute inset-0 rounded-full bg-slate-200" />
-            <motion.div
-              className="absolute inset-0 rounded-full origin-left"
-              style={{ background: "linear-gradient(90deg,#6366f1,#7c3aed,#9333ea)" }}
-              initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            />
-            {/* Shimmer sweep */}
-            <motion.div
-              className="absolute top-0 h-full w-12 rounded-full"
-              style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent)" }}
-              initial={{ x: "-100%" }}
-              animate={inView ? { x: "800%" } : {}}
-              transition={{ delay: 1.5, duration: 1.2, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
-            />
-          </div>
-          <div
-            className="absolute z-0 hidden sm:block"
-            style={{
-              top: 52,
-              left: "calc(100% / 6)",
-              right: "calc(100% / 6)",
-              height: 2,
-            }}
-          >
-            <div className="absolute inset-0 rounded-full bg-slate-200" />
-            <motion.div
-              className="absolute inset-0 rounded-full origin-left"
-              style={{ background: "linear-gradient(90deg,#6366f1,#7c3aed,#9333ea)" }}
-              initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            />
-            <motion.div
-              className="absolute top-0 h-full w-20 rounded-full"
-              style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent)" }}
-              initial={{ x: "-100%" }}
-              animate={inView ? { x: "600%" } : {}}
-              transition={{ delay: 1.5, duration: 1.2, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
-            />
-          </div>
-
-          {/* ── Step Cards ── */}
+        {/* ════════════════════════════════════════════════
+            MOBILE — vertical compact stack (< sm)
+        ════════════════════════════════════════════════ */}
+        <div className="sm:hidden flex flex-col">
           {steps.map((step, i) => (
-            <motion.div
-              key={step.number}
-              className="relative z-10 flex flex-col items-center text-center bg-white rounded-2xl
-                         p-4 sm:p-6 lg:p-8
-                         transition-all duration-300 ease-out
-                         hover:-translate-y-1.5 cursor-default"
-              style={{
-                boxShadow: `0 8px 32px -8px ${step.shadowCard}, 0 2px 8px -2px rgba(15,23,42,0.06)`,
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  `0 24px 64px -12px ${step.shadowHover}, 0 8px 24px -6px rgba(15,23,42,0.08)`;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.boxShadow =
-                  `0 8px 32px -8px ${step.shadowCard}, 0 2px 8px -2px rgba(15,23,42,0.06)`;
-              }}
-              initial={{ opacity: 0, y: 28 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.15 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* ── Icon with glow ── */}
+            <div key={step.number}>
               <motion.div
-                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${step.iconBg} flex items-center justify-center text-white mb-3 sm:mb-4`}
+                className="flex items-start gap-3 bg-white rounded-2xl p-4"
                 style={{
-                  boxShadow: `0 0 0 6px ${step.glow.replace("0.35", "0.12")}, 0 8px 20px -4px ${step.glow}`,
+                  boxShadow: `0 4px 20px -6px ${step.shadowCard}, 0 1px 6px -2px rgba(15,23,42,0.06)`,
                 }}
-                animate={inView ? step.iconAnim : {}}
-                transition={{
-                  delay: 0.8 + i * 0.2,
-                  duration: step.iconDuration,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                }}
+                initial={{ opacity: 0, x: -16 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.45, delay: 0.1 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               >
-                <step.Icon size={18} strokeWidth={1.75} className="sm:hidden" />
-                <step.Icon size={22} strokeWidth={1.75} className="hidden sm:block" />
+                {/* Icon */}
+                <StepIcon
+                  step={step}
+                  size={20}
+                  inView={inView}
+                  delay={0.7 + i * 0.15}
+                  className="w-11 h-11 mt-0.5"
+                />
+
+                {/* Content */}
+                <div className="flex-1 min-w-0">
+                  <span className="text-[9px] font-semibold tracking-[0.22em] uppercase text-slate-400 block mb-0.5">
+                    {step.number} · {step.label}
+                  </span>
+                  <h3 className="text-sm font-semibold text-slate-900 leading-snug mb-1">
+                    {step.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed mb-2">
+                    {step.desc}
+                  </p>
+                  <span className={`inline-flex items-center gap-1 ${step.pillBg} ${step.pillText} border ${step.pillBorder} rounded-full px-2 py-0.5`}>
+                    <Check size={9} strokeWidth={3} className="shrink-0" />
+                    <span className="text-[10px] font-semibold leading-none">{step.detail}</span>
+                  </span>
+                </div>
               </motion.div>
 
-              {/* Step number + label */}
-              <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-1.5">
-                {step.number} · {step.label}
-              </span>
-
-              {/* Title */}
-              <h3
-                className="font-semibold tracking-tight text-slate-900 leading-snug mb-2 sm:mb-3"
-                style={{ fontSize: "clamp(0.72rem, 1.6vw, 1.05rem)" }}
-              >
-                {step.title}
-              </h3>
-
-              {/* Description */}
-              <p
-                className="text-slate-500 leading-relaxed mb-3 sm:mb-5"
-                style={{ fontSize: "clamp(0.62rem, 1.2vw, 0.82rem)" }}
-              >
-                {step.desc}
-              </p>
-
-              {/* ── Pill badge ── */}
-              <div className={`inline-flex items-center gap-1 sm:gap-1.5 ${step.pillBg} ${step.pillText} border ${step.pillBorder} rounded-full px-2 sm:px-3 py-1 sm:py-1.5 mt-auto`}>
-                <Check size={9} strokeWidth={3} className="sm:hidden shrink-0" />
-                <Check size={11} strokeWidth={3} className="hidden sm:block shrink-0" />
-                <span className="font-semibold leading-none" style={{ fontSize: "clamp(0.58rem, 1.1vw, 0.68rem)" }}>
-                  {step.detail}
-                </span>
-              </div>
-            </motion.div>
+              {/* Vertical connector */}
+              {i < steps.length - 1 && (
+                <motion.div
+                  className="flex justify-center py-1.5"
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ delay: 0.4 + i * 0.12 }}
+                >
+                  <div className="w-0.5 h-5 rounded-full" style={{ background: "linear-gradient(to bottom,#6366f1,#9333ea)" }} />
+                </motion.div>
+              )}
+            </div>
           ))}
+        </div>
+
+        {/* ════════════════════════════════════════════════
+            DESKTOP — 3-column horizontal grid (≥ sm)
+        ════════════════════════════════════════════════ */}
+        <div className="hidden sm:block">
+          <div className="relative grid grid-cols-3 gap-5 lg:gap-7">
+
+            {/* Horizontal connector line through icon centers (icon top-offset ~24px + icon-half ~28px = 52px) */}
+            <div
+              className="absolute z-0"
+              style={{ top: 52, left: "calc(100%/6)", right: "calc(100%/6)", height: 2 }}
+            >
+              <div className="absolute inset-0 rounded-full bg-slate-200" />
+              <motion.div
+                className="absolute inset-0 rounded-full origin-left"
+                style={{ background: "linear-gradient(90deg,#6366f1,#7c3aed,#9333ea)" }}
+                initial={{ scaleX: 0 }}
+                animate={inView ? { scaleX: 1 } : {}}
+                transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              />
+              <motion.div
+                className="absolute top-0 h-full w-20 rounded-full"
+                style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)" }}
+                initial={{ x: "-100%" }}
+                animate={inView ? { x: "600%" } : {}}
+                transition={{ delay: 1.5, duration: 1.2, repeat: Infinity, repeatDelay: 2.5, ease: "easeInOut" }}
+              />
+            </div>
+
+            {/* Cards */}
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.number}
+                className="relative z-10 flex flex-col items-center text-center bg-white rounded-2xl p-6 lg:p-8 transition-all duration-300 ease-out hover:-translate-y-1.5 cursor-default"
+                style={{
+                  boxShadow: `0 8px 32px -8px ${step.shadowCard}, 0 2px 8px -2px rgba(15,23,42,0.06)`,
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    `0 24px 64px -12px ${step.shadowHover}, 0 8px 24px -6px rgba(15,23,42,0.08)`;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.boxShadow =
+                    `0 8px 32px -8px ${step.shadowCard}, 0 2px 8px -2px rgba(15,23,42,0.06)`;
+                }}
+                initial={{ opacity: 0, y: 28 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.55, delay: 0.15 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <StepIcon
+                  step={step}
+                  size={24}
+                  inView={inView}
+                  delay={0.8 + i * 0.2}
+                  className="w-14 h-14 mb-4"
+                />
+
+                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-2">
+                  {step.number} · {step.label}
+                </span>
+
+                <h3 className="text-base lg:text-lg font-semibold tracking-tight text-slate-900 leading-snug mb-3">
+                  {step.title}
+                </h3>
+
+                <p className="text-sm text-slate-500 leading-relaxed mb-5">
+                  {step.desc}
+                </p>
+
+                <div className={`inline-flex items-center gap-1.5 ${step.pillBg} ${step.pillText} border ${step.pillBorder} rounded-full px-3 py-1.5 mt-auto`}>
+                  <Check size={11} strokeWidth={3} className="shrink-0" />
+                  <span className="text-[11px] font-semibold leading-none">{step.detail}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* ── CTA ── */}
@@ -253,7 +288,7 @@ export const ProcessSection = () => {
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.9, duration: 0.4 }}
-          className="mt-12 md:mt-16 flex flex-col sm:flex-row items-center justify-center gap-4"
+          className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5"
         >
           <Link
             href="/projekt-anfragen"
