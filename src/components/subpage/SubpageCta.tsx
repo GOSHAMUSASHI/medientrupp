@@ -75,7 +75,7 @@ export const SubpageCta = ({
             {secondaryLabel && secondaryHref && (
               <Link
                 href={secondaryHref}
-                className="inline-flex items-center gap-2 px-7 py-3.5 font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200"
               >
                 {secondaryLabel}
                 <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />

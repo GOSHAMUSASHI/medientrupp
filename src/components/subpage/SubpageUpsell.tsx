@@ -70,7 +70,7 @@ export const SubpageUpsell = ({ headline, subCopy, items }: SubpageUpsellProps) 
                 <span className="text-[11px] font-semibold tracking-[0.2em] text-slate-400 mb-3 block">
                   {item.index}
                 </span>
-                <h3 className="text-xl font-black tracking-tight text-slate-900 mb-2">
+                <h3 className="text-xl font-semibold tracking-tight text-slate-900 mb-2">
                   {item.title}
                 </h3>
                 <p className="text-sm text-slate-500 leading-relaxed">

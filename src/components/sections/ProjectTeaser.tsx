@@ -67,7 +67,7 @@ export const ProjectTeaser = () => {
           </div>
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200 self-end"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-md font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200 self-end"
           >
             Alle Cases
             <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />
@@ -95,21 +95,21 @@ export const ProjectTeaser = () => {
               {/* Left: copy */}
               <div className="py-8 lg:pr-10 flex flex-col justify-center">
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1">
+                  <span className="text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1 rounded-md">
                     {project.category}
                   </span>
-                  <span className="w-1 h-1 bg-slate-300" aria-hidden="true" />
+                  <span className="w-1 h-1 rounded-full bg-slate-300" aria-hidden="true" />
                   <span className="text-[11px] font-medium text-slate-400">
                     {project.client}
                   </span>
                 </div>
                 <h3
-                  className="font-black tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors duration-200"
+                  className="font-semibold tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors duration-200"
                   style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.75rem)" }}
                 >
                   {project.title}
                 </h3>
-                <p className="text-sm font-black text-slate-400 mt-3 tracking-[0.1em] uppercase">
+                <p className="text-sm font-semibold text-slate-400 mt-3 tracking-[0.1em] uppercase">
                   {project.metric}
                 </p>
               </div>
@@ -132,7 +132,7 @@ export const ProjectTeaser = () => {
                 <Link
                   href="/portfolio"
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute bottom-4 right-4 w-9 h-9 bg-white border border-slate-200 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10"
+                  className="absolute bottom-4 right-4 w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 z-10"
                   aria-label={`${project.title} ansehen`}
                 >
                   <ArrowUpRight size={18} className="text-slate-900" />
@@ -151,7 +151,7 @@ export const ProjectTeaser = () => {
         >
           <Link
             href="/portfolio"
-            className="inline-flex items-center gap-2 px-7 py-3.5 font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200"
+            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 hover:text-slate-900 transition-colors duration-200"
           >
             Alle Projekte ansehen
             <ArrowRight size={16} className="text-slate-400" aria-hidden="true" />

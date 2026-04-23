@@ -86,7 +86,7 @@ export const FaqSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                className={`border overflow-hidden transition-colors duration-300 ${
+                className={`rounded-xl border overflow-hidden transition-colors duration-300 ${
                   isOpen
                     ? "bg-white border-indigo-600 shadow-sm"
                     : "bg-white border-slate-200 hover:border-slate-300"
@@ -97,14 +97,14 @@ export const FaqSection = () => {
                   className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
                 >
                   <span
-                    className={`font-bold text-base pr-8 transition-colors ${
+                    className={`font-semibold text-base pr-8 transition-colors ${
                       isOpen ? "text-indigo-900" : "text-slate-900"
                     }`}
                   >
                     {faq.question}
                   </span>
                   <div
-                    className={`w-8 h-8 flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-transform duration-300 ${
                       isOpen
                         ? "bg-indigo-50 text-indigo-600 rotate-180"
                         : "bg-slate-100 text-slate-400"

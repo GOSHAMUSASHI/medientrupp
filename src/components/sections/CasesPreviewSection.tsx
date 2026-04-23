@@ -81,7 +81,7 @@ export const CasesPreviewSection = () => {
                 />
                 {/* Subtle overlay + Branche pill */}
                 <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/5 transition-colors duration-500" />
-                <span className="absolute top-3 left-3 text-[10px] font-bold tracking-[0.12em] uppercase bg-white/90 text-slate-700 px-2.5 py-1 backdrop-blur-sm">
+                <span className="absolute top-3 left-3 text-[10px] font-bold tracking-[0.12em] uppercase bg-white/90 text-slate-700 px-2.5 py-1 rounded-md backdrop-blur-sm">
                   {c.branche}
                 </span>
               </Link>
@@ -98,7 +98,7 @@ export const CasesPreviewSection = () => {
                 </span>
 
                 {/* Category tag */}
-                <span className="relative z-10 inline-block text-[10px] font-bold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1 mb-4 self-start">
+                <span className="relative z-10 inline-block text-[10px] font-bold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-2.5 py-1 rounded-md mb-4 self-start">
                   {c.leistungLabel}
                 </span>
 
@@ -115,7 +115,7 @@ export const CasesPreviewSection = () => {
 
                 {/* Bottom: metric + link */}
                 <div className="relative z-10 mt-6 pt-5 border-t border-slate-100 flex items-center justify-between gap-4">
-                  <span className="text-[13px] font-black text-indigo-600 border border-indigo-100 bg-indigo-50 px-3 py-1.5">
+                  <span className="text-[13px] font-semibold text-indigo-600 border border-indigo-100 bg-indigo-50 px-3 py-1.5 rounded-md">
                     {c.metrics[0]}
                   </span>
                   <Link

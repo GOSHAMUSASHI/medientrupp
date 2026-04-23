@@ -73,10 +73,10 @@ export const SubpageFeatures = ({
               }`}
             >
               {/* Icon */}
-              <div className="w-10 h-10 border border-slate-200 bg-white flex items-center justify-center text-indigo-600 mb-4 md:mb-6">
+              <div className="w-10 h-10 rounded-lg border border-slate-200 bg-white flex items-center justify-center text-indigo-600 mb-4 md:mb-6">
                 {feat.icon}
               </div>
-              <h3 className="text-lg font-black tracking-tight text-slate-900 mb-2">
+              <h3 className="text-lg font-semibold tracking-tight text-slate-900 mb-2">
                 {feat.title}
               </h3>
               <p className="text-sm text-slate-500 leading-relaxed">

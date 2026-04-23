@@ -149,7 +149,7 @@ export const AlgorithmSection = () => {
             className="lg:pr-12"
           >
             {/* Live badge */}
-            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-3 py-1.5 mb-8">
+            <div className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.15em] uppercase text-indigo-600 border border-indigo-100 bg-indigo-50 px-3 py-1.5 rounded-md mb-8">
               <motion.span
                 animate={{ opacity: [1, 0.25, 1] }}
                 transition={{ duration: 1.6, repeat: Infinity }}
@@ -174,7 +174,7 @@ export const AlgorithmSection = () => {
                   transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   className={`flex items-start gap-4 py-5 ${idx < features.length - 1 ? "border-b border-slate-100" : ""}`}
                 >
-                  <div className="w-9 h-9 bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
+                  <div className="w-9 h-9 rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 shrink-0">
                     {item.icon}
                   </div>
                   <div>
@@ -251,7 +251,7 @@ export const AlgorithmSection = () => {
                     >
                       <div className="flex items-center gap-2 min-w-0">
                         <div
-                          className="w-7 h-7 flex items-center justify-center flex-shrink-0 border"
+                          className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 border"
                           style={{ color: stat.color, background: `${stat.color}10`, borderColor: `${stat.color}25` }}
                         >
                           {stat.icon}
@@ -261,7 +261,7 @@ export const AlgorithmSection = () => {
                             {stat.label}
                           </p>
                           <p
-                            className="font-black tracking-tight leading-none"
+                            className="font-semibold tracking-tight leading-none"
                             style={{ fontSize: "clamp(1.1rem, 2vw, 1.5rem)", color: stat.color }}
                           >
                             {stat.value}
@@ -271,7 +271,7 @@ export const AlgorithmSection = () => {
                       <div className="flex items-center gap-3 flex-shrink-0">
                         <Sparkline data={stat.spark} color={stat.color} />
                         <span
-                          className="text-[11px] font-black border px-2 py-0.5 whitespace-nowrap"
+                          className="text-[11px] font-semibold rounded-md border px-2 py-0.5 whitespace-nowrap"
                           style={{ color: stat.color, borderColor: `${stat.color}25`, background: `${stat.color}08` }}
                         >
                           {stat.delta}
@@ -296,7 +296,7 @@ export const AlgorithmSection = () => {
                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.12em]">
                       Wöchentliche Reichweite — Letzte 7 Wochen
                     </p>
-                    <span className="text-[9px] font-black text-indigo-600 border border-indigo-100 bg-indigo-50 px-1.5 py-0.5">
+                    <span className="text-[9px] font-semibold rounded-md text-indigo-600 border border-indigo-100 bg-indigo-50 px-1.5 py-0.5">
                       {data.stats[0].delta}
                     </span>
                   </div>
@@ -326,9 +326,9 @@ export const AlgorithmSection = () => {
               <div className="flex items-center justify-between px-4 py-2.5 bg-slate-50 border-t border-slate-200">
                 <div className="flex items-center gap-2">
                   <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wide">Top-Format:</span>
-                  <span className="text-[10px] font-black text-slate-700">{data.topFormat}</span>
+                  <span className="text-[10px] font-semibold text-slate-700">{data.topFormat}</span>
                   <span
-                    className="text-[9px] font-bold border px-1.5 py-0.5"
+                    className="text-[9px] font-semibold rounded-md border px-1.5 py-0.5"
                     style={{ color: "#7c3aed", borderColor: "#ede9fe", background: "#f5f3ff" }}
                   >
                     {data.topFormatValue}

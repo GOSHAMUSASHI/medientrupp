@@ -102,11 +102,11 @@ export const IcebergSection = () => {
                   }`}
                 >
                   {/* Icon square */}
-                  <div className="w-10 h-10 bg-white border border-slate-200 flex items-center justify-center text-indigo-600 shrink-0">
+                  <div className="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-indigo-600 shrink-0">
                     {item.icon}
                   </div>
                   <div>
-                    <h3 className="text-lg font-black tracking-tight text-slate-900 mb-1">
+                    <h3 className="text-lg font-semibold tracking-tight text-slate-900 mb-1">
                       {item.title}
                     </h3>
                     <p className="text-sm text-slate-500 leading-relaxed">
