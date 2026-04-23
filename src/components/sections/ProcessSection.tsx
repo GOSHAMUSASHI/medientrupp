@@ -109,18 +109,7 @@ export const ProcessSection = () => {
             style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
           >
             In 3 Schritten zu Ihrem{" "}
-            {/* ── Gradient text ── */}
-            <span
-              className="font-semibold"
-              style={{
-                background: "linear-gradient(135deg, #ec4899 0%, #7c3aed 60%, #6366f1 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              neuen System.
-            </span>
+            <span className="text-indigo-600">neuen System.</span>
           </h2>
           <p className="mt-4 text-base text-slate-500 max-w-md mx-auto leading-relaxed">
             Keine Abstimmungs-Loops. Wir übernehmen die Komplexität.
