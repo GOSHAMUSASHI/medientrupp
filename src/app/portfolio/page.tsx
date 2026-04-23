@@ -43,11 +43,10 @@ const Pill = ({
 
 const ProjectCard = ({ c, i }: { c: typeof cases[number]; i: number }) => (
   <motion.div
-    layout
     initial={{ opacity: 0, y: 16 }}
     animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, scale: 0.97 }}
-    transition={{ duration: 0.35, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+    exit={{ opacity: 0, y: -8 }}
+    transition={{ duration: 0.3, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
     className="group flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white hover:-translate-y-0.5 hover:shadow-lg hover:border-slate-300 transition-all duration-300"
   >
     {/* Image */}
@@ -225,11 +224,8 @@ export default function PortfolioPage() {
           </div>
 
           {/* Cards */}
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-          >
-            <AnimatePresence mode="popLayout">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            <AnimatePresence mode="sync">
               {filtered.length > 0 ? (
                 filtered.map((c, i) => (
                   <ProjectCard key={c.index} c={c} i={i} />
@@ -254,7 +250,7 @@ export default function PortfolioPage() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </motion.div>
+          </div>
 
         </div>
       </section>

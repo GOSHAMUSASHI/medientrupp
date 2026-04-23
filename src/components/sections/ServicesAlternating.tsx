@@ -1,11 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Cpu } from "lucide-react";
+import { ArrowRight, Cpu, TrendingUp, Zap, CheckCircle2, BarChart2, Shield } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
+
+interface FloatingCard {
+  icon: ReactNode;
+  label: string;
+  value: string;
+  positive?: boolean;
+}
 
 interface Service {
   index: string;
@@ -16,6 +24,7 @@ interface Service {
   tags: string[];
   image: string | null;
   href: string;
+  floatingCard: FloatingCard;
 }
 
 const services: Service[] = [
@@ -28,6 +37,12 @@ const services: Service[] = [
     tags: ["Corporate Design", "Logo & Visual Identity", "Brand Guidelines"],
     image: "/images/leistungen-marke-design.png",
     href: "/leistungen/branding",
+    floatingCard: {
+      icon: <CheckCircle2 size={13} />,
+      label: "Brand Identity",
+      value: "Delivered ✓",
+      positive: true,
+    },
   },
   {
     index: "02",
@@ -38,6 +53,12 @@ const services: Service[] = [
     tags: ["Next.js High-Performance", "Technical SEO", "Core Web Vitals"],
     image: "/images/leistungen-websites.png",
     href: "/leistungen/websites",
+    floatingCard: {
+      icon: <BarChart2 size={13} />,
+      label: "Lighthouse Score",
+      value: "100 / 100",
+      positive: true,
+    },
   },
   {
     index: "03",
@@ -48,6 +69,12 @@ const services: Service[] = [
     tags: ["Lead Automation", "24/7 KI-Chatbot", "CRM-Integration"],
     image: "/images/leistungen-ki-automatisierung.png",
     href: "/leistungen/ki-automation",
+    floatingCard: {
+      icon: <Zap size={13} />,
+      label: "Leads qualifiziert",
+      value: "247 diese Woche",
+      positive: true,
+    },
   },
   {
     index: "04",
@@ -58,6 +85,12 @@ const services: Service[] = [
     tags: ["Eigenes KI-Modell", "Prozessintegration", "White-Label Plattform"],
     image: "/images/leistungen-ki-plattformen.webp",
     href: "/leistungen/ki-plattformen",
+    floatingCard: {
+      icon: <CheckCircle2 size={13} />,
+      label: "Modell trainiert",
+      value: "98.4% Genauigkeit",
+      positive: true,
+    },
   },
   {
     index: "05",
@@ -68,6 +101,12 @@ const services: Service[] = [
     tags: ["Content-Strategie", "Videoproduktion", "Performance Marketing"],
     image: "/images/leistungen-social-video.png",
     href: "/leistungen/social-media-video",
+    floatingCard: {
+      icon: <TrendingUp size={13} />,
+      label: "Reichweite",
+      value: "+240% in 60 Tagen",
+      positive: true,
+    },
   },
   {
     index: "06",
@@ -78,6 +117,12 @@ const services: Service[] = [
     tags: ["Hosting in Deutschland", "Sicherheits-Updates", "Proaktiver Support"],
     image: "/images/leistungen-betreuung.png",
     href: "/leistungen/betreuung",
+    floatingCard: {
+      icon: <Shield size={13} />,
+      label: "Uptime",
+      value: "99.9% — SLA",
+      positive: true,
+    },
   },
 ];
 
@@ -124,9 +169,7 @@ export const ServicesAlternating = () => {
               {/* LEFT — service title block + image */}
               <div className="py-6 md:py-10 lg:pr-12 flex flex-col gap-5 md:gap-8">
                 <div className="flex items-start gap-5">
-                  <span
-                    className="text-[11px] font-semibold tracking-[0.2em] text-slate-400 mt-1 shrink-0"
-                  >
+                  <span className="text-[11px] font-semibold tracking-[0.2em] text-slate-400 mt-1 shrink-0">
                     {srv.index}
                   </span>
                   <div>
@@ -142,26 +185,25 @@ export const ServicesAlternating = () => {
                   </div>
                 </div>
 
-                {/* Image — sauber integriert, 16:10 */}
+                {/* Image with floating status card */}
                 <Link
                   href={srv.href}
-                  className="group relative block w-full overflow-hidden rounded-md border border-slate-200 bg-white"
+                  className="group relative block w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
                   style={{ aspectRatio: "16 / 10" }}
                   aria-label={`Mehr zu ${srv.title.replace(/\n/g, " ")}`}
                 >
                   {srv.image ? (
                     <Image
                       src={srv.image}
-                      alt={`${srv.title.replace(/\n/g, " ")} — Beispiel`}
+                      alt={`${srv.title.replace(/\n/g, " ")} Beispiel`}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       style={{ objectFit: "cover" }}
                       className="transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   ) : (
-                    /* Placeholder für fehlende Bilder */
                     <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-indigo-50 via-slate-50 to-indigo-100">
-                      <div className="w-14 h-14 rounded-md bg-indigo-600 flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-xl bg-indigo-600 flex items-center justify-center">
                         <Cpu size={28} className="text-white" strokeWidth={1.5} />
                       </div>
                       <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-slate-400">
@@ -169,6 +211,27 @@ export const ServicesAlternating = () => {
                       </p>
                     </div>
                   )}
+
+                  {/* Floating status card */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.45, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute bottom-3 left-3 flex items-center gap-2 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl px-3 py-2 shadow-lg shadow-slate-900/10"
+                  >
+                    <span className={srv.floatingCard.positive ? "text-indigo-600" : "text-slate-400"}>
+                      {srv.floatingCard.icon}
+                    </span>
+                    <div className="flex flex-col leading-none">
+                      <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-[0.15em]">
+                        {srv.floatingCard.label}
+                      </span>
+                      <span className="text-[11px] font-semibold text-slate-900 mt-0.5">
+                        {srv.floatingCard.value}
+                      </span>
+                    </div>
+                  </motion.div>
                 </Link>
               </div>
 
@@ -179,7 +242,7 @@ export const ServicesAlternating = () => {
               <div className="py-6 md:py-10 lg:pl-12 flex flex-col justify-center gap-4 md:gap-6">
                 {/* Was wir machen */}
                 <div>
-                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-2">
+                  <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-slate-400 mb-2">
                     Was wir machen
                   </p>
                   <p className="text-base text-slate-600 leading-relaxed">
@@ -189,7 +252,7 @@ export const ServicesAlternating = () => {
 
                 {/* Ihr Nutzen */}
                 <div className="border-l-2 border-indigo-600 pl-4">
-                  <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-slate-400 mb-2">
+                  <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-slate-400 mb-2">
                     Ihr konkreter Nutzen
                   </p>
                   <p className="text-base font-semibold text-slate-900 leading-relaxed">
@@ -202,7 +265,7 @@ export const ServicesAlternating = () => {
                   {srv.tags.map((tag, t) => (
                     <span
                       key={t}
-                      className="text-[11px] font-semibold tracking-[0.1em] uppercase text-slate-500 border border-slate-200 bg-white px-3 py-1"
+                      className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-500 border border-slate-200 bg-white px-3 py-1.5 rounded-lg"
                     >
                       {tag}
                     </span>

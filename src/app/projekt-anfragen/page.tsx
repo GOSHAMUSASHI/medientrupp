@@ -390,7 +390,7 @@ export default function ProjektAnfragenPage() {
               {currentStage === "MAIN" && (
                 <motion.div key="main" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-8">
                   <div className="text-center sm:text-left">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">
                       Was benötigt Ihr <span className="text-indigo-600">Unternehmen?</span>
                     </h1>
                     <p className="text-slate-500 text-sm sm:text-base leading-relaxed">
@@ -441,7 +441,7 @@ export default function ProjektAnfragenPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Palette size={14} /> Marke & Design
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Welche Details?</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">Welche Details?</h1>
                     <p className="text-slate-500 text-sm sm:text-base">Kreuzen Sie an, falls Sie mehr als unser Basis-Paket benötigen.</p>
                   </div>
                   <div className="space-y-3">
@@ -470,7 +470,7 @@ export default function ProjektAnfragenPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Globe size={14} /> Website
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Welche Power-Ups?</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">Welche Power-Ups?</h1>
                     <p className="text-slate-500 text-sm sm:text-base">Machen Sie aus Ihrer Webseite eine echte Verkaufsmaschine.</p>
                   </div>
                   <div className="space-y-3">
@@ -506,7 +506,7 @@ export default function ProjektAnfragenPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Zap size={14} /> KI Systeme
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Was dürfen wir automatisieren?</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">Was dürfen wir automatisieren?</h1>
                   </div>
                   <div className="space-y-3">
                     <ToggleCard
@@ -541,7 +541,7 @@ export default function ProjektAnfragenPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-indigo-100 text-indigo-700 font-black text-xs uppercase tracking-widest mb-4">
                       <Video size={14} /> Social Media
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Sichtbarkeit skalieren</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">Sichtbarkeit skalieren</h1>
                   </div>
                   <div className="space-y-3">
                     <ToggleCard
@@ -577,7 +577,7 @@ export default function ProjektAnfragenPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-200 text-slate-700 font-black text-xs uppercase tracking-widest mb-4">
                       <ShieldCheck size={14} /> Sicherheit
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Laufende Betreuung</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">Laufende Betreuung</h1>
                     <p className="text-slate-500 text-sm sm:text-base">Ruhe im Kopf nach dem Projekt-Launch (monatlich kündbar).</p>
                   </div>
 
@@ -615,7 +615,7 @@ export default function ProjektAnfragenPage() {
               {currentStage === "CONTACT" && (
                 <motion.div key="contact" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-6">
                   <div className="text-center sm:text-left mb-8">
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-slate-900 mb-3">Letzter Schritt.</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-3">Letzter Schritt.</h1>
                     <p className="text-slate-500 text-sm sm:text-base">Wie können wir Sie am besten erreichen?</p>
                   </div>
 

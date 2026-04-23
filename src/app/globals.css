@@ -83,14 +83,14 @@
   --color-card-foreground:    var(--card-foreground);
   --color-card:               var(--card);
 
-  /* ── Radius Scale — All Zero (Ingenieurs-Look) ── */
-  --radius-sm:  0px;
-  --radius-md:  0px;
-  --radius-lg:  0px;
-  --radius-xl:  0px;
-  --radius-2xl: 0px;
-  --radius-3xl: 0px;
-  --radius-4xl: 0px;
+  /* ── Radius Scale — Subtle Editorial (getnelly-inspired) ── */
+  --radius-sm:  4px;
+  --radius-md:  6px;
+  --radius-lg:  8px;
+  --radius-xl:  12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-4xl: 24px;
 }
 
 /* ── Light Mode (Default — Medientrupp Editorial) ── */
@@ -124,8 +124,8 @@
   --chart-4:                 oklch(0.8 0.06 264);
   --chart-5:                 oklch(0.9 0.03 264);
 
-  /* Sharp corners everywhere — Ingenieurs-Look */
-  --radius:                  0px;
+  /* Subtle corners — Editorial Premium Look */
+  --radius:                  6px;
 
   --sidebar:                 oklch(0.98 0.003 264);
   --sidebar-foreground:      oklch(0.13 0.02 263);
@@ -143,7 +143,6 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    border-radius: 0 !important;
   }
   body {
     @apply bg-white text-slate-900 antialiased;
@@ -154,7 +153,7 @@
     scroll-behavior: smooth;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply text-slate-900 font-bold tracking-tight;
+    @apply text-slate-900 font-semibold tracking-tight;
   }
 }
 
@@ -183,15 +182,15 @@
   background: #7c3aed;
   color: #ffffff;
   font-weight: 600;
-  border-radius: 0;
-  box-shadow: none;
-  transition: background 0.2s ease;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(124,58,237,0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn-glow:hover {
   background: #6d28d9;
   transform: none;
-  box-shadow: none;
+  box-shadow: 0 4px 14px rgba(124,58,237,0.35);
 }
 
 .btn-glow:active {
@@ -202,20 +201,20 @@
 /* Flache, scharfkantige Karte mit dezenten Slate-Schatten */
 .ag-card {
   background: #ffffff;
-  border-radius: 0;
+  border-radius: 12px;
   border: 1px solid #e2e8f0;
   box-shadow:
     0 1px 3px rgba(15, 23, 42, 0.06),
     0 4px 16px rgba(15, 23, 42, 0.04);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
   will-change: transform;
 }
 
 .ag-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   box-shadow:
-    0 2px 6px rgba(15, 23, 42, 0.08),
-    0 8px 24px rgba(15, 23, 42, 0.06);
+    0 4px 12px rgba(15, 23, 42, 0.08),
+    0 12px 32px rgba(15, 23, 42, 0.07);
 }
 
 /* ── Eyebrow Badge ───────────────────────────────────────────── */

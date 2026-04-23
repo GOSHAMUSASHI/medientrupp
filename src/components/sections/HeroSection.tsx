@@ -342,6 +342,30 @@ export const HeroSection = () => {
               Echtzeit-Metriken · Beispiel-Dashboard
             </p>
             <ModernDashboard />
+
+            {/* Floating notification cards */}
+            <div className="mt-5 flex flex-col gap-2.5">
+              {[
+                { icon: "✓", label: "Neue Anfrage", sub: "Schmidt GmbH — vor 2 Min.", color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-100" },
+                { icon: "⚡", label: "Lead automatisch qualifiziert", sub: "KI-System — gerade eben", color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-100" },
+                { icon: "📈", label: "Lighthouse Score 100", sub: "baumann-gmbh.de — live", color: "text-violet-600", bg: "bg-violet-50 border-violet-100" },
+              ].map((card, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.9 + i * 0.15, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border bg-white shadow-sm ${card.bg}`}
+                >
+                  <span className={`text-sm ${card.color} shrink-0`}>{card.icon}</span>
+                  <div className="min-w-0">
+                    <p className="text-[12px] font-semibold text-slate-900 leading-none mb-0.5">{card.label}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{card.sub}</p>
+                  </div>
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
 
         </div>

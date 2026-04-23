@@ -277,7 +277,7 @@ export default function UeberUnsPage() {
             <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
               Der Unterschied
             </p>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-slate-900">
               Warum wir anders arbeiten.
             </h2>
           </div>
@@ -326,7 +326,7 @@ export default function UeberUnsPage() {
               <span className="text-xs font-bold uppercase tracking-widest text-indigo-700">Headquarters</span>
             </div>
 
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 mb-6">
+            <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-slate-900 mb-6">
               Made in Germany.<br/>Hosted in Germany.
             </h2>
             <p className="text-lg text-slate-500 leading-relaxed mb-10">

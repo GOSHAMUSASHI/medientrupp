@@ -217,7 +217,7 @@ export const InteractiveFunnel = () => {
           <p className="text-xs font-black tracking-[0.2em] uppercase text-indigo-600 mb-3">
             Interaktiver Kalkulator
           </p>
-          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
+          <h2 className="text-3xl sm:text-5xl font-semibold text-slate-900 tracking-tight mb-4">
             Konfigurieren Sie Ihr <span className="text-indigo-600">Projekt.</span>
           </h2>
           <p className="text-slate-500 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
@@ -277,7 +277,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "MAIN" && (
                     <motion.div key="main" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                       <div>
-                        <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-slate-900 mb-1.5">Was benötigt Ihr Unternehmen?</h1>
+                        <h1 className="text-xl sm:text-3xl lg:text-4xl font-semibold text-slate-900 mb-1.5">Was benötigt Ihr Unternehmen?</h1>
                         <p className="text-slate-500 text-xs sm:text-sm">Mehrfachauswahl möglich. Preise entstehen live.</p>
                       </div>
                       <div className="grid grid-cols-2 gap-2 sm:gap-3">
@@ -303,7 +303,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "ADDON_MARKE" && (
                      <motion.div key="marke" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Palette size={11} /> Marke</div>
-                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Welche Details?</h1>
+                       <h1 className="text-xl sm:text-3xl font-semibold text-slate-900">Welche Details?</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Premium Re-Branding" sublabel="+ 1.500 €" desc="Komplette Neuentwicklung der Markenidentität." checked={addons.marke_premium_rebranding} onToggle={() => toggleAddon("marke_premium_rebranding")} />
                          <ToggleCard label="Geschäftsausstattung" sublabel="+ 500 €" desc="Visitenkarten, Briefpapier & Mailsignaturen." checked={addons.marke_geschaeftsausstattung} onToggle={() => toggleAddon("marke_geschaeftsausstattung")} />
@@ -314,7 +314,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "ADDON_WEBSITE" && (
                     <motion.div key="website" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Globe size={11} /> Website</div>
-                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Website Power-Ups</h1>
+                       <h1 className="text-xl sm:text-3xl font-semibold text-slate-900">Website Power-Ups</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Premium Copywriting" sublabel="+ 500 €" desc="Verkaufspsychologische Texte für maximale Conversion." checked={addons.website_texte} onToggle={() => toggleAddon("website_texte")} />
                          <ToggleCard label="Tech SEO & On-Page" sublabel="+ 500 €" desc="Besseres initiales Google-Ranking durch Setup." checked={addons.website_seo} onToggle={() => toggleAddon("website_seo")} />
@@ -326,7 +326,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "ADDON_KI" && (
                     <motion.div key="ki" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Zap size={11} /> KI Systeme</div>
-                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Was automatisieren?</h1>
+                       <h1 className="text-xl sm:text-3xl font-semibold text-slate-900">Was automatisieren?</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Smarte Lead-Erfassung" sublabel="+ 500 €" desc="CRM Anbindung & Auto-Mails." checked={addons.ki_lead_erfassung} onToggle={() => toggleAddon("ki_lead_erfassung")} />
                          <ToggleCard label="KI-Chatbot 24/7" sublabel="+ 500 €" desc="Beantwortet Support-Fragen Ihrer Kunden." checked={addons.ki_chatbot} onToggle={() => toggleAddon("ki_chatbot")} />
@@ -338,7 +338,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "ADDON_SOCIAL" && (
                     <motion.div key="social" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 border border-indigo-100 text-indigo-700 font-black text-[10px] uppercase"><Video size={11} /> Social</div>
-                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Sichtbarkeit Details</h1>
+                       <h1 className="text-xl sm:text-3xl font-semibold text-slate-900">Sichtbarkeit Details</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Social Management" sublabel="+ 250 €/Mo" isMonthly desc="Laufende Pflege & Posting Ihres Contents." checked={addons.social_management} onToggle={() => toggleAddon("social_management")} />
                          <ToggleCard label="Strategie Workshop" sublabel="+ 1.000 €" desc="Wir erarbeiten Ihren Content-Masterplan." checked={addons.social_workshop} onToggle={() => toggleAddon("social_workshop")} />
@@ -350,7 +350,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "MAINTENANCE" && (
                     <motion.div key="maintenance" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-100 border border-slate-200 text-slate-700 font-black text-[10px] uppercase"><ShieldCheck size={11} /> Betreuung</div>
-                       <h1 className="text-xl sm:text-3xl font-black text-slate-900">Laufender Support</h1>
+                       <h1 className="text-xl sm:text-3xl font-semibold text-slate-900">Laufender Support</h1>
                        <div className="space-y-2">
                          <ToggleCard label="Premium-Hosting" sublabel="+ 100 €/Mo" isMonthly desc="Backups, Sicherheitsupdates & superschnelle Ladezeiten." checked={maintenance.hosting} onToggle={() => toggleMaintenance("hosting")} />
                          <ToggleCard label="Local SEO" sublabel="+ 150 €/Mo" isMonthly desc="Google-Präsenz und lokale Sichtbarkeit in Ihrer Region." checked={maintenance.local_seo} onToggle={() => toggleMaintenance("local_seo")} />
@@ -361,7 +361,7 @@ export const InteractiveFunnel = () => {
                   {currentStage === "CONTACT" && (
                     <motion.div key="contact" custom={direction} variants={stepVariants} initial="enter" animate="center" exit="exit" className="space-y-4 pb-4">
                       <div className="mb-4">
-                        <h1 className="text-xl sm:text-3xl font-black text-slate-900">Letzter Schritt.</h1>
+                        <h1 className="text-xl sm:text-3xl font-semibold text-slate-900">Letzter Schritt.</h1>
                         <p className="text-slate-500 text-xs sm:text-sm mt-1.5">Ihre Kontaktdaten für das kostenlose Strategie-Gespräch.</p>
                       </div>
                       <form id="contact-form-homepage" onSubmit={handleSubmit(onSubmitForm)} className="space-y-2">
