@@ -1,9 +1,10 @@
 "use client";
 
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, MessageSquare, Code2, Rocket } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
+import { AnimatedBeam } from "@/components/ui/animated-beam";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -15,8 +16,8 @@ const steps = [
     description:
       "30 Minuten. Wir klären Ziel, Umfang und Termin — den Rest übernehmen wir vollständig.",
     Icon: MessageSquare,
-    accent: "from-indigo-500/8 to-violet-500/4",
-    iconAccent: "bg-indigo-50 border-indigo-200 text-indigo-600 shadow-indigo-600/10",
+    iconBg: "bg-indigo-600",
+    ringColor: "ring-indigo-200",
     detail: "Kein Zutun Ihrerseits danach nötig",
     iconAnim: { y: [0, -8, 0] },
     iconDuration: 2.8,
@@ -28,10 +29,10 @@ const steps = [
     description:
       "Ihr Team arbeitet weiter. Wir liefern getaktete Zwischenstände zur Freigabe.",
     Icon: Code2,
-    accent: "from-violet-500/8 to-purple-500/4",
-    iconAccent: "bg-violet-50 border-violet-200 text-violet-600 shadow-violet-600/10",
+    iconBg: "bg-violet-600",
+    ringColor: "ring-violet-200",
     detail: "Volle Transparenz, wöchentliche Updates",
-    iconAnim: { scale: [1, 1.12, 1] },
+    iconAnim: { scale: [1, 1.1, 1] },
     iconDuration: 2.4,
   },
   {
@@ -41,144 +42,13 @@ const steps = [
     description:
       "Getestet, dokumentiert, live. Messbare Ergebnisse ab Tag 1 — zum Festpreis.",
     Icon: Rocket,
-    accent: "from-purple-500/8 to-indigo-500/4",
-    iconAccent: "bg-purple-50 border-purple-200 text-purple-600 shadow-purple-600/10",
+    iconBg: "bg-purple-600",
+    ringColor: "ring-purple-200",
     detail: "Festpreis-Garantie inklusive",
     iconAnim: { y: [0, -6, 0], x: [0, 4, 0] },
     iconDuration: 2.2,
   },
 ];
-
-// ── Connector — fixed width, line sits at center of the number header (h-28 / 2 = mt-14) ──
-
-const ConnectorLine = ({ delay, inView }: { delay: number; inView: boolean }) => (
-  <div className="hidden lg:flex w-16 xl:w-24 shrink-0 items-start mt-14">
-    <div className="relative w-full h-px">
-      <div className="absolute inset-0 bg-slate-200" />
-      <motion.div
-        className="absolute inset-0 origin-left"
-        style={{ background: "linear-gradient(to right, #7c3aed, #a78bfa)" }}
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : {}}
-        transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
-      />
-      <motion.div
-        className="absolute top-0 rounded-full"
-        style={{
-          width: 8,
-          height: 8,
-          marginTop: -3.5,
-          marginLeft: -4,
-          background: "#7c3aed",
-          boxShadow: "0 0 0 3px rgba(124,58,237,0.2), 0 0 12px 4px rgba(124,58,237,0.4)",
-        }}
-        initial={{ left: "0%", opacity: 0 }}
-        animate={inView ? { left: ["0%", "100%"], opacity: [0, 1, 1, 0] } : {}}
-        transition={{ delay: delay + 0.6, duration: 0.5, ease: "easeInOut" }}
-      />
-    </div>
-  </div>
-);
-
-// ── Step Card — number lives inside, centered header with fixed h-28 ──────────
-
-const StepCard = ({
-  step,
-  index,
-  inView,
-}: {
-  step: typeof steps[number];
-  index: number;
-  inView: boolean;
-}) => {
-  const pulseDelay = index * 1.0 + 0.4;
-  const iconStartDelay = index * 0.3 + 1.2;
-
-  return (
-    <motion.div
-      className="flex-1 flex flex-col"
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <motion.div
-        className={`flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${step.accent} flex flex-col shadow-sm overflow-hidden`}
-        animate={
-          inView
-            ? {
-                boxShadow: [
-                  "0 0 0px rgba(124,58,237,0)",
-                  "0 0 0 1px rgba(124,58,237,0.18), 0 4px 24px rgba(124,58,237,0.10)",
-                  "0 1px 3px rgba(15,23,42,0.06), 0 4px 16px rgba(15,23,42,0.04)",
-                ],
-              }
-            : {}
-        }
-        transition={{ delay: pulseDelay + 0.05, duration: 0.8 }}
-      >
-        {/* ── Number header — fixed height h-28 so connector aligns at mt-14 ── */}
-        <div className="h-28 flex flex-col items-center justify-center border-b border-white/50 gap-1">
-          <motion.span
-            className="font-semibold text-indigo-600 leading-none select-none tabular-nums"
-            style={{ fontSize: "clamp(2.4rem, 3.5vw, 3rem)" }}
-            animate={
-              inView
-                ? {
-                    textShadow: [
-                      "0 0 0px rgba(124,58,237,0)",
-                      "0 0 28px rgba(124,58,237,0.65)",
-                      "0 0 0px rgba(124,58,237,0)",
-                    ],
-                  }
-                : {}
-            }
-            transition={{ delay: pulseDelay, duration: 0.7, ease: "easeOut" }}
-          >
-            {step.number}
-          </motion.span>
-          <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-400">
-            {step.label}
-          </span>
-        </div>
-
-        {/* ── Body ── */}
-        <div className="flex-1 flex flex-col gap-6 p-8 md:p-10">
-          {/* Icon — large, looping animation */}
-          <motion.div
-            className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center shadow-lg ${step.iconAccent}`}
-            animate={inView ? step.iconAnim : {}}
-            transition={{
-              delay: iconStartDelay,
-              duration: step.iconDuration,
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "easeInOut",
-            }}
-          >
-            <step.Icon size={30} strokeWidth={1.5} />
-          </motion.div>
-
-          {/* Text */}
-          <div className="flex flex-col gap-3">
-            <h3 className="text-xl font-semibold tracking-tight text-slate-900 leading-snug">
-              {step.title}
-            </h3>
-            <p className="text-sm text-slate-500 leading-relaxed">
-              {step.description}
-            </p>
-          </div>
-
-          {/* Detail badge */}
-          <div className="mt-auto pt-5 border-t border-white/60">
-            <span className="text-[10px] font-semibold text-indigo-600 tracking-[0.12em] uppercase">
-              {step.detail}
-            </span>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
 
 // ── Mobile Step ───────────────────────────────────────────────────────────────
 
@@ -192,75 +62,72 @@ const MobileStep = ({
   index: number;
   isLast: boolean;
   inView: boolean;
-}) => {
-  const iconStartDelay = index * 0.3 + 1.0;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -12 }}
-      animate={inView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.45, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className="relative flex gap-5"
-    >
-      {/* Left: icon badge + vertical line */}
-      <div className="flex flex-col items-center shrink-0">
+}) => (
+  <motion.div
+    initial={{ opacity: 0, x: -12 }}
+    animate={inView ? { opacity: 1, x: 0 } : {}}
+    transition={{ duration: 0.45, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+    className="relative flex gap-5"
+  >
+    <div className="flex flex-col items-center shrink-0">
+      <motion.div
+        className={`w-14 h-14 rounded-2xl ${step.iconBg} ring-4 ${step.ringColor} flex items-center justify-center text-white shadow-lg z-10 relative`}
+        animate={inView ? step.iconAnim : {}}
+        transition={{
+          delay: index * 0.3 + 1.0,
+          duration: step.iconDuration,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "easeInOut",
+        }}
+      >
+        <step.Icon size={24} strokeWidth={1.5} />
+      </motion.div>
+      {!isLast && (
         <motion.div
-          className={`w-14 h-14 rounded-2xl border-2 flex items-center justify-center z-10 relative shadow-lg ${step.iconAccent}`}
-          animate={inView ? step.iconAnim : {}}
-          transition={{
-            delay: iconStartDelay,
-            duration: step.iconDuration,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-          }}
-        >
-          <step.Icon size={24} strokeWidth={1.5} />
-        </motion.div>
-        {!isLast && (
-          <motion.div
-            className="w-px flex-1 mt-2 origin-top"
-            style={{ background: "linear-gradient(to bottom, #7c3aed, #c4b5fd)" }}
-            initial={{ scaleY: 0 }}
-            animate={inView ? { scaleY: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 + index * 0.2, ease: [0.16, 1, 0.3, 1] }}
-          />
-        )}
-      </div>
-
-      {/* Right: content */}
-      <div className={`flex-1 ${!isLast ? "pb-10" : ""}`}>
-        <div className="flex items-center gap-2 mb-2">
-          <span className="text-xl font-semibold text-indigo-600 tabular-nums leading-none">
-            {step.number}
-          </span>
-          <span className="text-[9px] font-semibold tracking-[0.22em] uppercase text-slate-400">
-            {step.label}
-          </span>
-        </div>
-        <h3 className="text-base font-semibold tracking-tight text-slate-900 mb-2 leading-snug">
-          {step.title}
-        </h3>
-        <p className="text-sm text-slate-500 leading-relaxed mb-3">
-          {step.description}
-        </p>
-        <span className="text-[10px] font-semibold text-indigo-500 tracking-[0.1em] uppercase">
-          {step.detail}
+          className="w-px flex-1 mt-2 origin-top"
+          style={{ background: "linear-gradient(to bottom, #7c3aed, #c4b5fd)" }}
+          initial={{ scaleY: 0 }}
+          animate={inView ? { scaleY: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 + index * 0.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+      )}
+    </div>
+    <div className={`flex-1 ${!isLast ? "pb-10" : ""}`}>
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xl font-semibold text-indigo-600 tabular-nums leading-none">
+          {step.number}
+        </span>
+        <span className="text-[9px] font-semibold tracking-[0.22em] uppercase text-slate-400">
+          {step.label}
         </span>
       </div>
-    </motion.div>
-  );
-};
+      <h3 className="text-base font-semibold tracking-tight text-slate-900 mb-2 leading-snug">
+        {step.title}
+      </h3>
+      <p className="text-sm text-slate-500 leading-relaxed mb-3">{step.description}</p>
+      <span className="text-[10px] font-semibold text-indigo-500 tracking-[0.1em] uppercase">
+        {step.detail}
+      </span>
+    </div>
+  </motion.div>
+);
 
 // ── Section ───────────────────────────────────────────────────────────────────
 
 export const ProcessSection = () => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const icon1Ref = useRef<HTMLDivElement>(null);
+  const icon2Ref = useRef<HTMLDivElement>(null);
+  const icon3Ref = useRef<HTMLDivElement>(null);
+  const iconRefs = [icon1Ref, icon2Ref, icon3Ref];
+
+  const inView = useInView(sectionRef, { once: true, margin: "-80px" });
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       className="bg-white border-t border-slate-200 section-y overflow-hidden"
       aria-labelledby="process-heading"
     >
@@ -271,7 +138,7 @@ export const ProcessSection = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-14 md:mb-20"
+          className="mb-16 md:mb-24"
         >
           <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-4">
             Einfacher Ablauf
@@ -291,16 +158,94 @@ export const ProcessSection = () => {
           </div>
         </motion.div>
 
-        {/* ── DESKTOP: Cards + Connectors ── */}
-        <div className="hidden lg:flex items-stretch gap-0">
-          {steps.map((step, i) => (
-            <div key={step.number} className="contents">
-              <StepCard step={step} index={i} inView={inView} />
-              {i < steps.length - 1 && (
-                <ConnectorLine delay={0.3 + i * 0.7} inView={inView} />
-              )}
-            </div>
-          ))}
+        {/* ── DESKTOP ── */}
+        <div className="hidden lg:block">
+          {/* Beam container — position:relative so AnimatedBeam SVG overlays correctly */}
+          <div ref={containerRef} className="relative grid grid-cols-3 gap-10 xl:gap-16">
+
+            {/* AnimatedBeam: step 1 → step 2 */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={icon1Ref}
+              toRef={icon2Ref}
+              curvature={-40}
+              gradientStartColor="#6366f1"
+              gradientStopColor="#7c3aed"
+              pathColor="#e2e8f0"
+              pathWidth={2}
+              pathOpacity={1}
+              duration={4}
+              delay={0.8}
+            />
+
+            {/* AnimatedBeam: step 2 → step 3 */}
+            <AnimatedBeam
+              containerRef={containerRef}
+              fromRef={icon2Ref}
+              toRef={icon3Ref}
+              curvature={-40}
+              gradientStartColor="#7c3aed"
+              gradientStopColor="#9333ea"
+              pathColor="#e2e8f0"
+              pathWidth={2}
+              pathOpacity={1}
+              duration={4}
+              delay={1.4}
+            />
+
+            {/* Step Cards */}
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.number}
+                initial={{ opacity: 0, y: 28 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center text-center"
+              >
+                {/* Step number + label */}
+                <div className="flex items-center gap-2 mb-8">
+                  <span
+                    className="font-semibold text-slate-200 tabular-nums leading-none select-none"
+                    style={{ fontSize: "clamp(3rem, 5vw, 4.5rem)" }}
+                  >
+                    {step.number}
+                  </span>
+                  <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-400 mt-1 text-left">
+                    {step.label}
+                  </span>
+                </div>
+
+                {/* Icon node — the AnimatedBeam anchor */}
+                <motion.div
+                  ref={iconRefs[i]}
+                  className={`w-20 h-20 rounded-2xl ${step.iconBg} ring-8 ${step.ringColor} flex items-center justify-center text-white shadow-xl mb-8`}
+                  animate={inView ? step.iconAnim : {}}
+                  transition={{
+                    delay: i * 0.3 + 1.2,
+                    duration: step.iconDuration,
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
+                >
+                  <step.Icon size={36} strokeWidth={1.5} />
+                </motion.div>
+
+                {/* Content */}
+                <h3 className="text-xl font-semibold tracking-tight text-slate-900 mb-3 leading-snug">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-slate-500 leading-relaxed mb-6 max-w-xs">
+                  {step.description}
+                </p>
+
+                {/* Detail pill */}
+                <span className="inline-block text-[10px] font-semibold tracking-[0.12em] uppercase text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1.5 rounded-md">
+                  {step.detail}
+                </span>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* ── MOBILE: Vertical timeline ── */}
@@ -321,7 +266,7 @@ export const ProcessSection = () => {
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 1.2, duration: 0.4 }}
-          className="mt-14 md:mt-20 flex items-center gap-6"
+          className="mt-16 md:mt-24 flex items-center gap-6"
         >
           <Link
             href="/projekt-anfragen"
