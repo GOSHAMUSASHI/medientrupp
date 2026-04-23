@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { ArrowRight, MessageSquare, Code2, Rocket } from "lucide-react";
 import Link from "next/link";
-import { useRef, type ReactNode } from "react";
+import { useRef } from "react";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 
@@ -13,41 +13,51 @@ const steps = [
     label: "Briefing",
     title: "Kick-off & Strategie",
     description:
-      "30 Minuten. Wir klären Ziel, Umfang und Termin. Den Rest übernehmen wir.",
-    icon: <MessageSquare size={20} strokeWidth={1.5} />,
-    accent: "from-indigo-500/10 to-violet-500/5",
+      "30 Minuten. Wir klären Ziel, Umfang und Termin — den Rest übernehmen wir vollständig.",
+    Icon: MessageSquare,
+    accent: "from-indigo-500/8 to-violet-500/4",
+    iconAccent: "bg-indigo-50 border-indigo-200 text-indigo-600 shadow-indigo-600/10",
     detail: "Kein Zutun Ihrerseits danach nötig",
+    // gentle vertical bob
+    iconAnim: { y: [0, -8, 0] },
+    iconDuration: 2.8,
   },
   {
     number: "02",
     label: "Umsetzung",
     title: "Entwicklung im Hintergrund",
     description:
-      "Ihr Team arbeitet weiter. Wir liefern Zwischenstände zur Freigabe.",
-    icon: <Code2 size={20} strokeWidth={1.5} />,
-    accent: "from-violet-500/10 to-purple-500/5",
+      "Ihr Team arbeitet weiter. Wir liefern getaktete Zwischenstände zur Freigabe.",
+    Icon: Code2,
+    accent: "from-violet-500/8 to-purple-500/4",
+    iconAccent: "bg-violet-50 border-violet-200 text-violet-600 shadow-violet-600/10",
     detail: "Volle Transparenz, wöchentliche Updates",
+    // subtle scale pulse
+    iconAnim: { scale: [1, 1.12, 1] },
+    iconDuration: 2.4,
   },
   {
     number: "03",
     label: "Go-Live",
     title: "Launch & Ergebnisse",
     description:
-      "Getestet, dokumentiert, live. Messbare Ergebnisse ab Tag 1.",
-    icon: <Rocket size={20} strokeWidth={1.5} />,
-    accent: "from-purple-500/10 to-indigo-500/5",
+      "Getestet, dokumentiert, live. Messbare Ergebnisse ab Tag 1 — zum Festpreis.",
+    Icon: Rocket,
+    accent: "from-purple-500/8 to-indigo-500/4",
+    iconAccent: "bg-purple-50 border-purple-200 text-purple-600 shadow-purple-600/10",
     detail: "Festpreis-Garantie inklusive",
+    // diagonal lift (rocket flying up-right)
+    iconAnim: { y: [0, -6, 0], x: [0, 4, 0] },
+    iconDuration: 2.2,
   },
 ];
 
 // ── Animated connector line ───────────────────────────────────────────────────
 
 const ConnectorLine = ({ delay, inView }: { delay: number; inView: boolean }) => (
-  <div className="hidden lg:flex flex-1 items-center mx-2 mt-8">
+  <div className="hidden lg:flex flex-1 items-center mx-3 mt-10">
     <div className="relative w-full h-px">
-      {/* Background line */}
       <div className="absolute inset-0 bg-slate-200" />
-      {/* Animated foreground */}
       <motion.div
         className="absolute inset-0 origin-left"
         style={{ background: "linear-gradient(to right, #7c3aed, #a78bfa)" }}
@@ -55,7 +65,6 @@ const ConnectorLine = ({ delay, inView }: { delay: number; inView: boolean }) =>
         animate={inView ? { scaleX: 1 } : {}}
         transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
       />
-      {/* Traveling dot */}
       <motion.div
         className="absolute top-0 rounded-full"
         style={{
@@ -86,16 +95,17 @@ const StepCard = ({
   inView: boolean;
 }) => {
   const pulseDelay = index * 1.0 + 0.4;
+  const iconStartDelay = index * 0.3 + 1.2;
 
   return (
     <motion.div
       className="flex-1 flex flex-col"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Number with glow pulse */}
-      <div className="flex items-center gap-3 mb-6">
+      {/* Number + label */}
+      <div className="flex items-center gap-3 mb-7">
         <motion.span
           className="font-semibold text-indigo-600 leading-none select-none tabular-nums"
           style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)" }}
@@ -121,13 +131,13 @@ const StepCard = ({
 
       {/* Card */}
       <motion.div
-        className={`flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${step.accent} p-6 md:p-7 flex flex-col gap-4 shadow-sm`}
+        className={`flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${step.accent} p-8 md:p-10 flex flex-col gap-6 shadow-sm`}
         animate={
           inView
             ? {
                 boxShadow: [
                   "0 0 0px rgba(124,58,237,0)",
-                  "0 0 0 1px rgba(124,58,237,0.2), 0 4px 24px rgba(124,58,237,0.12)",
+                  "0 0 0 1px rgba(124,58,237,0.18), 0 4px 24px rgba(124,58,237,0.10)",
                   "0 1px 3px rgba(15,23,42,0.06), 0 4px 16px rgba(15,23,42,0.04)",
                 ],
               }
@@ -135,14 +145,24 @@ const StepCard = ({
         }
         transition={{ delay: pulseDelay + 0.05, duration: 0.8 }}
       >
-        {/* Icon */}
-        <div className="w-10 h-10 rounded-xl bg-white border border-indigo-100 flex items-center justify-center text-indigo-600 shadow-sm">
-          {step.icon}
-        </div>
+        {/* Icon — large, looping animation */}
+        <motion.div
+          className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center shadow-lg ${step.iconAccent}`}
+          animate={inView ? step.iconAnim : {}}
+          transition={{
+            delay: iconStartDelay,
+            duration: step.iconDuration,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut",
+          }}
+        >
+          <step.Icon size={30} strokeWidth={1.5} />
+        </motion.div>
 
         {/* Text */}
-        <div>
-          <h3 className="text-lg font-semibold tracking-tight text-slate-900 mb-2 leading-snug">
+        <div className="flex flex-col gap-3">
+          <h3 className="text-xl font-semibold tracking-tight text-slate-900 leading-snug">
             {step.title}
           </h3>
           <p className="text-sm text-slate-500 leading-relaxed">
@@ -151,8 +171,8 @@ const StepCard = ({
         </div>
 
         {/* Detail badge */}
-        <div className="mt-auto pt-3 border-t border-white/60">
-          <span className="text-[10px] font-semibold text-indigo-600 tracking-[0.1em] uppercase">
+        <div className="mt-auto pt-4 border-t border-white/60">
+          <span className="text-[10px] font-semibold text-indigo-600 tracking-[0.12em] uppercase">
             {step.detail}
           </span>
         </div>
@@ -173,60 +193,65 @@ const MobileStep = ({
   index: number;
   isLast: boolean;
   inView: boolean;
-}) => (
-  <motion.div
-    initial={{ opacity: 0, x: -12 }}
-    animate={inView ? { opacity: 1, x: 0 } : {}}
-    transition={{ duration: 0.45, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-    className="relative flex gap-4"
-  >
-    {/* Left: number badge + vertical line */}
-    <div className="flex flex-col items-center shrink-0">
-      <motion.div
-        className="w-10 h-10 rounded-xl bg-indigo-600 text-white text-sm font-semibold flex items-center justify-center z-10 relative shadow-md shadow-indigo-600/25"
-        animate={
-          inView
-            ? {
-                boxShadow: [
-                  "0 0 0px rgba(124,58,237,0)",
-                  "0 0 20px 4px rgba(124,58,237,0.45)",
-                  "0 4px 14px rgba(124,58,237,0.25)",
-                ],
-              }
-            : {}
-        }
-        transition={{ delay: 0.5 + index * 0.45, duration: 0.6, ease: "easeOut" }}
-      >
-        {step.number}
-      </motion.div>
-      {!isLast && (
-        <motion.div
-          className="w-px flex-1 mt-2 origin-top"
-          style={{ background: "linear-gradient(to bottom, #7c3aed, #c4b5fd)" }}
-          initial={{ scaleY: 0 }}
-          animate={inView ? { scaleY: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 + index * 0.2, ease: [0.16, 1, 0.3, 1] }}
-        />
-      )}
-    </div>
+}) => {
+  const iconStartDelay = index * 0.3 + 1.0;
 
-    {/* Right: content */}
-    <div className={`flex-1 ${!isLast ? "pb-8" : ""}`}>
-      <span className="text-[9px] font-semibold tracking-[0.22em] uppercase text-indigo-500 mb-1 block">
-        {step.label}
-      </span>
-      <h3 className="text-base font-semibold tracking-tight text-slate-900 mb-1.5 leading-snug">
-        {step.title}
-      </h3>
-      <p className="text-sm text-slate-500 leading-relaxed mb-2">
-        {step.description}
-      </p>
-      <span className="text-[10px] font-semibold text-indigo-500 tracking-[0.1em] uppercase">
-        {step.detail}
-      </span>
-    </div>
-  </motion.div>
-);
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -12 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.45, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className="relative flex gap-5"
+    >
+      {/* Left: icon badge + vertical line */}
+      <div className="flex flex-col items-center shrink-0">
+        <motion.div
+          className={`w-14 h-14 rounded-2xl border-2 flex items-center justify-center z-10 relative shadow-lg ${step.iconAccent}`}
+          animate={inView ? step.iconAnim : {}}
+          transition={{
+            delay: iconStartDelay,
+            duration: step.iconDuration,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "easeInOut",
+          }}
+        >
+          <step.Icon size={24} strokeWidth={1.5} />
+        </motion.div>
+        {!isLast && (
+          <motion.div
+            className="w-px flex-1 mt-2 origin-top"
+            style={{ background: "linear-gradient(to bottom, #7c3aed, #c4b5fd)" }}
+            initial={{ scaleY: 0 }}
+            animate={inView ? { scaleY: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.3 + index * 0.2, ease: [0.16, 1, 0.3, 1] }}
+          />
+        )}
+      </div>
+
+      {/* Right: content */}
+      <div className={`flex-1 ${!isLast ? "pb-10" : ""}`}>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xl font-semibold text-indigo-600 tabular-nums leading-none">
+            {step.number}
+          </span>
+          <span className="text-[9px] font-semibold tracking-[0.22em] uppercase text-slate-400">
+            {step.label}
+          </span>
+        </div>
+        <h3 className="text-base font-semibold tracking-tight text-slate-900 mb-2 leading-snug">
+          {step.title}
+        </h3>
+        <p className="text-sm text-slate-500 leading-relaxed mb-3">
+          {step.description}
+        </p>
+        <span className="text-[10px] font-semibold text-indigo-500 tracking-[0.1em] uppercase">
+          {step.detail}
+        </span>
+      </div>
+    </motion.div>
+  );
+};
 
 // ── Section ───────────────────────────────────────────────────────────────────
 
@@ -299,7 +324,7 @@ export const ProcessSection = () => {
           initial={{ opacity: 0, y: 8 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 1.2, duration: 0.4 }}
-          className="mt-12 md:mt-16 flex items-center gap-6"
+          className="mt-14 md:mt-20 flex items-center gap-6"
         >
           <Link
             href="/projekt-anfragen"
