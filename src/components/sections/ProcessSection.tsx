@@ -12,14 +12,16 @@ const steps = [
     number: "01",
     label: "Briefing",
     title: "Kick-off & Strategie",
-    desc: "30 Minuten. Ziel, Umfang und Termin. Den Rest übernehmen wir.",
+    desc: "30 Minuten. Ziel, Umfang und Termin — den Rest übernehmen wir vollständig.",
     detail: "Kein weiterer Aufwand Ihrerseits",
     Icon: MessageSquare,
-    color: "bg-indigo-600",
-    colorLight: "bg-indigo-50",
-    colorText: "text-indigo-600",
-    ring: "ring-indigo-100",
-    shadow: "shadow-indigo-500/20",
+    iconBg: "bg-indigo-600",
+    glow: "rgba(99,102,241,0.35)",
+    shadowCard: "rgba(99,102,241,0.12)",
+    shadowHover: "rgba(99,102,241,0.22)",
+    pillBg: "bg-indigo-50",
+    pillText: "text-indigo-700",
+    pillBorder: "border-indigo-100",
     iconAnim: { y: [0, -6, 0] },
     iconDuration: 2.8,
   },
@@ -27,30 +29,34 @@ const steps = [
     number: "02",
     label: "Umsetzung",
     title: "Entwicklung im Hintergrund",
-    desc: "Ihr Team arbeitet weiter. Wir liefern wöchentliche Updates.",
+    desc: "Ihr Team arbeitet weiter. Wir liefern getaktete Zwischenstände zur Freigabe.",
     detail: "Volle Transparenz, kein Chaos",
     Icon: Code2,
-    color: "bg-violet-600",
-    colorLight: "bg-violet-50",
-    colorText: "text-violet-600",
-    ring: "ring-violet-100",
-    shadow: "shadow-violet-500/20",
-    iconAnim: { scale: [1, 1.09, 1] },
+    iconBg: "bg-violet-600",
+    glow: "rgba(124,58,237,0.35)",
+    shadowCard: "rgba(124,58,237,0.12)",
+    shadowHover: "rgba(124,58,237,0.22)",
+    pillBg: "bg-violet-50",
+    pillText: "text-violet-700",
+    pillBorder: "border-violet-100",
+    iconAnim: { scale: [1, 1.1, 1] },
     iconDuration: 2.4,
   },
   {
     number: "03",
     label: "Go-Live",
     title: "Launch & Ergebnisse",
-    desc: "Getestet, live, messbar. Festpreis ab Tag 1 garantiert.",
+    desc: "Getestet, dokumentiert, live. Festpreis — messbare Ergebnisse ab Tag 1.",
     detail: "Festpreis-Garantie inklusive",
     Icon: Rocket,
-    color: "bg-purple-600",
-    colorLight: "bg-purple-50",
-    colorText: "text-purple-600",
-    ring: "ring-purple-100",
-    shadow: "shadow-purple-500/20",
-    iconAnim: { y: [0, -5, 0], x: [0, 3, 0] },
+    iconBg: "bg-purple-600",
+    glow: "rgba(147,51,234,0.35)",
+    shadowCard: "rgba(147,51,234,0.12)",
+    shadowHover: "rgba(147,51,234,0.22)",
+    pillBg: "bg-purple-50",
+    pillText: "text-purple-700",
+    pillBorder: "border-purple-100",
+    iconAnim: { y: [0, -5, 0], x: [0, 4, 0] },
     iconDuration: 2.2,
   },
 ];
@@ -61,26 +67,40 @@ export const ProcessSection = () => {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  // Icon badge size: 56px mobile, 72px desktop → center at 28px / 36px
-  const lineTopMobile = 28;
-  const lineTopDesktop = 36;
-
   return (
     <section
       ref={ref}
-      className="bg-white border-t border-slate-200 section-y overflow-hidden"
+      className="relative bg-slate-50 border-t border-slate-200 section-y overflow-hidden"
       aria-labelledby="process-heading"
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      {/* ── Mesh gradient background ── */}
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Coloured blobs */}
+        <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-indigo-300 opacity-[0.07] blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-violet-400 opacity-[0.06] blur-[100px]" />
+        <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-purple-300 opacity-[0.07] blur-[80px]" />
+        {/* Fine grid */}
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(#6366f1 1px,transparent 1px),linear-gradient(to right,#6366f1 1px,transparent 1px)",
+            backgroundSize: "44px 44px",
+          }}
+        />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* ── Header ── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-14 md:mb-20"
         >
-          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-3">
+          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-4">
             Einfacher Ablauf
           </p>
           <h2
@@ -89,89 +109,110 @@ export const ProcessSection = () => {
             style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
           >
             In 3 Schritten zu Ihrem{" "}
-            <span className="text-indigo-600">neuen System.</span>
+            {/* ── Gradient text ── */}
+            <span
+              className="font-semibold"
+              style={{
+                background: "linear-gradient(135deg, #ec4899 0%, #7c3aed 60%, #6366f1 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              neuen System.
+            </span>
           </h2>
+          <p className="mt-4 text-base text-slate-500 max-w-md mx-auto leading-relaxed">
+            Keine Abstimmungs-Loops. Wir übernehmen die Komplexität.
+          </p>
         </motion.div>
 
-        {/* ── 3-Column Steps — always horizontal ── */}
-        <div className="relative grid grid-cols-3">
+        {/* ── Cards + connector ── */}
+        <div className="relative grid grid-cols-3 gap-3 sm:gap-5 lg:gap-7">
 
-          {/* ── Connector line — runs through badge centers ── */}
-          {/* Mobile (top-[28px]) */}
+          {/* ── Flowing connector line — behind cards ── */}
+          {/* Positioned at icon center: card pt-5/6 (20-24px) + icon w-12/14 half (24-28px) ≈ top-[44px] sm:top-[52px] */}
           <div
-            className="absolute left-[calc(100%/6)] right-[calc(100%/6)] sm:hidden"
-            style={{ top: lineTopMobile }}
+            className="absolute z-0 sm:hidden"
+            style={{
+              top: 44,
+              left: "calc(100% / 6)",
+              right: "calc(100% / 6)",
+              height: 2,
+            }}
           >
-            {/* Track */}
-            <div className="w-full h-px bg-slate-200" />
-            {/* Animated fill */}
+            <div className="absolute inset-0 rounded-full bg-slate-200" />
             <motion.div
-              className="absolute inset-0 h-px origin-left"
-              style={{
-                background: "linear-gradient(to right, #6366f1, #7c3aed, #9333ea)",
-              }}
+              className="absolute inset-0 rounded-full origin-left"
+              style={{ background: "linear-gradient(90deg,#6366f1,#7c3aed,#9333ea)" }}
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             />
-            {/* Traveling glow dot */}
+            {/* Shimmer sweep */}
             <motion.div
-              className="absolute top-0 w-2 h-2 rounded-full -mt-[3px]"
-              style={{
-                background: "#7c3aed",
-                boxShadow: "0 0 8px 3px rgba(124,58,237,0.5)",
-              }}
-              initial={{ left: "0%", opacity: 0 }}
-              animate={inView ? { left: ["0%", "100%"], opacity: [0, 1, 1, 0] } : {}}
-              transition={{ delay: 1.1, duration: 0.6, ease: "easeInOut" }}
+              className="absolute top-0 h-full w-12 rounded-full"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent)" }}
+              initial={{ x: "-100%" }}
+              animate={inView ? { x: "800%" } : {}}
+              transition={{ delay: 1.5, duration: 1.2, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+            />
+          </div>
+          <div
+            className="absolute z-0 hidden sm:block"
+            style={{
+              top: 52,
+              left: "calc(100% / 6)",
+              right: "calc(100% / 6)",
+              height: 2,
+            }}
+          >
+            <div className="absolute inset-0 rounded-full bg-slate-200" />
+            <motion.div
+              className="absolute inset-0 rounded-full origin-left"
+              style={{ background: "linear-gradient(90deg,#6366f1,#7c3aed,#9333ea)" }}
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            />
+            <motion.div
+              className="absolute top-0 h-full w-20 rounded-full"
+              style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent)" }}
+              initial={{ x: "-100%" }}
+              animate={inView ? { x: "600%" } : {}}
+              transition={{ delay: 1.5, duration: 1.2, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
             />
           </div>
 
-          {/* Desktop (top-[36px]) */}
-          <div
-            className="absolute left-[calc(100%/6)] right-[calc(100%/6)] hidden sm:block"
-            style={{ top: lineTopDesktop }}
-          >
-            <div className="w-full h-px bg-slate-200" />
-            <motion.div
-              className="absolute inset-0 h-px origin-left"
-              style={{
-                background: "linear-gradient(to right, #6366f1, #7c3aed, #9333ea)",
-              }}
-              initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            />
-            <motion.div
-              className="absolute top-0 w-2 h-2 rounded-full -mt-[3px]"
-              style={{
-                background: "#7c3aed",
-                boxShadow: "0 0 8px 3px rgba(124,58,237,0.5)",
-              }}
-              initial={{ left: "0%", opacity: 0 }}
-              animate={inView ? { left: ["0%", "100%"], opacity: [0, 1, 1, 0] } : {}}
-              transition={{ delay: 1.1, duration: 0.6, ease: "easeInOut" }}
-            />
-          </div>
-
-          {/* ── Step columns ── */}
+          {/* ── Step Cards ── */}
           {steps.map((step, i) => (
             <motion.div
               key={step.number}
-              className="flex flex-col items-center text-center px-2 sm:px-4 lg:px-6"
-              initial={{ opacity: 0, y: 20 }}
+              className="relative z-10 flex flex-col items-center text-center bg-white rounded-2xl
+                         p-4 sm:p-6 lg:p-8
+                         transition-all duration-300 ease-out
+                         hover:-translate-y-1.5 cursor-default"
+              style={{
+                boxShadow: `0 8px 32px -8px ${step.shadowCard}, 0 2px 8px -2px rgba(15,23,42,0.06)`,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  `0 24px 64px -12px ${step.shadowHover}, 0 8px 24px -6px rgba(15,23,42,0.08)`;
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.boxShadow =
+                  `0 8px 32px -8px ${step.shadowCard}, 0 2px 8px -2px rgba(15,23,42,0.06)`;
+              }}
+              initial={{ opacity: 0, y: 28 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.55, delay: 0.15 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
-              {/* Badge */}
+              {/* ── Icon with glow ── */}
               <motion.div
-                className={`
-                  relative z-10 w-14 h-14 sm:w-18 sm:h-18 rounded-xl sm:rounded-2xl
-                  ${step.color} ring-4 sm:ring-8 ${step.ring}
-                  flex items-center justify-center text-white
-                  shadow-lg ${step.shadow} mb-4 sm:mb-5
-                `}
-                style={{ width: undefined, height: undefined }}
+                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full ${step.iconBg} flex items-center justify-center text-white mb-3 sm:mb-4`}
+                style={{
+                  boxShadow: `0 0 0 6px ${step.glow.replace("0.35", "0.12")}, 0 8px 20px -4px ${step.glow}`,
+                }}
                 animate={inView ? step.iconAnim : {}}
                 transition={{
                   delay: 0.8 + i * 0.2,
@@ -181,38 +222,36 @@ export const ProcessSection = () => {
                   ease: "easeInOut",
                 }}
               >
-                {/* Actual size via inline style for consistent mobile/desktop */}
-                <div className="w-14 h-14 sm:w-[72px] sm:h-[72px] flex items-center justify-center">
-                  <step.Icon size={20} strokeWidth={1.75} className="sm:hidden" />
-                  <step.Icon size={26} strokeWidth={1.75} className="hidden sm:block" />
-                </div>
+                <step.Icon size={18} strokeWidth={1.75} className="sm:hidden" />
+                <step.Icon size={22} strokeWidth={1.75} className="hidden sm:block" />
               </motion.div>
 
-              {/* Step number */}
-              <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-1.5 sm:mb-2">
+              {/* Step number + label */}
+              <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-1.5">
                 {step.number} · {step.label}
               </span>
 
               {/* Title */}
-              <h3 className="font-semibold tracking-tight text-slate-900 leading-snug mb-2 sm:mb-3"
-                style={{ fontSize: "clamp(0.75rem, 1.8vw, 1.1rem)" }}
+              <h3
+                className="font-semibold tracking-tight text-slate-900 leading-snug mb-2 sm:mb-3"
+                style={{ fontSize: "clamp(0.72rem, 1.6vw, 1.05rem)" }}
               >
                 {step.title}
               </h3>
 
-              {/* Description — hidden on very small screens */}
-              <p className="hidden xs:block sm:block text-slate-500 leading-relaxed mb-3 sm:mb-4"
-                style={{ fontSize: "clamp(0.65rem, 1.4vw, 0.875rem)" }}
+              {/* Description */}
+              <p
+                className="text-slate-500 leading-relaxed mb-3 sm:mb-5"
+                style={{ fontSize: "clamp(0.62rem, 1.2vw, 0.82rem)" }}
               >
                 {step.desc}
               </p>
 
-              {/* Detail pill */}
-              <div className={`inline-flex items-center gap-1 ${step.colorLight} ${step.colorText} rounded-md px-2 py-1`}>
-                <Check size={10} strokeWidth={2.5} />
-                <span className="font-semibold leading-none"
-                  style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.7rem)" }}
-                >
+              {/* ── Pill badge ── */}
+              <div className={`inline-flex items-center gap-1 sm:gap-1.5 ${step.pillBg} ${step.pillText} border ${step.pillBorder} rounded-full px-2 sm:px-3 py-1 sm:py-1.5 mt-auto`}>
+                <Check size={9} strokeWidth={3} className="sm:hidden shrink-0" />
+                <Check size={11} strokeWidth={3} className="hidden sm:block shrink-0" />
+                <span className="font-semibold leading-none" style={{ fontSize: "clamp(0.58rem, 1.1vw, 0.68rem)" }}>
                   {step.detail}
                 </span>
               </div>
@@ -230,14 +269,16 @@ export const ProcessSection = () => {
           <Link
             href="/projekt-anfragen"
             id="process-cta"
-            className="btn-glow inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold"
+            className="group btn-glow inline-flex items-center gap-2 px-7 py-3.5 text-base font-semibold"
           >
             Jetzt Projekt starten
-            <ArrowRight size={16} aria-hidden="true" />
+            <ArrowRight
+              size={16}
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-1"
+            />
           </Link>
-          <p className="text-sm text-slate-400">
-            Kostenlos · Unverbindlich · In 24 h
-          </p>
+          <p className="text-sm text-slate-400">Kostenlos · Unverbindlich · In 24 h</p>
         </motion.div>
 
       </div>
