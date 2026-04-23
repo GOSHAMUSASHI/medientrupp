@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Tag, Zap, TrendingUp } from "lucide-react";
+import { ArrowRight, ShieldCheck, Tag, Zap, TrendingUp, CheckCircle2, Gauge } from "lucide-react";
 import Link from "next/link";
 
 // ── Dashboard Data ──────────────────────────────────────────────────────────
@@ -346,18 +346,18 @@ export const HeroSection = () => {
             {/* Floating notification cards */}
             <div className="mt-5 flex flex-col gap-2.5">
               {[
-                { icon: "✓", label: "Neue Anfrage", sub: "Schmidt GmbH — vor 2 Min.", color: "text-emerald-600", bg: "bg-emerald-50 border-emerald-100" },
-                { icon: "⚡", label: "Lead automatisch qualifiziert", sub: "KI-System — gerade eben", color: "text-indigo-600", bg: "bg-indigo-50 border-indigo-100" },
-                { icon: "📈", label: "Lighthouse Score 100", sub: "baumann-gmbh.de — live", color: "text-violet-600", bg: "bg-violet-50 border-violet-100" },
+                { icon: <CheckCircle2 size={14} strokeWidth={2} />, label: "Neue Anfrage", sub: "Schmidt GmbH — vor 2 Min.", color: "text-emerald-600", iconBg: "bg-emerald-50 border border-emerald-100 rounded-md p-1" },
+                { icon: <Zap size={14} strokeWidth={2} />, label: "Lead automatisch qualifiziert", sub: "KI-System — gerade eben", color: "text-indigo-600", iconBg: "bg-indigo-50 border border-indigo-100 rounded-md p-1" },
+                { icon: <Gauge size={14} strokeWidth={2} />, label: "Lighthouse Score 100", sub: "baumann-gmbh.de — live", color: "text-violet-600", iconBg: "bg-violet-50 border border-violet-100 rounded-md p-1" },
               ].map((card, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.9 + i * 0.15, duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-xl border bg-white shadow-sm ${card.bg}`}
+                  className="flex items-center gap-3 px-4 py-2.5 rounded-xl border border-slate-200 bg-white shadow-sm"
                 >
-                  <span className={`text-sm ${card.color} shrink-0`}>{card.icon}</span>
+                  <span className={`${card.color} ${card.iconBg} shrink-0 flex items-center justify-center`}>{card.icon}</span>
                   <div className="min-w-0">
                     <p className="text-[12px] font-semibold text-slate-900 leading-none mb-0.5">{card.label}</p>
                     <p className="text-[10px] text-slate-400 truncate">{card.sub}</p>

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Clock, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Clock, CheckCircle2, Users, Star } from "lucide-react";
 import Link from "next/link";
 
 export const CtaBanner = () => {
@@ -38,20 +38,16 @@ export const CtaBanner = () => {
           {/* Left — copy */}
           <div className="flex-1">
             {/* Social proof pill */}
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/15 rounded-full px-4 py-1.5 mb-6">
-              <div className="flex -space-x-1">
-                {[1,2,3].map(n => (
-                  <div key={n} className="w-5 h-5 rounded-full bg-indigo-400 border-2 border-slate-950 flex items-center justify-center text-[8px] font-bold text-white">
-                    {n === 1 ? "M" : n === 2 ? "T" : "K"}
-                  </div>
-                ))}
+            <div className="inline-flex items-center gap-3 bg-white/10 border border-white/15 rounded-lg px-4 py-2 mb-6">
+              <div className="flex items-center justify-center w-7 h-7 rounded-md bg-indigo-500/30 border border-indigo-400/30 text-indigo-300">
+                <Users size={14} strokeWidth={1.75} />
               </div>
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} size={10} fill="#fbbf24" className="text-amber-400" />
+                  <Star key={i} size={11} fill="currentColor" className="text-indigo-400" />
                 ))}
               </div>
-              <span className="text-[11px] font-semibold text-white/70">
+              <span className="text-[11px] font-semibold text-white/70 leading-none">
                 50+ Unternehmen vertrauen uns
               </span>
             </div>
