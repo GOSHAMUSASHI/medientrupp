@@ -55,7 +55,7 @@ const steps = [
 // ── Animated connector line ───────────────────────────────────────────────────
 
 const ConnectorLine = ({ delay, inView }: { delay: number; inView: boolean }) => (
-  <div className="hidden lg:flex flex-1 items-center mx-3 mt-10">
+  <div className="hidden lg:flex w-20 xl:w-28 shrink-0 items-center mx-2 mt-7">
     <div className="relative w-full h-px">
       <div className="absolute inset-0 bg-slate-200" />
       <motion.div
