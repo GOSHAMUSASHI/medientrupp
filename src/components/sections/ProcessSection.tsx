@@ -77,7 +77,7 @@ const StepIcon = ({
   className?: string;
 }) => (
   <motion.div
-    className={`relative flex items-center justify-center text-white overflow-hidden rounded-2xl shrink-0 ${className}`}
+    className={`relative flex items-center justify-center text-white overflow-hidden rounded-full shrink-0 ${className}`}
     style={{
       background: step.iconGradient,
       boxShadow: `0 6px 20px -4px ${step.glow}, 0 0 0 4px ${step.glow.replace("0.4", "0.1")}`,
@@ -199,7 +199,7 @@ export const ProcessSection = () => {
                   animate={inView ? { opacity: 1 } : {}}
                   transition={{ delay: 0.4 + i * 0.12 }}
                 >
-                  <div className="w-0.5 h-5 rounded-full" style={{ background: "linear-gradient(to bottom,#6366f1,#9333ea)" }} />
+                  <div className="h-5" style={{ width: 2, borderLeft: "2px dashed #7c3aed", opacity: 0.45 }} />
                 </motion.div>
               )}
             </div>
@@ -212,27 +212,22 @@ export const ProcessSection = () => {
         <div className="hidden sm:block">
           <div className="relative grid grid-cols-3 gap-5 lg:gap-7">
 
-            {/* Horizontal connector line through icon centers (icon top-offset ~24px + icon-half ~28px = 52px) */}
-            <div
-              className="absolute z-0"
-              style={{ top: 52, left: "calc(100%/6)", right: "calc(100%/6)", height: 2 }}
+            {/* Horizontal dashed connector through icon centers */}
+            <motion.div
+              className="absolute z-0 overflow-hidden"
+              style={{ top: 51, left: "calc(100%/6)", right: "calc(100%/6)", height: 2 }}
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
             >
-              <div className="absolute inset-0 rounded-full bg-slate-200" />
-              <motion.div
-                className="absolute inset-0 rounded-full origin-left"
-                style={{ background: "linear-gradient(90deg,#6366f1,#7c3aed,#9333ea)" }}
-                initial={{ scaleX: 0 }}
-                animate={inView ? { scaleX: 1 } : {}}
-                transition={{ duration: 1.0, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              <div
+                className="w-full h-full"
+                style={{
+                  backgroundImage: "repeating-linear-gradient(90deg, #7c3aed 0px, #7c3aed 6px, transparent 6px, transparent 12px)",
+                  opacity: 0.35,
+                }}
               />
-              <motion.div
-                className="absolute top-0 h-full w-20 rounded-full"
-                style={{ background: "linear-gradient(90deg,transparent,rgba(255,255,255,0.75),transparent)" }}
-                initial={{ x: "-100%" }}
-                animate={inView ? { x: "600%" } : {}}
-                transition={{ delay: 1.5, duration: 1.2, repeat: Infinity, repeatDelay: 2.5, ease: "easeInOut" }}
-              />
-            </div>
+            </motion.div>
 
             {/* Cards */}
             {steps.map((step, i) => (
