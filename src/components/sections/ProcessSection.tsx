@@ -249,23 +249,27 @@ export const ProcessSection = () => {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: 0.15 + i * 0.15, ease: [0.16, 1, 0.3, 1] }}
               >
-                <StepIcon
-                  step={step}
-                  size={24}
-                  inView={inView}
-                  delay={0.8 + i * 0.2}
-                  className="w-14 h-14 mb-4"
-                />
+                <div className="flex items-center gap-6 w-full mb-4">
+                  <StepIcon
+                    step={step}
+                    size={24}
+                    inView={inView}
+                    delay={0.8 + i * 0.2}
+                    className="w-14 h-14 shrink-0"
+                  />
 
-                <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-2">
-                  {step.number} · {step.label}
-                </span>
+                  <div className="text-left flex-1">
+                    <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-1 block">
+                      {step.number} · {step.label}
+                    </span>
 
-                <h3 className="text-base lg:text-lg font-semibold tracking-tight text-slate-900 leading-snug mb-3">
-                  {step.title}
-                </h3>
+                    <h3 className="text-base lg:text-lg font-semibold tracking-tight text-slate-900 leading-snug">
+                      {step.title}
+                    </h3>
+                  </div>
+                </div>
 
-                <p className="text-sm text-slate-500 leading-relaxed mb-5">
+                <p className="text-sm text-slate-500 leading-relaxed mb-5 text-left w-full">
                   {step.desc}
                 </p>
 
