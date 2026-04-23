@@ -18,7 +18,6 @@ const steps = [
     accent: "from-indigo-500/8 to-violet-500/4",
     iconAccent: "bg-indigo-50 border-indigo-200 text-indigo-600 shadow-indigo-600/10",
     detail: "Kein Zutun Ihrerseits danach nötig",
-    // gentle vertical bob
     iconAnim: { y: [0, -8, 0] },
     iconDuration: 2.8,
   },
@@ -32,7 +31,6 @@ const steps = [
     accent: "from-violet-500/8 to-purple-500/4",
     iconAccent: "bg-violet-50 border-violet-200 text-violet-600 shadow-violet-600/10",
     detail: "Volle Transparenz, wöchentliche Updates",
-    // subtle scale pulse
     iconAnim: { scale: [1, 1.12, 1] },
     iconDuration: 2.4,
   },
@@ -46,16 +44,15 @@ const steps = [
     accent: "from-purple-500/8 to-indigo-500/4",
     iconAccent: "bg-purple-50 border-purple-200 text-purple-600 shadow-purple-600/10",
     detail: "Festpreis-Garantie inklusive",
-    // diagonal lift (rocket flying up-right)
     iconAnim: { y: [0, -6, 0], x: [0, 4, 0] },
     iconDuration: 2.2,
   },
 ];
 
-// ── Animated connector line ───────────────────────────────────────────────────
+// ── Connector — fixed width, line sits at center of the number header (h-28 / 2 = mt-14) ──
 
 const ConnectorLine = ({ delay, inView }: { delay: number; inView: boolean }) => (
-  <div className="hidden lg:flex w-20 xl:w-28 shrink-0 items-center mx-2 mt-7">
+  <div className="hidden lg:flex w-16 xl:w-24 shrink-0 items-start mt-14">
     <div className="relative w-full h-px">
       <div className="absolute inset-0 bg-slate-200" />
       <motion.div
@@ -83,7 +80,7 @@ const ConnectorLine = ({ delay, inView }: { delay: number; inView: boolean }) =>
   </div>
 );
 
-// ── Step Card ─────────────────────────────────────────────────────────────────
+// ── Step Card — number lives inside, centered header with fixed h-28 ──────────
 
 const StepCard = ({
   step,
@@ -104,34 +101,8 @@ const StepCard = ({
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
     >
-      {/* Number + label */}
-      <div className="flex items-center gap-3 mb-7">
-        <motion.span
-          className="font-semibold text-indigo-600 leading-none select-none tabular-nums"
-          style={{ fontSize: "clamp(2.5rem, 4vw, 3.5rem)" }}
-          animate={
-            inView
-              ? {
-                  textShadow: [
-                    "0 0 0px rgba(124,58,237,0)",
-                    "0 0 28px rgba(124,58,237,0.65)",
-                    "0 0 0px rgba(124,58,237,0)",
-                  ],
-                }
-              : {}
-          }
-          transition={{ delay: pulseDelay, duration: 0.7, ease: "easeOut" }}
-        >
-          {step.number}
-        </motion.span>
-        <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-400 mt-1">
-          {step.label}
-        </span>
-      </div>
-
-      {/* Card */}
       <motion.div
-        className={`flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${step.accent} p-8 md:p-10 flex flex-col gap-6 shadow-sm`}
+        className={`flex-1 rounded-2xl border border-slate-200 bg-gradient-to-br ${step.accent} flex flex-col shadow-sm overflow-hidden`}
         animate={
           inView
             ? {
@@ -145,36 +116,64 @@ const StepCard = ({
         }
         transition={{ delay: pulseDelay + 0.05, duration: 0.8 }}
       >
-        {/* Icon — large, looping animation */}
-        <motion.div
-          className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center shadow-lg ${step.iconAccent}`}
-          animate={inView ? step.iconAnim : {}}
-          transition={{
-            delay: iconStartDelay,
-            duration: step.iconDuration,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-          }}
-        >
-          <step.Icon size={30} strokeWidth={1.5} />
-        </motion.div>
-
-        {/* Text */}
-        <div className="flex flex-col gap-3">
-          <h3 className="text-xl font-semibold tracking-tight text-slate-900 leading-snug">
-            {step.title}
-          </h3>
-          <p className="text-sm text-slate-500 leading-relaxed">
-            {step.description}
-          </p>
+        {/* ── Number header — fixed height h-28 so connector aligns at mt-14 ── */}
+        <div className="h-28 flex flex-col items-center justify-center border-b border-white/50 gap-1">
+          <motion.span
+            className="font-semibold text-indigo-600 leading-none select-none tabular-nums"
+            style={{ fontSize: "clamp(2.4rem, 3.5vw, 3rem)" }}
+            animate={
+              inView
+                ? {
+                    textShadow: [
+                      "0 0 0px rgba(124,58,237,0)",
+                      "0 0 28px rgba(124,58,237,0.65)",
+                      "0 0 0px rgba(124,58,237,0)",
+                    ],
+                  }
+                : {}
+            }
+            transition={{ delay: pulseDelay, duration: 0.7, ease: "easeOut" }}
+          >
+            {step.number}
+          </motion.span>
+          <span className="text-[9px] font-semibold tracking-[0.25em] uppercase text-slate-400">
+            {step.label}
+          </span>
         </div>
 
-        {/* Detail badge */}
-        <div className="mt-auto pt-4 border-t border-white/60">
-          <span className="text-[10px] font-semibold text-indigo-600 tracking-[0.12em] uppercase">
-            {step.detail}
-          </span>
+        {/* ── Body ── */}
+        <div className="flex-1 flex flex-col gap-6 p-8 md:p-10">
+          {/* Icon — large, looping animation */}
+          <motion.div
+            className={`w-16 h-16 rounded-2xl border-2 flex items-center justify-center shadow-lg ${step.iconAccent}`}
+            animate={inView ? step.iconAnim : {}}
+            transition={{
+              delay: iconStartDelay,
+              duration: step.iconDuration,
+              repeat: Infinity,
+              repeatType: "loop",
+              ease: "easeInOut",
+            }}
+          >
+            <step.Icon size={30} strokeWidth={1.5} />
+          </motion.div>
+
+          {/* Text */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xl font-semibold tracking-tight text-slate-900 leading-snug">
+              {step.title}
+            </h3>
+            <p className="text-sm text-slate-500 leading-relaxed">
+              {step.description}
+            </p>
+          </div>
+
+          {/* Detail badge */}
+          <div className="mt-auto pt-5 border-t border-white/60">
+            <span className="text-[10px] font-semibold text-indigo-600 tracking-[0.12em] uppercase">
+              {step.detail}
+            </span>
+          </div>
         </div>
       </motion.div>
     </motion.div>
@@ -293,17 +292,15 @@ export const ProcessSection = () => {
         </motion.div>
 
         {/* ── DESKTOP: Cards + Connectors ── */}
-        <div className="hidden lg:block">
-          <div className="flex items-start gap-0">
-            {steps.map((step, i) => (
-              <div key={step.number} className="contents">
-                <StepCard step={step} index={i} inView={inView} />
-                {i < steps.length - 1 && (
-                  <ConnectorLine delay={0.3 + i * 0.7} inView={inView} />
-                )}
-              </div>
-            ))}
-          </div>
+        <div className="hidden lg:flex items-stretch gap-0">
+          {steps.map((step, i) => (
+            <div key={step.number} className="contents">
+              <StepCard step={step} index={i} inView={inView} />
+              {i < steps.length - 1 && (
+                <ConnectorLine delay={0.3 + i * 0.7} inView={inView} />
+              )}
+            </div>
+          ))}
         </div>
 
         {/* ── MOBILE: Vertical timeline ── */}
