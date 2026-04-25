@@ -14,8 +14,11 @@ const CtaBanner = dynamic(() => import("@/components/sections/CtaBanner").then(m
 const Home = () => {
   return (
     <main className="flex flex-col w-full overflow-x-hidden">
-      <HeroSection />
-      <SocialProofSection />
+      {/* Hero + Trust-Slider: auf Desktop genau 100svh, auf Mobile normal */}
+      <div className="overflow-hidden lg:h-[100svh]">
+        <HeroSection />
+        <SocialProofSection />
+      </div>
       <ProcessSection />
       <IcebergSection />
       <ServicesAlternating />

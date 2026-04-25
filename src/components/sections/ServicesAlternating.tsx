@@ -1,294 +1,249 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Cpu, TrendingUp, Zap, CheckCircle2, BarChart2, Shield } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, Bot, Clapperboard, HeartHandshake, Monitor, Sparkles, Workflow } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import type { ReactNode } from "react";
-
-// ── Data ──────────────────────────────────────────────────────────────────────
-
-interface FloatingCard {
-  icon: ReactNode;
-  label: string;
-  value: string;
-  positive?: boolean;
-}
+import type { ComponentType } from "react";
+import { AutomationGraphic } from "@/components/services/AutomationGraphic";
+import { BetreuungGraphic } from "@/components/services/BetreuungGraphic";
+import { BrandDesignGraphic } from "@/components/services/BrandDesignGraphic";
+import { IndividualKIGraphic } from "@/components/services/IndividualKIGraphic";
+import { SocialMediaGraphic } from "@/components/services/SocialMediaGraphic";
+import { WebsiteGraphic } from "@/components/services/WebsiteGraphic";
 
 interface Service {
   index: string;
+  eyebrow: string;
   title: string;
-  subtitle: string;
-  action: string;
-  result: string;
-  tags: string[];
-  image: string | null;
+  description: string;
+  points: string[];
   href: string;
-  floatingCard: FloatingCard;
+  badgeLabel: string;
+  badgeIcon: LucideIcon;
+  graphicTone: string;
+  Graphic: ComponentType;
 }
 
 const services: Service[] = [
   {
     index: "01",
-    title: "Marke\n& Design",
-    subtitle: "Ihr erster Eindruck",
-    action: "Wir entwickeln Ihre Marke von Grund auf. Oder schärfen, was bereits vorhanden ist.",
-    result: "Ihr Auftritt strahlt sofort Autorität aus.",
-    tags: ["Corporate Design", "Logo & Visual Identity", "Brand Guidelines"],
-    image: "/images/leistungen-marke-design.png",
+    eyebrow: "Ihr Markenbild",
+    title: "Marke & Design",
+    description:
+      "Wir entwickeln Ihr visuelles Markenbild: Logo, Farben, Schrift und Vorlagen – so dass Sie auf jedem Kanal sofort erkennbar sind und einen professionellen ersten Eindruck hinterlassen.",
+    points: ["Logo, Farben & Schrift", "Design-System", "Vorlagen & Assets"],
     href: "/leistungen/branding",
-    floatingCard: {
-      icon: <CheckCircle2 size={13} />,
-      label: "Brand Identity",
-      value: "Delivered ✓",
-      positive: true,
-    },
+    badgeLabel: "Brand System",
+    badgeIcon: Sparkles,
+    graphicTone: "from-[#f8f7ff] via-white to-[#f3f5fb]",
+    Graphic: BrandDesignGraphic,
   },
   {
     index: "02",
-    title: "Website &\nDigitaler Auftritt",
-    subtitle: "Ihr 24/7 Schaufenster",
-    action: "Wir bauen eine schnelle, suchmaschinenoptimierte Website mit Texten, die verkaufen.",
-    result: "Mehr Anfragen. Messbar, nachweisbar, planbar.",
-    tags: ["Next.js High-Performance", "Technical SEO", "Core Web Vitals"],
-    image: "/images/leistungen-websites.png",
+    eyebrow: "Ihr Webauftritt",
+    title: "Website & Digitaler Auftritt",
+    description:
+      "Wir bauen Ihre Website mit Fokus auf Geschwindigkeit, klare Struktur und mehr Anfragen. Kein technischer Aufwand fuer Sie – wir kuemmern uns um alles, vom Design bis zum Go-Live.",
+    points: ["Klare Seitenstruktur", "Google-Sichtbarkeit", "Mehr Anfragen"],
     href: "/leistungen/websites",
-    floatingCard: {
-      icon: <BarChart2 size={13} />,
-      label: "Lighthouse Score",
-      value: "100 / 100",
-      positive: true,
-    },
+    badgeLabel: "Premium Frontend",
+    badgeIcon: Monitor,
+    graphicTone: "from-[#f4f7fb] via-white to-[#f7f9fc]",
+    Graphic: WebsiteGraphic,
   },
   {
     index: "03",
+    eyebrow: "Ihre Workflows",
     title: "KI & Automation",
-    subtitle: "Wiederkehrende Aufgaben automatisiert",
-    action: "Wir richten automatische Interessenten-Erfassung, einen 24/7-Chatbot und Bewertungsanfragen ein.",
-    result: "Sie gewinnen mehrere Stunden pro Woche zurück.",
-    tags: ["Lead Automation", "24/7 KI-Chatbot", "CRM-Integration"],
-    image: "/images/leistungen-ki-automatisierung.png",
+    description:
+      "Wir automatisieren wiederkehrende Aufgaben in Ihrem Unternehmen: Anfragen sortieren, Daten uebertragen, Ablaeufe steuern – alles laeuft im Hintergrund, ohne dass Ihr Team eingreifen muss.",
+    points: ["Automatisch sortieren", "Echtzeit-Ueberblick", "CRM-Anbindung"],
     href: "/leistungen/ki-automation",
-    floatingCard: {
-      icon: <Zap size={13} />,
-      label: "Leads qualifiziert",
-      value: "247 diese Woche",
-      positive: true,
-    },
+    badgeLabel: "Automation Flow",
+    badgeIcon: Workflow,
+    graphicTone: "from-[#f3f7f2] via-white to-[#f5f7fb]",
+    Graphic: AutomationGraphic,
   },
   {
     index: "04",
-    title: "Individuelle\nKI-Projekte",
-    subtitle: "Maßgeschneidert für Ihre Branche",
-    action: "Wir bauen KI-Systeme speziell für Ihr Unternehmen, trainiert auf Ihre Daten und Prozesse.",
-    result: "Ein Werkzeug, das kein Wettbewerber von der Stange kaufen kann.",
-    tags: ["Eigenes KI-Modell", "Prozessintegration", "White-Label Plattform"],
-    image: "/images/leistungen-ki-plattformen.webp",
-    href: "/leistungen/ki-plattformen",
-    floatingCard: {
-      icon: <CheckCircle2 size={13} />,
-      label: "Modell trainiert",
-      value: "98.4% Genauigkeit",
-      positive: true,
-    },
+    eyebrow: "Auf Sie zugeschnitten",
+    title: "Individuelle KI-Projekte",
+    description:
+      "Ob Chatbot, KI-Analyse oder automatisierter Assistent – wir entwickeln KI-Systeme ganz nach Ihren Anforderungen. Fuer Influencer, Investoren oder Unternehmer, die etwas Eigenes wollen.",
+    points: ["KI-Konzept & Planung", "Eigene Entwicklung", "Betreuung & Ausbau"],
+    href: "/leistungen/individuelle-ki",
+    badgeLabel: "Custom AI",
+    badgeIcon: Bot,
+    graphicTone: "from-[#f5f3ff] via-white to-[#f3f5fb]",
+    Graphic: IndividualKIGraphic,
   },
   {
     index: "05",
-    title: "Social Media\n& Video",
-    subtitle: "Sichtbarkeit, die bleibt",
-    action: "Wir produzieren Video-Content und übernehmen die Pflege Ihrer Kanäle. Nach Strategie, nicht Bauchgefühl.",
-    result: "Ihre Botschaft erreicht die richtigen Menschen. Regelmäßig.",
-    tags: ["Content-Strategie", "Videoproduktion", "Performance Marketing"],
-    image: "/images/leistungen-social-video.png",
-    href: "/leistungen/social-media-video",
-    floatingCard: {
-      icon: <TrendingUp size={13} />,
-      label: "Reichweite",
-      value: "+240% in 60 Tagen",
-      positive: true,
-    },
+    eyebrow: "Reichweite aufbauen",
+    title: "Social Media & Video",
+    description:
+      "Wir planen, produzieren und veroeffentlichen Ihren Content. Von der Strategie bis zum fertigen Video – alles aus einer Hand, mit klarem Fokus auf Sichtbarkeit und echte Wirkung.",
+    points: ["Content-Planung", "Videoproduktion", "Kanalbetreuung"],
+    href: "/leistungen/social-media",
+    badgeLabel: "Content Studio",
+    badgeIcon: Clapperboard,
+    graphicTone: "from-[#fff8f5] via-white to-[#fdf5fb]",
+    Graphic: SocialMediaGraphic,
   },
   {
     index: "06",
-    title: "Laufende\nBetreuung",
-    subtitle: "Rundum-Sorglos",
-    action: "Wir übernehmen Hosting, Wartung und laufende Optimierung. Sie kümmern sich ums Kerngeschäft.",
-    result: "Technik, die im Hintergrund fehlerfrei läuft.",
-    tags: ["Hosting in Deutschland", "Sicherheits-Updates", "Proaktiver Support"],
-    image: "/images/leistungen-betreuung.png",
+    eyebrow: "Immer erreichbar",
+    title: "Laufende Betreuung",
+    description:
+      "Wir halten Ihre Systeme sicher, aktuell und stabil. Updates, Sicherheitsueberwachung und schneller Support – damit Sie sich auf Ihr Geschaeft konzentrieren koennen.",
+    points: ["Updates & Wartung", "Sicherheitsmonitoring", "Direkter Support"],
     href: "/leistungen/betreuung",
-    floatingCard: {
-      icon: <Shield size={13} />,
-      label: "Uptime",
-      value: "99.9% — SLA",
-      positive: true,
-    },
+    badgeLabel: "Support & Care",
+    badgeIcon: HeartHandshake,
+    graphicTone: "from-[#f0f9ff] via-white to-[#f3f7fb]",
+    Graphic: BetreuungGraphic,
   },
 ];
 
-// ── Section ───────────────────────────────────────────────────────────────────
+const viewport = { once: true, amount: 0.35 } as const;
+const transition = { duration: 0.7, ease: [0.16, 1, 0.3, 1] } as const;
 
 export const ServicesAlternating = () => {
   return (
-    <section className="bg-slate-50 border-t border-slate-200" aria-labelledby="services-heading">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      aria-labelledby="services-heading"
+      className="relative overflow-hidden border-t border-slate-200 bg-white section-y"
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(124,58,237,0.08),_transparent_34%)]" />
 
-        {/* Section header */}
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-16 px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="py-8 md:py-12 border-b border-slate-200"
+          viewport={viewport}
+          transition={transition}
+          className="max-w-3xl"
         >
-          <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-400 mb-4">
+          <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.25em] text-indigo-600">
             Unsere Kernleistungen
           </p>
           <h2
             id="services-heading"
-            className="font-semibold tracking-[-0.03em] text-slate-900"
-            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", lineHeight: 0.95 }}
+            className="max-w-2xl font-semibold tracking-[-0.03em] text-slate-900"
+            style={{ fontSize: "clamp(2.1rem, 4.4vw, 3.4rem)", lineHeight: 1.03 }}
           >
-            Bausteine für echte
-            <br />
-            <span className="text-indigo-600">Skalierung.</span>
+            Sechs Leistungen, die nahtlos ineinandergreifen.
           </h2>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-500 md:text-lg">
+            Von Marke und Website ueber KI-Loesungen bis hin zu Social Media und laufender
+            Betreuung – alles aus einer Hand, visuell wie technisch stimmig.
+          </p>
         </motion.div>
 
-        {/* Service rows */}
-        <div>
-          {services.map((srv, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-              className="grid grid-cols-1 lg:grid-cols-[1fr_1px_1fr] border-b border-slate-200"
-            >
-              {/* LEFT — service title block + image */}
-              <div className="py-6 md:py-10 lg:pr-12 flex flex-col gap-5 md:gap-8">
-                <div className="flex items-start gap-5">
-                  <span className="text-[11px] font-semibold tracking-[0.2em] text-slate-400 mt-1 shrink-0">
-                    {srv.index}
-                  </span>
-                  <div>
-                    <h3
-                      className="font-semibold tracking-[-0.02em] text-slate-900 mb-3 whitespace-pre-line"
-                      style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.6rem)", lineHeight: 0.95 }}
-                    >
-                      {srv.title}
-                    </h3>
-                    <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-indigo-600">
-                      {srv.subtitle}
-                    </p>
+        <div className="flex flex-col gap-20 md:gap-24">
+          {services.map((service, index) => {
+            const reversed = index % 2 === 1;
+            const BadgeIcon = service.badgeIcon;
+
+            return (
+              <div
+                key={service.index}
+                className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-24"
+              >
+                <motion.div
+                  initial={{ opacity: 0, x: reversed ? 28 : -28 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={viewport}
+                  transition={transition}
+                  className={reversed ? "lg:order-2" : undefined}
+                >
+                  <div className="mb-6 flex items-center gap-3">
+                    <span className="text-[11px] font-semibold tracking-[0.22em] text-slate-400">
+                      {service.index}
+                    </span>
+                    <span className="h-px w-16 bg-slate-200" />
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-indigo-600">
+                      {service.eyebrow}
+                    </span>
                   </div>
-                </div>
 
-                {/* Image with floating status card */}
-                <Link
-                  href={srv.href}
-                  className="group relative block w-full overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
-                  style={{ aspectRatio: "16 / 10" }}
-                  aria-label={`Mehr zu ${srv.title.replace(/\n/g, " ")}`}
-                >
-                  {srv.image ? (
-                    <Image
-                      src={srv.image}
-                      alt={`${srv.title.replace(/\n/g, " ")} Beispiel`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 40vw"
-                      style={{ objectFit: "cover" }}
-                      className="transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-indigo-50 via-slate-50 to-indigo-100">
-                      <div className="w-14 h-14 rounded-xl bg-indigo-600 flex items-center justify-center">
-                        <Cpu size={28} className="text-white" strokeWidth={1.5} />
-                      </div>
-                      <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-slate-400">
-                        Individuelles Projekt
-                      </p>
-                    </div>
-                  )}
-
-                  {/* Floating status card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.96 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.45, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute bottom-3 left-3 flex items-center gap-2 bg-white/95 backdrop-blur-sm border border-slate-200 rounded-xl px-3 py-2 shadow-lg shadow-slate-900/10"
+                  <h3
+                    className="max-w-xl font-semibold tracking-[-0.03em] text-slate-900"
+                    style={{ fontSize: "clamp(1.75rem, 3vw, 2.35rem)", lineHeight: 1.08 }}
                   >
-                    <span className={srv.floatingCard.positive ? "text-indigo-600" : "text-slate-400"}>
-                      {srv.floatingCard.icon}
-                    </span>
-                    <div className="flex flex-col leading-none">
-                      <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-[0.15em]">
-                        {srv.floatingCard.label}
-                      </span>
-                      <span className="text-[11px] font-semibold text-slate-900 mt-0.5">
-                        {srv.floatingCard.value}
-                      </span>
-                    </div>
-                  </motion.div>
-                </Link>
-              </div>
+                    {service.title}
+                  </h3>
 
-              {/* CENTER — vertical rule */}
-              <div className="hidden lg:block bg-slate-200 self-stretch" />
-
-              {/* RIGHT — detail content */}
-              <div className="py-6 md:py-10 lg:pl-12 flex flex-col justify-center gap-4 md:gap-6">
-                {/* Was wir machen */}
-                <div>
-                  <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-slate-400 mb-2">
-                    Was wir machen
+                  <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-500 md:text-lg">
+                    {service.description}
                   </p>
-                  <p className="text-base text-slate-600 leading-relaxed">
-                    {srv.action}
-                  </p>
-                </div>
 
-                {/* Ihr Nutzen */}
-                <div className="border-l-2 border-indigo-600 pl-4">
-                  <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-slate-400 mb-2">
-                    Ihr konkreter Nutzen
-                  </p>
-                  <p className="text-base font-semibold text-slate-900 leading-relaxed">
-                    {srv.result}
-                  </p>
-                </div>
+                  <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                    {service.points.map((point) => (
+                      <div
+                        key={point}
+                        className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 shadow-[0_18px_30px_-28px_rgba(15,23,42,0.28)]"
+                      >
+                        <span className="mb-3 block h-1.5 w-10 rounded-full bg-indigo-600/70" />
+                        <p className="text-sm font-medium leading-snug text-slate-700">{point}</p>
+                      </div>
+                    ))}
+                  </div>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {srv.tags.map((tag, t) => (
-                    <span
-                      key={t}
-                      className="text-[11px] font-semibold tracking-[0.08em] uppercase text-slate-500 border border-slate-200 bg-white px-3 py-1.5 rounded-lg"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                  <Link
+                    href={service.href}
+                    className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-slate-900 transition-colors duration-200 hover:text-indigo-600"
+                  >
+                    Mehr zu {service.title}
+                    <ArrowRight
+                      size={15}
+                      className="text-slate-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-indigo-600"
+                      aria-hidden="true"
+                    />
+                  </Link>
+                </motion.div>
 
-                {/* Per-Service CTA */}
-                <Link
-                  href={srv.href}
-                  className="group/link mt-2 inline-flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors duration-200 self-start"
+                <motion.div
+                  initial={{ opacity: 0, x: reversed ? -28 : 28 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={viewport}
+                  transition={{ ...transition, delay: 0.08 }}
+                  className={reversed ? "lg:order-1" : undefined}
                 >
-                  Mehr erfahren
-                  <ArrowRight
-                    size={14}
-                    className="transition-transform duration-200 group-hover/link:translate-x-0.5"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+                  <div className="relative mx-auto w-full max-w-[38rem]">
+                    <div className="absolute inset-x-10 top-10 bottom-0 rounded-[2rem] bg-slate-200/70" />
+                    <div className="absolute inset-x-6 top-6 bottom-2 rounded-[2rem] bg-white shadow-[0_28px_60px_-42px_rgba(15,23,42,0.28)]" />
 
+                    <div
+                      className={`relative overflow-hidden rounded-[2rem] border border-slate-200 bg-gradient-to-br ${service.graphicTone} p-5 pb-10 shadow-[0_36px_80px_-44px_rgba(15,23,42,0.35)] sm:p-7 sm:pb-12`}
+                    >
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.9),transparent_24%,transparent_76%,rgba(241,245,249,0.55))]" />
+                      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.95),_transparent_74%)]" />
+
+                      <motion.div
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={viewport}
+                        transition={{ duration: 0.5, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        className="absolute left-4 top-4 z-20 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3 py-2 shadow-[0_16px_32px_-24px_rgba(15,23,42,0.35)] backdrop-blur-sm sm:left-5 sm:top-5"
+                      >
+                        <BadgeIcon size={14} className="text-indigo-600" strokeWidth={2} />
+                        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-700">
+                          {service.badgeLabel}
+                        </span>
+                      </motion.div>
+
+                      <div className="relative pt-12 sm:pt-14">
+                        <service.Graphic />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

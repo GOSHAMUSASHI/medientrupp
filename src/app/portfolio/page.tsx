@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight, SlidersHorizontal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -223,34 +223,34 @@ export default function PortfolioPage() {
             )}
           </div>
 
-          {/* Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            <AnimatePresence mode="sync">
-              {filtered.length > 0 ? (
-                filtered.map((c, i) => (
-                  <ProjectCard key={c.index} c={c} i={i} />
-                ))
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="col-span-full py-12 md:py-24 text-center"
-                >
-                  <p className="text-slate-400 text-sm font-medium mb-3">
-                    Keine Projekte für diese Kombination.
-                  </p>
-                  <button
-                    onClick={() => { setBranche("Alle"); setLeistung("Alle"); }}
-                    className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
-                  >
-                    Filter zurücksetzen
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          {/* Cards — key forces full remount on filter change so cards always enter from correct position */}
+          {filtered.length > 0 ? (
+            <div
+              key={`${branche}-${leistung}`}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+            >
+              {filtered.map((c, i) => (
+                <ProjectCard key={c.index} c={c} i={i} />
+              ))}
+            </div>
+          ) : (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="py-12 md:py-24 text-center"
+            >
+              <p className="text-slate-400 text-sm font-medium mb-3">
+                Keine Projekte für diese Kombination.
+              </p>
+              <button
+                onClick={() => { setBranche("Alle"); setLeistung("Alle"); }}
+                className="text-sm font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+              >
+                Filter zurücksetzen
+              </button>
+            </motion.div>
+          )}
 
         </div>
       </section>

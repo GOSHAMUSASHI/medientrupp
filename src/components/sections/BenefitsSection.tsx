@@ -41,25 +41,22 @@ const KpiStrip = () => {
   const counts = [c0, c1, c2];
 
   return (
-    <div
-      ref={ref}
-      className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 border-t border-b border-slate-200 bg-slate-50"
-    >
+    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200 overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
       {kpis.map((kpi, i) => (
         <motion.div
           key={i}
           initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center justify-center py-10 px-6 text-center"
+          className="flex flex-col items-center justify-center px-6 py-8 text-center"
         >
           <span
-            className="font-semibold text-indigo-600 leading-none tracking-tight mb-2"
-            style={{ fontSize: "clamp(2.5rem, 5vw, 3.75rem)" }}
+            className="mb-1.5 font-semibold leading-none tracking-tight text-indigo-600"
+            style={{ fontSize: "clamp(1.75rem, 3vw, 2.5rem)" }}
           >
             {kpi.prefix}{counts[i]}{kpi.suffix}
           </span>
-          <span className="text-sm text-slate-500 font-medium">{kpi.label}</span>
+          <span className="text-sm font-medium text-slate-500">{kpi.label}</span>
         </motion.div>
       ))}
     </div>
@@ -110,7 +107,9 @@ export const BenefitsSection = () => {
       aria-labelledby="benefits-heading"
     >
       {/* KPI Counter Strip */}
-      <KpiStrip />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-20">
+        <KpiStrip />
+      </div>
 
       {/* Trust Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -121,7 +120,7 @@ export const BenefitsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="pt-16 pb-12 md:pt-20 md:pb-16 text-center"
+          className="pt-12 pb-12 md:pt-16 md:pb-16 text-center"
         >
           <p className="text-[11px] font-semibold tracking-[0.25em] uppercase text-indigo-600 mb-4">
             Warum Medientrupp
